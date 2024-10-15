@@ -2,7 +2,7 @@ import React from "react";
 
 const Home = () => {
   return (
-    <section className="bg-black/50 ">
+    <section className="">
       <div className="container mx-auto ">
         <div className=" h-screen text-white flex justify-center items-center text-2xl">
           HOME

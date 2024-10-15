@@ -11,7 +11,7 @@ const SearchInput = () => {
           placeholder="What are you looking ?"
           required
         />
-        <BsSearch className="absolute right-3 " />
+        <BsSearch className="absolute right-3 cursor-pointer" />
       </form>
     </>
   );
