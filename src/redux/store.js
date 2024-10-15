@@ -1,9 +1,9 @@
 import { configureStore, combineReducers } from "@reduxjs/toolkit";
 import { thunk } from "redux-thunk";
-import { activeReducer } from "./reducer/activeReducer";
+import { getAllProductsReducer } from "./reducer/productReducer";
 
 const reducer = combineReducers({
-  active: activeReducer,
+  allProducts: getAllProductsReducer,
 });
 
 export const store = configureStore({

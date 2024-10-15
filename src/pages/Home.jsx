@@ -1,13 +1,12 @@
 import React from "react";
+import Banner from "../components/Banner";
+import BestProduct from "../components/BestProduct";
 
 const Home = () => {
   return (
-    <section className="">
-      <div className="container mx-auto ">
-        <div className=" h-screen text-white flex justify-center items-center text-2xl">
-          HOME
-        </div>
-      </div>
+    <section>
+      <Banner />
+      <BestProduct />
     </section>
   );
 };
