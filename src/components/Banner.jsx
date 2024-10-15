@@ -2,15 +2,11 @@ import React from "react";
 
 const Banner = () => {
   return (
-    <section className="container mx-auto  min-h-screen">
+    <section className="">
       <div className="flex flex-row">
         {/* categories option */}
-        <div className="max-w-[400px] w-full">
-          <p>category</p>
-          <p>category</p>
-          <p>category</p>
-          <p>category</p>
-          <p>category</p>
+        <div className="min-h-[400px] flex justify-center items-center w-full  bg-black/50 text-2xl font-bold">
+          BANNER SECTION
         </div>
         <div></div>
       </div>

@@ -6,6 +6,8 @@ const BestProduct = () => {
   const dispatch = useDispatch();
   const { products, loading } = useSelector((state) => state.allProducts);
 
+  const [limit, setLimit] = useState(8);
+
   useEffect(() => {
     dispatch(getAllProducts(limit));
   }, [dispatch]);
