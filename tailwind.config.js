@@ -13,10 +13,10 @@ module.exports = {
       tertiary: "Montserrat",
     },
     screens: {
-      sm: "460px",
+      sm: "450px",
       md: "678px",
       lg: "860px",
-      xl: "1140px",
+      xl: "1180px",
     },
     extend: {
       colors: {
