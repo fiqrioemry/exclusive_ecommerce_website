@@ -5,3 +5,15 @@
 body {
   @apply font-primary;
 }
+
+.btn {
+  @apply py-4 px-12 bg-tertiary text-white rounded-sm font-light hover:opacity-80 transition-all ease-in-out duration-300;
+}
+
+h1 {
+  @apply text-4xl font-semibold;
+}
+
+h4 {
+  @apply text-[16px] font-semibold;
+}
