@@ -6,7 +6,7 @@ const Contact = () => {
     <section className="container mx-auto">
       <div className="flex flex-col mb-[140px]">
         {/* title */}
-        <div className="flex py-[50px] gap-x-2">
+        <div className="flex py-[30px] gap-x-2">
           <span className="text-secondary/50">Home </span>/ Contact
         </div>
 
@@ -37,7 +37,7 @@ const Contact = () => {
             </div>
           </div>
           {/* message box */}
-          <div className="border px-8 w-full">
+          <div className=" px-8 w-full h-full ">
             <form action="">
               <div className="flex flex-col md:flex-row items-center justify-between gap-x-4 mb-4 ">
                 <input
@@ -56,8 +56,17 @@ const Contact = () => {
                   placeholder="Your Phone"
                 />
               </div>
-              <div>
-                <textarea name="" id=""></textarea>
+              <div className="mb-4">
+                <textarea
+                  rows="10"
+                  cols="10"
+                  placeholder="enter your message"
+                  class="p-4 rounded-lg bg-secondary/10 w-full outline-none  resize-none  focus-within:outline-2 text-base  max-2xl:text-sm"
+                  required=""
+                ></textarea>
+              </div>
+              <div className="flex justify-end">
+                <button className="btn">SEND MESSAGE</button>
               </div>
             </form>
           </div>
