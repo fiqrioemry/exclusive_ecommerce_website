@@ -1,7 +1,7 @@
 import React from "react";
 import { useEffect } from "react";
 import { useState } from "react";
-import banner1 from "../assets/banner.webp";
+import banner1 from "../assets/banner1.png";
 import banner2 from "../assets/banner2.png";
 
 const BannerElement = () => {
