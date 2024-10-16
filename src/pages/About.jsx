@@ -4,6 +4,11 @@ import { LiaStoreAltSolid } from "react-icons/lia";
 import { LuBadgeDollarSign } from "react-icons/lu";
 import { FiShoppingBag } from "react-icons/fi";
 import { FaSackDollar } from "react-icons/fa6";
+import AboutInfoElement from "../elements/AboutInfoElement";
+import profileImage1 from "../assets/about_profile1.png";
+import profileImage2 from "../assets/about_profile2.png";
+import profileImage3 from "../assets/about_profile3.png";
+import AboutProfileElement from "../elements/AboutProfileElement";
 
 const About = () => {
   const informationBox = [
@@ -26,6 +31,24 @@ const About = () => {
       icon: FaSackDollar,
       title: "25 K",
       text: "Annual Gross Sale In Our Site",
+    },
+  ];
+
+  const aboutProfile = [
+    {
+      image: profileImage1,
+      name: "Tom Cruise",
+      position: "founder & chairman",
+    },
+    {
+      image: profileImage2,
+      name: "Emma Watson",
+      position: "Managing Director",
+    },
+    {
+      image: profileImage3,
+      name: "Will Smith",
+      position: "Product Designer",
     },
   ];
   return (
@@ -64,35 +87,33 @@ const About = () => {
 
         {/* information */}
         <div className="grid grid-cols-2 md:grid-cols-4 mb-14">
-          {/* 1. information box */}
-
           {informationBox.map((info, index) => {
             const { icon, title, text } = info;
             return (
-              <div
-                className="flex flex-col items-center justify-center hover:bg-tertiary w-[250px] h-[270px] border rounded-md gap-y-4 group transition-all duration-300"
+              <AboutInfoElement
                 key={index}
-              >
-                <div className="p-2 rounded-full  bg-gray-200">
-                  <div className="p-2 rounded-full group-hover:bg-white bg-secondary">
-                    <div className="flex items-center justify-center h-7 w-7 group-hover:text-secondary text-3xl text-white">
-                      {React.createElement(icon)}
-                    </div>
-                  </div>
-                </div>
-                <h1 className="h1 text-secondary group-hover:text-white">
-                  {title}
-                </h1>
-                <div className=" text-secondary group-hover:text-white">
-                  {text}
-                </div>
-              </div>
+                icon={icon}
+                title={title}
+                text={text}
+              />
             );
           })}
         </div>
 
         {/* founder profile */}
-        <div></div>
+        <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-x-8 mb-14">
+          {aboutProfile.map((about, index) => {
+            const { image, name, position } = about;
+            return (
+              <AboutProfileElement
+                key={index}
+                image={image}
+                name={name}
+                position={position}
+              />
+            );
+          })}
+        </div>
 
         {/* services */}
         <div></div>
