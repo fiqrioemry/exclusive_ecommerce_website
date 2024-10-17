@@ -31,7 +31,7 @@ export const getProductById = (value) => async (dispatch) => {
   try {
     dispatch({ type: GET_PRODUCT_BY_ID_PROCESS });
     const { data } = await connectApi.get(`/products/${value}`);
-    console.log(data);
+    console.log("product action", data);
     dispatch({ type: GET_PRODUCT_BY_ID_SUCCESS, payload: data });
   } catch (error) {
     dispatch({ type: GET_PRODUCT_BY_ID_FAIL, payload: error });

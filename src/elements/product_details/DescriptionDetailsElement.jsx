@@ -10,7 +10,6 @@ const DescriptionDetailsElement = ({ product }) => {
       </div>
       {/* product review */}
       <div className="flex items-center gap-x-4 mb-4">
-        {/* start */}
         <ReviewScoreElement product={product} />
       </div>
 

@@ -72,7 +72,7 @@ export const getProductByIdReducer = (state = productState, action) => {
       return { ...state, loading: true, fail: false, success: false };
 
     case GET_PRODUCT_BY_ID_SUCCESS:
-      console.log(action.payload);
+      console.log("product id reducer ", action.payload);
       return {
         ...state,
         loading: false,

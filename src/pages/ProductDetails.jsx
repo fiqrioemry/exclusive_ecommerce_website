@@ -17,8 +17,9 @@ const ProductDetails = () => {
 
   useEffect(() => {
     dispatch(getProductById(id));
-  }, [id, dispatch]);
+  }, [dispatch, id]);
 
+  console.log("product details", product);
   return (
     <section className="py-8">
       <div className="container mx-auto">
@@ -35,7 +36,7 @@ const ProductDetails = () => {
         <div className="flex flex-wrap">
           {/* product details image */}
           <div className="w-full md:w-[60%]">
-            {!product ? (
+            {loading ? (
               <ImageDetailsLoading />
             ) : (
               <ImageDetailsElement product={product} />
@@ -44,7 +45,7 @@ const ProductDetails = () => {
 
           {/* product details description */}
           <div className="w-full md:w-[40%]">
-            {!product ? (
+            {loading ? (
               <DescriptionDetailsLoading />
             ) : (
               <DescriptionDetailsElement product={product} />
