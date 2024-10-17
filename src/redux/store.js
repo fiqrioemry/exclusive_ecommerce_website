@@ -3,11 +3,13 @@ import { thunk } from "redux-thunk";
 import {
   getAllCategoriesReducer,
   getAllProductsReducer,
+  getProductByIdReducer,
 } from "./reducer/productReducer";
 
 const reducer = combineReducers({
   allProducts: getAllProductsReducer,
   allCategories: getAllCategoriesReducer,
+  productId: getProductByIdReducer,
 });
 
 export const store = configureStore({

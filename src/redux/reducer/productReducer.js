@@ -5,9 +5,21 @@ import {
   GET_ALL_CATEGORIES_PROCESS,
   GET_ALL_CATEGORIES_SUCCESS,
   GET_ALL_CATEGORIES_FAIL,
+  GET_PRODUCT_BY_ID_PROCESS,
+  GET_PRODUCT_BY_ID_SUCCESS,
+  GET_PRODUCT_BY_ID_FAIL,
 } from "../constant/productType";
 
+// single products
 const productState = {
+  product: [],
+  loading: false,
+  success: false,
+  fail: false,
+};
+
+// all products
+const productsState = {
   products: [],
   loading: false,
   success: false,
@@ -15,13 +27,22 @@ const productState = {
   total: 0,
 };
 
+// products by category
+const productsCategoryState = {
+  productsCategory: [],
+  loading: false,
+  success: false,
+  fail: false,
+};
+
+// list of categories
 const categoryListState = {
   categoryList: [],
   success: false,
   fail: false,
 };
 
-export const getAllProductsReducer = (state = productState, action) => {
+export const getAllProductsReducer = (state = productsState, action) => {
   switch (action.type) {
     case GET_ALL_PRODUCTS_PROCESS:
       return { ...state, loading: true, fail: false, success: false };
@@ -38,6 +59,28 @@ export const getAllProductsReducer = (state = productState, action) => {
       };
 
     case GET_ALL_PRODUCTS_FAIL:
+      return { ...state, loading: false, fail: true };
+
+    default:
+      return state;
+  }
+};
+
+export const getProductByIdReducer = (state = productState, action) => {
+  switch (action.type) {
+    case GET_PRODUCT_BY_ID_PROCESS:
+      return { ...state, loading: true, fail: false, success: false };
+
+    case GET_PRODUCT_BY_ID_SUCCESS:
+      console.log(action.payload);
+      return {
+        ...state,
+        loading: false,
+        success: true,
+        product: action.payload,
+      };
+
+    case GET_PRODUCT_BY_ID_FAIL:
       return { ...state, loading: false, fail: true };
 
     default:
