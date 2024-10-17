@@ -19,6 +19,7 @@
     "react-scroll": "^1.9.0",
     "react-toastify": "^10.0.6",
     "redux-thunk": "^3.1.0",
+    "swiper": "^11.1.14",
     "web-vitals": "^2.1.4"
   },
   "scripts": {

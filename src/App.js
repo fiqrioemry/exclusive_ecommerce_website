@@ -1,19 +1,25 @@
+import React, { Suspense } from "react";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import Home from "./pages/Home";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
-import About from "./pages/About";
-import Contact from "./pages/Contact";
-import SignUp from "./pages/SignUp";
-import LogIn from "./pages/LogIn";
-import ProductDetails from "./pages/ProductDetails";
-import NotFound from "./pages/NotFound";
+import ScrollToTop from "./features/ScrollToTop";
+import PageLoading from "./features/PageLoading";
+
+// Lazy-loaded components
+const Home = React.lazy(() => import("./pages/Home"));
+const About = React.lazy(() => import("./pages/About"));
+const Contact = React.lazy(() => import("./pages/Contact"));
+const SignUp = React.lazy(() => import("./pages/SignUp"));
+const LogIn = React.lazy(() => import("./pages/LogIn"));
+const ProductDetails = React.lazy(() => import("./pages/ProductDetails"));
+const NotFound = React.lazy(() => import("./pages/NotFound"));
 
 function App() {
   return (
-    <>
-      <Router>
-        <Header />
+    <Router>
+      <ScrollToTop />
+      <Header />
+      <Suspense fallback={<PageLoading />}>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
@@ -23,9 +29,10 @@ function App() {
           <Route path="/product/:id" element={<ProductDetails />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
-        <Footer />
-      </Router>
-    </>
+      </Suspense>
+
+      <Footer />
+    </Router>
   );
 }
 
