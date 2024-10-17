@@ -32,10 +32,10 @@ const ProductDetails = () => {
         </div>
 
         {/* product details image & description */}
-        <div className="flex flex-cols md:flex-row md:gap-x-4 lg:gap-x-8">
+        <div className="flex flex-wrap">
           {/* product details image */}
           <div className="w-full md:w-[60%]">
-            {loading ? (
+            {!product ? (
               <ImageDetailsLoading />
             ) : (
               <ImageDetailsElement product={product} />
@@ -43,8 +43,8 @@ const ProductDetails = () => {
           </div>
 
           {/* product details description */}
-          <div className="w-full md:w-[40%]">
-            {loading ? (
+          <div className="w-full md:w-[40%] bg-blue-500">
+            {!product ? (
               <DescriptionDetailsLoading />
             ) : (
               <DescriptionDetailsElement product={product} />

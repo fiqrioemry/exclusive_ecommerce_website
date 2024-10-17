@@ -2,24 +2,27 @@ import React from "react";
 
 const ImageDetailsElement = ({ product }) => {
   return (
-    <div className="flex flex-cols md:flex-row md:gap-x-4 md:gap-y-0 gap-y-4 bg-black">
+    <div className="flex flex-col lg:flex-row mr-0 md:mr-4">
       {/* more images */}
-      <div className="flex flex-row md:flex-col gap-x-2 md:gap-y-2 md:gap-x-0 w-auto ">
+      <div className="flex flex-row lg:flex-col gap-x-2 lg:gap-y-4 mr-4 ">
         {product.images.map((image, index) => {
           return (
-            <div className="rounded-md bg-gray-100">
-              <img
-                className="w-[100px] h-[100px] object-container"
-                src={image}
-                alt=""
-              />
+            <div
+              key={index}
+              className=" w-[100px] h-[100px] rounded-md bg-gray-100 cursor-pointer"
+            >
+              <img src={image} alt="" />
             </div>
           );
         })}
       </div>
       {/* thumbnail images */}
-      <div className="rounded-md bg-gray-100">
-        <img className="w-full h-[550px]" src={product.thumbnail} alt="" />
+      <div className="flex items-center justify-center w-full rounded-md bg-gray-100">
+        <img
+          className="object-cover h-[500px] "
+          src={product.thumbnail}
+          alt=""
+        />
       </div>
     </div>
   );
