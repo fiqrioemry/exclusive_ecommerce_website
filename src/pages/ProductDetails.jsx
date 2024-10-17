@@ -20,10 +20,10 @@ const ProductDetails = () => {
   }, [id, dispatch]);
 
   return (
-    <section className="py-16">
+    <section className="py-8">
       <div className="container mx-auto">
         {/* product details page source */}
-        <div className="mb-6">
+        <div className="mb-8">
           <div className="flex flex-row gap-2 text-secondary/60">
             <div>product</div>
             <div>/ category</div>
@@ -43,7 +43,7 @@ const ProductDetails = () => {
           </div>
 
           {/* product details description */}
-          <div className="w-full md:w-[40%] bg-blue-500">
+          <div className="w-full md:w-[40%]">
             {!product ? (
               <DescriptionDetailsLoading />
             ) : (
