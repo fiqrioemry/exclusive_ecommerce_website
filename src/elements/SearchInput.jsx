@@ -24,11 +24,12 @@ const SearchInput = () => {
   };
 
   const handleSearchClick = (query) => {
-    navigate(`/product/search/${query}`);
+    // console.log("hasil click");
+    // navigate(`/product/search/${query}`);
   };
 
-  const handleSearchSubmit = () => {
-    console.log("hasil search :", searchParams);
+  const handleSearchEnter = () => {
+    navigate(`/product/search/${searchParams}`);
   };
 
   useEffect(() => {
@@ -39,7 +40,7 @@ const SearchInput = () => {
 
   return (
     <div className="relative min-w-[350px]">
-      <form onSubmit={() => handleSearchSubmit} className="flex items-center ">
+      <form onSubmit={handleSearchEnter} className="flex items-center">
         <input
           type="search"
           className="block outline-none w-full py-2 px-2 md:px-5 text-sm text-gray-900 border border-gray-300 rounded-lg "

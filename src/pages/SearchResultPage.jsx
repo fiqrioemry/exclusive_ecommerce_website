@@ -12,7 +12,6 @@ const SearchResultPage = () => {
   const { searchResult } = useSelector((state) => state.searchResult);
 
   useEffect(() => {
-    console.log("search params", query);
     dispatch(searchProducts(query));
   }, [dispatch, query]);
 
