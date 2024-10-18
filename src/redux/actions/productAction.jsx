@@ -8,6 +8,9 @@ import {
   GET_PRODUCT_BY_ID_PROCESS,
   GET_PRODUCT_BY_ID_SUCCESS,
   GET_PRODUCT_BY_ID_FAIL,
+  SEARCH_PROCESS,
+  SEARCH_SUCCESS,
+  SEARCH_FAIL,
 } from "../constant/productType";
 
 import connectApi from "../../services/connectApi";
@@ -31,7 +34,7 @@ export const getProductById = (value) => async (dispatch) => {
   try {
     dispatch({ type: GET_PRODUCT_BY_ID_PROCESS });
     const { data } = await connectApi.get(`/products/${value}`);
-    console.log("product action", data);
+
     dispatch({ type: GET_PRODUCT_BY_ID_SUCCESS, payload: data });
   } catch (error) {
     dispatch({ type: GET_PRODUCT_BY_ID_FAIL, payload: error });
@@ -46,6 +49,21 @@ export const getAllCategories = () => async (dispatch) => {
     const { data } = await connectApi.get(`/products/category-list`);
 
     dispatch({ type: GET_ALL_CATEGORIES_SUCCESS, payload: data });
+  } catch (error) {
+    dispatch({ type: GET_ALL_CATEGORIES_FAIL, payload: error });
+  }
+};
+
+// get product by search
+export const searchProducts = (query) => async (dispatch) => {
+  try {
+    dispatch({ type: SEARCH_PROCESS });
+    console.log(query);
+    setTimeout(async () => {
+      const { data } = await connectApi.get(`/products/search?q=${query}`);
+      console.log(data);
+      dispatch({ type: SEARCH_SUCCESS, payload: data });
+    }, 1000);
   } catch (error) {
     dispatch({ type: GET_ALL_CATEGORIES_FAIL, payload: error });
   }

@@ -4,6 +4,7 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 import ScrollToTop from "./features/ScrollToTop";
 import PageLoading from "./features/PageLoading";
+import SearchResultPage from "./pages/SearchResultPage";
 
 // Lazy-loaded components
 const Home = React.lazy(() => import("./pages/Home"));
@@ -27,6 +28,7 @@ function App() {
           <Route path="/signup" element={<SignUp />} />
           <Route path="/signin" element={<LogIn />} />
           <Route path="/product/:id" element={<ProductDetails />} />
+          <Route path="/product/search/:query" element={<SearchResultPage />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </Suspense>

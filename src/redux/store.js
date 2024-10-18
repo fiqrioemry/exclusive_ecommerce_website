@@ -4,12 +4,14 @@ import {
   getAllCategoriesReducer,
   getAllProductsReducer,
   getProductByIdReducer,
+  searchProductsReducer,
 } from "./reducer/productReducer";
 
 const reducer = combineReducers({
   allProducts: getAllProductsReducer,
   allCategories: getAllCategoriesReducer,
   productId: getProductByIdReducer,
+  searchResult: searchProductsReducer,
 });
 
 export const store = configureStore({

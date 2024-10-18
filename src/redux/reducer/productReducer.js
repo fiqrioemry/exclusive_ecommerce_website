@@ -8,6 +8,9 @@ import {
   GET_PRODUCT_BY_ID_PROCESS,
   GET_PRODUCT_BY_ID_SUCCESS,
   GET_PRODUCT_BY_ID_FAIL,
+  SEARCH_PROCESS,
+  SEARCH_SUCCESS,
+  SEARCH_FAIL,
 } from "../constant/productType";
 
 // single products
@@ -30,6 +33,13 @@ const productsState = {
 // products by category
 const productsCategoryState = {
   productsCategory: [],
+  loading: false,
+  success: false,
+  fail: false,
+};
+
+const searchResultState = {
+  searchResult: [],
   loading: false,
   success: false,
   fail: false,
@@ -72,7 +82,6 @@ export const getProductByIdReducer = (state = productState, action) => {
       return { ...state, loading: true, fail: false, success: false };
 
     case GET_PRODUCT_BY_ID_SUCCESS:
-      console.log("product id reducer ", action.payload);
       return {
         ...state,
         loading: false,
@@ -81,6 +90,28 @@ export const getProductByIdReducer = (state = productState, action) => {
       };
 
     case GET_PRODUCT_BY_ID_FAIL:
+      return { ...state, loading: false, fail: true };
+
+    default:
+      return state;
+  }
+};
+
+export const searchProductsReducer = (state = searchResultState, action) => {
+  switch (action.type) {
+    case SEARCH_PROCESS:
+      return { ...state, loading: true, fail: false, success: false };
+
+    case SEARCH_SUCCESS:
+      console.log("reducer :", action.payload);
+      return {
+        ...state,
+        loading: false,
+        success: true,
+        searchResult: action.payload.products,
+      };
+
+    case SEARCH_FAIL:
       return { ...state, loading: false, fail: true };
 
     default:
