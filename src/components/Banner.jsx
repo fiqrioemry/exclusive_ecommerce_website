@@ -13,21 +13,19 @@ const Banner = () => {
   }, [dispatch]);
 
   return (
-    <section className="mb-14">
-      <div className="flex flex-row container mx-auto">
-        {/* categories list option section */}
-        <div className="h-[450px] flex w-full">
-          <div className="max-w-[200px] w-full h-full flex flex-col overflow-y-auto overflow-x-hidden">
-            {categoryList.map((category, index) => {
-              return <CategoryListsElement category={category} key={index} />;
-            })}
-          </div>
-          {/* banner section */}
-          <div className="w-full h-full flex justify-center items-center  text-2xl font-bold">
-            <BannerElement />
-          </div>
+    <section className="mb-14 bg-red-500">
+      {/* categories list option section */}
+      <div className="flex flex-col md:flex-row max-h-[750px] md:h-[450px] ">
+        <div className="w-full h-[200px] md:w-[300px] md:h-auto flex flex-col overflow-y-auto overflow-x-hidden mb-4 px-3">
+          {categoryList.map((category, index) => {
+            return <CategoryListsElement category={category} key={index} />;
+          })}
         </div>
-        <div></div>
+
+        {/* banner section */}
+        <div className="w-full h-full flex justify-center items-center text-2xl font-bold">
+          <BannerElement />
+        </div>
       </div>
     </section>
   );

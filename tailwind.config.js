@@ -13,9 +13,9 @@ module.exports = {
       tertiary: "Montserrat",
     },
     screens: {
-      sm: "450px",
-      md: "678px",
-      lg: "880px",
+      sm: "576px",
+      md: "768px",
+      lg: "992px",
       xl: "1200px",
     },
     extend: {

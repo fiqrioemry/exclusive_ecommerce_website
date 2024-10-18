@@ -31,54 +31,50 @@ const BestProduct = () => {
     "btn w-full md:w-auto min-w-[300px] flex justify-center";
 
   return (
-    <section className="py-6">
-      <div className="container mx-auto">
-        {/* title section */}
-        <div className="flex flex-col gap-y-5 px-2 mb-[60px]">
-          <div className="flex flex-row items-center gap-4 text-tertiary font-semibold">
-            <div className="w-5 h-10 rounded-md bg-tertiary"></div>
-            <h4>This Month</h4>
+    <section className="mb-[50px]">
+      {/* title section */}
+      <div className="flex flex-col gap-y-4 px-2 ">
+        <div className="flex flex-row items-center gap-4 text-tertiary font-semibold">
+          <div className="w-5 h-10 rounded-md bg-tertiary"></div>
+          <h4>This Month</h4>
+        </div>
+        <div className="flex items-center justify-between">
+          <h1 className="text-2xl md:text-4xl">Best Selling Products</h1>
+          <button className="btn">View All</button>
+        </div>
+      </div>
+
+      {/* products section */}
+      {!products ? (
+        // animation while fetching product
+        <ProductsCardLoading />
+      ) : (
+        <div>
+          {/* product card section */}
+          <div className="flex flex-wrap mb-[50px]">
+            {products.map((product, index) => {
+              return <ProductsCardElement product={product} key={index} />;
+            })}
           </div>
-          <div className="flex items-center justify-between">
-            <h1>Best Selling Products</h1>
-            <div>
-              <button className="btn">View All</button>
-            </div>
+
+          {/* animation while fetching product */}
+          {loading && <ProductsCardLoading />}
+
+          {/* product button loading */}
+          <div className="flex justify-center items-center">
+            {limit === total ? (
+              <></>
+            ) : (
+              <ButtonElement
+                style={productLoadingBtn}
+                loading={loading}
+                action={loadMoreProduct}
+                title="Load More Products"
+              />
+            )}
           </div>
         </div>
-
-        {/* products section */}
-        {!products ? (
-          // animation while fetching product
-          <ProductsCardLoading />
-        ) : (
-          <div>
-            {/* product card section */}
-            <div className="flex flex-wrap mb-[60px]">
-              {products.map((product, index) => {
-                return <ProductsCardElement product={product} key={index} />;
-              })}
-            </div>
-
-            {/* animation while fetching product */}
-            {loading && <ProductsCardLoading />}
-
-            {/* product button loading */}
-            <div className="flex justify-center items-center">
-              {limit === total ? (
-                <></>
-              ) : (
-                <ButtonElement
-                  style={productLoadingBtn}
-                  loading={loading}
-                  action={loadMoreProduct}
-                  title="Load More Products"
-                />
-              )}
-            </div>
-          </div>
-        )}
-      </div>
+      )}
     </section>
   );
 };

@@ -20,7 +20,7 @@ const BannerElement = () => {
 
   // styles
   const arrowStyle =
-    "absolute top-[50%] rounded-full bg-white w-12 h-12 -translate-y-[50%] font-bold text-lg shadow-lg opacity-0  group-hover:opacity-100 ease-in duration-200";
+    "absolute top-[50%] rounded-full bg-white w-8 h-8 md:w-12 md:h-12 -translate-y-[50%] font-bold text-lg shadow-lg opacity-0  group-hover:opacity-100 ease-in duration-200";
 
   // slider logic
   const goToPrevious = () => {
@@ -62,7 +62,7 @@ const BannerElement = () => {
   }, [currentIndex]);
 
   return (
-    <section className="container py-2 px-2 md:px-5 h-[400px] flex items-center">
+    <section className="container py-2 px-5 md:px-5 h-auto md:h-[400px] flex items-center">
       <div className="relative z-0 group">
         <div>
           <img
@@ -84,6 +84,8 @@ const BannerElement = () => {
             );
           })}
         </div>
+
+        {/* banner button */}
         <button
           className={`${arrowStyle} left-0 group-hover:-left-5`}
           id="prev"

@@ -5,10 +5,9 @@ import Categories from "../components/Categories";
 
 const Home = () => {
   return (
-    <section>
+    <section className="container mx-auto">
       <Banner />
       <BestProduct />
-      <Categories />
     </section>
   );
 };

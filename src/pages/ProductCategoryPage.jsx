@@ -7,7 +7,7 @@ const ProductCategoryPage = () => {
         {/* filter section */}
         <div className="flex w-full md:w-30%">
           <div className="flex flex-col rounded-md px-2 py-2 shadow-xl mr-4">
-            <div>Filter</div>
+            <div className="">Filter</div>
             <div></div>
           </div>
         </div>
