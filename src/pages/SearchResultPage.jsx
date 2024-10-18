@@ -4,6 +4,7 @@ import { ProductsElement } from "../elements/ProductsElement";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { searchProducts } from "../redux/actions/productAction";
+import { ProductsCardElement } from "../elements/ProductsCardElement";
 
 const SearchResultPage = () => {
   const { query } = useParams();
@@ -19,15 +20,15 @@ const SearchResultPage = () => {
     <section className="py-12 ">
       <div className="container mx-auto flex flex-wrap">
         {/* Filter section */}
-        <div className="flex w-full md:w-[20%] lg:w-[25%]">
+        <div className="flex w-full lg:w-[25%]">
           <FilterBoxElement />
         </div>
 
         {/* Product section */}
-        <div className="flex w-full md:w-[80%] lg:w-[75%]">
-          <div className="grid grid-cols-2 lg:grid-cols-4 justify-between gap-x-3 md:gap-x-5 lg:gap-x-7 gap-y-[60px] mb-[60px]">
+        <div className="flex w-full  lg:w-[75%]">
+          <div className="flex flex-wrap">
             {searchResult.map((result, index) => {
-              return <ProductsElement product={result} />;
+              return <ProductsCardElement product={result} key={index} />;
             })}
           </div>
         </div>
