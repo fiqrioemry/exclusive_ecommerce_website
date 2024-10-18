@@ -58,13 +58,15 @@ export const getAllCategories = () => async (dispatch) => {
 export const searchProducts = (query) => async (dispatch) => {
   try {
     dispatch({ type: SEARCH_PROCESS });
-    console.log(query);
+
     setTimeout(async () => {
       const { data } = await connectApi.get(`/products/search?q=${query}`);
-      console.log(data);
-      dispatch({ type: SEARCH_SUCCESS, payload: data });
-    }, 1000);
+      const filteredProducts = data.products.filter(
+        (product) => product.title.toLowerCase().includes(query.toLowerCase()) // Case-insensitive match
+      );
+      dispatch({ type: SEARCH_SUCCESS, payload: filteredProducts });
+    }, 300);
   } catch (error) {
-    dispatch({ type: GET_ALL_CATEGORIES_FAIL, payload: error });
+    dispatch({ type: SEARCH_FAIL, payload: error });
   }
 };

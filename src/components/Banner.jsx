@@ -13,7 +13,7 @@ const Banner = () => {
   }, [dispatch]);
 
   return (
-    <section className="mb-14 bg-red-500">
+    <section className="mb-14">
       {/* categories list option section */}
       <div className="flex flex-col md:flex-row max-h-[750px] md:h-[450px] ">
         <div className="w-full h-[200px] md:w-[300px] md:h-auto flex flex-col overflow-y-auto overflow-x-hidden mb-4 px-3">

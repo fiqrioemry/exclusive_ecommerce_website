@@ -1,19 +1,81 @@
-import React from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { BsSearch } from "react-icons/bs";
+import debounce from "lodash/debounce";
+import { useDispatch, useSelector } from "react-redux";
+import { searchProducts } from "../redux/actions/productAction";
+import Spinner from "../features/Spinner";
+import { useNavigate } from "react-router-dom";
 
 const SearchInput = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { searchResult, loading } = useSelector((state) => state.searchResult);
+  const [searchParams, setSearchParams] = useState("");
+
+  const debounceSearch = useCallback(
+    debounce((searchParams) => {
+      dispatch(searchProducts(searchParams));
+    }, 500),
+    []
+  );
+
+  const handleInput = (event) => {
+    setSearchParams(event.target.value);
+  };
+
+  const handleSearchClick = (query) => {
+    navigate(`/product/search/${query}`);
+  };
+
+  const handleSearchSubmit = () => {
+    console.log("hasil search :", searchParams);
+  };
+
+  useEffect(() => {
+    if (searchParams) {
+      debounceSearch(searchParams);
+    }
+  }, [searchParams, debounceSearch]);
+
   return (
-    <>
-      <form className="relative flex items-center min-w-[225px] w-full">
+    <div className="relative min-w-[350px]">
+      <form onSubmit={() => handleSearchSubmit} className="flex items-center ">
         <input
           type="search"
-          className="block outline-none w-full py-2 px-2  text-sm bg-[#F5F5F5] text-gray-900 border border-gray-300 rounded-md "
-          placeholder="What are you looking ?"
+          className="block outline-none w-full py-2 px-2 md:px-5 text-sm text-gray-900 border border-gray-300 rounded-lg "
+          placeholder="Cari Produk/Nama toko"
+          value={searchParams}
+          onChange={handleInput}
           required
         />
         <BsSearch className="absolute right-3 cursor-pointer" />
       </form>
-    </>
+      <div
+        className={`${
+          searchParams ? "h-auto" : "h-0"
+        } absolute md:max-h-[300px] rounded-md top-12 bg-white shadow-xl transition-all duration-300 w-full overflow-y-auto `}
+      >
+        <div className="flex flex-col gap-y-4 py-4 px-4">
+          {loading ? (
+            <div className="flex  items-center justify-center py-4">
+              <Spinner />
+            </div>
+          ) : (
+            searchResult.map((result, index) => {
+              return (
+                <button
+                  onClick={() => handleSearchClick(result.title)}
+                  className="flex items-center"
+                  key={index}
+                >
+                  {result.title}
+                </button>
+              );
+            })
+          )}
+        </div>
+      </div>
+    </div>
   );
 };
 

@@ -103,12 +103,11 @@ export const searchProductsReducer = (state = searchResultState, action) => {
       return { ...state, loading: true, fail: false, success: false };
 
     case SEARCH_SUCCESS:
-      console.log("reducer :", action.payload);
       return {
         ...state,
         loading: false,
         success: true,
-        searchResult: action.payload.products,
+        searchResult: action.payload,
       };
 
     case SEARCH_FAIL:

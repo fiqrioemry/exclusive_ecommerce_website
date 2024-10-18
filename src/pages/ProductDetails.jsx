@@ -3,7 +3,6 @@ import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getProductById } from "../redux/actions/productAction";
-import { MdFavorite } from "react-icons/md";
 
 // import element and features for pages
 import ImageDetailsElement from "../elements/product_details/ImageDetailsElement";
@@ -23,7 +22,7 @@ const ProductDetails = () => {
 
   return (
     <section className="py-8">
-      <div className="container mx-auto">
+      <div className="container mx-auto px-2">
         {/* product details page source */}
         <div className="mb-8">
           <div className="flex flex-row gap-2 text-secondary/60">
