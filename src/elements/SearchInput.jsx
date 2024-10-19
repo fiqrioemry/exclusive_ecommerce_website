@@ -10,16 +10,18 @@ const SearchInput = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [results, setResults] = useState([]);
+  const [closeInput, setCloseInput] = useState(false);
   const [searchParams, setSearchParams] = useState("");
   const { inputResults, loading } = useSelector((state) => state.inputResults);
 
   const handleInput = (event) => {
+    setCloseInput(true);
     setSearchParams(event.target.value);
   };
 
-  const handleSearchClick = (query) => {
-    // console.log("hasil click");
-    // navigate(`/product/search/${query}`);
+  const handleSearchClick = (searchParams) => {
+    setCloseInput(false);
+    navigate(`/product/search/${searchParams}`);
   };
 
   const debounceSearch = useCallback(
@@ -51,7 +53,7 @@ const SearchInput = () => {
         <input
           type="search"
           className="block outline-none w-full py-2 px-2 md:px-5 text-sm text-gray-900 border border-gray-300 rounded-lg "
-          placeholder="Cari Produk/Nama toko"
+          placeholder="Cari produk yang kamu inginkan"
           value={searchParams}
           onChange={handleInput}
           required
@@ -60,12 +62,12 @@ const SearchInput = () => {
       </form>
       <div
         className={`${
-          searchParams ? "h-auto" : "h-0"
+          searchParams && closeInput ? "h-auto" : "h-0"
         } absolute md:max-h-[300px] rounded-md top-12 bg-white shadow-xl transition-all duration-300 w-full overflow-y-auto `}
       >
         <div className="flex flex-col gap-y-4 py-4 px-4">
           {loading ? (
-            <div className="flex  items-center justify-center py-4">
+            <div className="flex items-center justify-center py-4">
               <Spinner />
             </div>
           ) : (

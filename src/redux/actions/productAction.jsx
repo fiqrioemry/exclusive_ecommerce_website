@@ -89,32 +89,23 @@ export const getProductBySearch =
         `/products/search?q=${searchParams}`
       );
 
-      // 1. filter the product by name similiarity
-      const filterName = data.products.filter((product) =>
-        product.title.toLowerCase().includes(searchParams.toLowerCase())
-      );
+      // Filter by name similarity
+      const filteredProducts = data.products
+        .filter((product) =>
+          product.title.toLowerCase().includes(searchParams.toLowerCase())
+        )
+        .filter(
+          (product) => product.price >= minPrice && product.price <= maxPrice
+        )
+        .filter((product) => {
+          if (!product.reviews.length) return false;
+          const averageReview =
+            product.reviews.reduce((sum, review) => sum + review.rating, 0) /
+            product.reviews.length;
+          return averageReview >= averageRating;
+        });
 
-      // 2. filter the product by minimum and maximum price (i set default on 0 and 9999 to prevent error)
-      const filterPrice = filterName.filter(
-        (product) => product.price >= minPrice && product.price <= maxPrice
-      );
-
-      // 3. filter the product by averaging the reviews score and compare it to average rating user want
-      const filteredProducts = filterPrice.filter((product) => {
-        if (product.reviews.length === 0) return false; // Skip products with no reviews
-
-        const totalRating = product.reviews.reduce(
-          (sum, review) => sum + review.rating,
-          0
-        );
-        const averageReview = totalRating / product.reviews.length;
-
-        return averageReview >= averageRating;
-      });
-      dispatch({
-        type: SEARCH_RESULT_SUCCESS,
-        payload: filteredProducts,
-      });
+      dispatch({ type: SEARCH_RESULT_SUCCESS, payload: filteredProducts });
     } catch (error) {
       dispatch({ type: SEARCH_RESULT_FAIL, payload: "No Product Found" });
     }

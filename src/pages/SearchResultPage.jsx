@@ -21,14 +21,16 @@ const SearchResultPage = () => {
     <section className="py-12 ">
       <div className="container mx-auto flex flex-wrap">
         {/* Filter section */}
-        <div className="flex w-full lg:w-[25%]">
-          <FilterBoxElement />
+        <div className="flex w-full max-h-[475px] lg:w-[25%]">
+          <FilterBoxElement searchParams={query} />
         </div>
 
         {/* Product section */}
         <div className="flex w-full lg:w-[75%]">
           {loading ? (
             <ProductsCardLoading />
+          ) : searchResults.length === 0 ? (
+            <div>tidak ada hasil</div>
           ) : (
             <ProductsCardElement products={searchResults} />
           )}

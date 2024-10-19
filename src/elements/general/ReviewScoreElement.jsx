@@ -1,7 +1,7 @@
 import React from "react";
 import { LiaStarSolid } from "react-icons/lia";
 
-const ReviewScoreElement = ({ product }) => {
+const ReviewScoreElement = ({ product, minRating = 0 }) => {
   const reviews = product.reviews || [];
 
   // Handle case when reviews are empty to avoid divide by zero
@@ -12,7 +12,7 @@ const ReviewScoreElement = ({ product }) => {
           0
         ) / reviews.length
       ).toFixed(1)
-    : 0;
+    : minRating;
 
   // Determine the number of full, half, and empty stars
   const fullStars = Math.floor(averageRating); // Full stars
@@ -38,7 +38,7 @@ const ReviewScoreElement = ({ product }) => {
         ))}
       </div>
       <div>{averageRating}</div>
-      <div>({reviews.length})</div>
+      <div>{reviews ? "" : reviews.length}</div>
     </div>
   );
 };
