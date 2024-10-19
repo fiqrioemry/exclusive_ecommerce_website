@@ -2,12 +2,16 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { MdFavorite } from "react-icons/md";
 import { FaArrowRight } from "react-icons/fa";
-import CartProductElement from "./CartProductElement";
+import CartProductElement from "../elements/CartProductElement";
 
-const MiniCartElement = () => {
+const MiniCart = ({ openCart, handleOpenCart }) => {
   const { cart } = useSelector((state) => state.cart);
   return (
-    <div className="fixed top-0 right-0 bottom-0 w-[420px] bg-white shadow-xl z-20">
+    <div
+      className={`${
+        openCart ? "right-0" : "-right-full"
+      } w-full bg-white fixed top-0 h-full shadow-2xl md:w-[35vw] xl:max-w-[30vw] transition-all duration-300 z-20`}
+    >
       <div className="flex flex-col h-full justify-between px-4">
         <div>
           {" "}
@@ -19,7 +23,7 @@ const MiniCartElement = () => {
               <button>
                 <MdFavorite />
               </button>
-              <button>
+              <button onClick={handleOpenCart}>
                 <FaArrowRight />
               </button>
             </div>
@@ -41,4 +45,4 @@ const MiniCartElement = () => {
   );
 };
 
-export default MiniCartElement;
+export default MiniCart;

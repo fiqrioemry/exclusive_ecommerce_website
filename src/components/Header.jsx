@@ -3,12 +3,18 @@ import { Link } from "react-router-dom";
 import { BsCart3 } from "react-icons/bs";
 import { MdFavorite, MdOutlineMenu } from "react-icons/md";
 import SearchInput from "../elements/SearchInput";
-import MiniCartElement from "../elements/MiniCartElement";
+import MiniCart from "./MiniCart";
 
 const Header = () => {
+  const [openCart, setOpenCart] = useState(false);
+
+  const handleOpenCart = () => {
+    setOpenCart(!openCart);
+  };
+
   return (
     <header className="sticky top-0 bg-white z-10 ">
-      <MiniCartElement />
+      <MiniCart openCart={openCart} handleOpenCart={handleOpenCart} />
       <section className="relative py-4 border-b-2">
         {/* navigation bar mobile  */}
         <div className="container mx-auto px-2">
@@ -44,11 +50,11 @@ const Header = () => {
               </div>
 
               {/* favorite & cart */}
-              <div className="flex items-center justify-between gap-x-4 bg-red-500">
+              <div className="flex items-center justify-between gap-x-4">
                 <button>
                   <MdFavorite className="text-lg lg:text-xl" />
                 </button>
-                <button>
+                <button onClick={handleOpenCart}>
                   <BsCart3 className="text-lg lg:text-xl" />
                 </button>
                 <button>
