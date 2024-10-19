@@ -7,6 +7,7 @@ import {
   inputResultsReducer,
   searchResultsReducer,
 } from "./reducer/productReducer";
+import { addCartReducer } from "./reducer/cartReducer";
 
 const reducer = combineReducers({
   allProducts: getAllProductsReducer,
@@ -14,6 +15,7 @@ const reducer = combineReducers({
   productId: getProductByIdReducer,
   searchResults: searchResultsReducer,
   inputResults: inputResultsReducer,
+  cart: addCartReducer,
 });
 
 export const store = configureStore({

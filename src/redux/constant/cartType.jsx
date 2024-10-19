@@ -1,0 +1,2 @@
+export const ADD_CART_SUCCESS = "ADD_CART_SUCCESS";
+export const ADD_CART_PROCESS = "ADD_CART_PROCESS";
