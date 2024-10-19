@@ -10,7 +10,7 @@ import ReviewScoreElement from "./general/ReviewScoreElement";
 export const ProductsCardElement = ({ products }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { cart, loading } = useSelector((state) => state.cart);
+  const { loading } = useSelector((state) => state.cart);
 
   const handleSee = (id) => {
     navigate(`/product/${id}`);

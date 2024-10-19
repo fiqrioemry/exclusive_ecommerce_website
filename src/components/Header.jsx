@@ -3,13 +3,14 @@ import { Link } from "react-router-dom";
 import { BsCart3 } from "react-icons/bs";
 import { MdFavorite, MdOutlineMenu } from "react-icons/md";
 import SearchInput from "../elements/SearchInput";
+import MiniCartElement from "../elements/MiniCartElement";
 
 const Header = () => {
   return (
-    <header className="sticky  top-0 bg-white z-10 ">
+    <header className="sticky top-0 bg-white z-10 ">
+      <MiniCartElement />
       <section className="relative py-4 border-b-2">
         {/* navigation bar mobile  */}
-
         <div className="container mx-auto px-2">
           <div className="flex justify-between items-center gap-x-4 mb-3 lg:mb-0">
             {/* website logo */}
@@ -43,7 +44,7 @@ const Header = () => {
               </div>
 
               {/* favorite & cart */}
-              <div className="flex items-center justify-between gap-x-4">
+              <div className="flex items-center justify-between gap-x-4 bg-red-500">
                 <button>
                   <MdFavorite className="text-lg lg:text-xl" />
                 </button>

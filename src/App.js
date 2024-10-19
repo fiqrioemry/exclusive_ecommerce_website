@@ -19,21 +19,25 @@ function App() {
   return (
     <Router>
       <ScrollToTop />
-      <Header />
-      <Suspense fallback={<PageLoading />}>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/signup" element={<SignUp />} />
-          <Route path="/signin" element={<LogIn />} />
-          <Route path="/product/:id" element={<ProductDetails />} />
-          <Route path="/product/search/:query" element={<SearchResultPage />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </Suspense>
-
-      <Footer />
+      <main className="overflow-hidden">
+        <Header />
+        <Suspense fallback={<PageLoading />}>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="/signup" element={<SignUp />} />
+            <Route path="/signin" element={<LogIn />} />
+            <Route path="/product/:id" element={<ProductDetails />} />
+            <Route
+              path="/product/search/:query"
+              element={<SearchResultPage />}
+            />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </Suspense>
+        <Footer />
+      </main>
     </Router>
   );
 }
