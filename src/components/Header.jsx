@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from "react";
+import MiniCart from "./MiniCart";
 import { Link } from "react-router-dom";
 import { BsCart3 } from "react-icons/bs";
-import { MdFavorite, MdOutlineMenu } from "react-icons/md";
+import { useSelector } from "react-redux";
 import SearchInput from "../elements/SearchInput";
-import MiniCart from "./MiniCart";
+import { MdFavorite, MdOutlineMenu } from "react-icons/md";
 
 const Header = () => {
   const [openCart, setOpenCart] = useState(false);
+  const { cart } = useSelector((state) => state.cart);
 
   const handleOpenCart = () => {
     setOpenCart(!openCart);
@@ -54,8 +56,15 @@ const Header = () => {
                 <button>
                   <MdFavorite className="text-lg lg:text-xl" />
                 </button>
-                <button onClick={handleOpenCart}>
+                <button className="relative" onClick={handleOpenCart}>
                   <BsCart3 className="text-lg lg:text-xl" />
+                  <div
+                    className={`${
+                      cart ? "flex" : "hidden"
+                    } items-center justify-center w-6 h-6 rounded-full bg-red-500 text-white text-[12px] absolute -top-3 -right-3`}
+                  >
+                    {cart.length}
+                  </div>
                 </button>
                 <button>
                   <MdOutlineMenu className="block lg:hidden text-lg lg:text-xl" />

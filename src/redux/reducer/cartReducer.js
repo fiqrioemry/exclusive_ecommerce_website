@@ -1,9 +1,15 @@
-import { stackTraceLimit } from "postcss/lib/css-syntax-error";
-import { ADD_CART_PROCESS, ADD_CART_SUCCESS } from "../constant/cartType";
+import {
+  ADD_CART_PROCESS,
+  ADD_CART_SUCCESS,
+  DECREASE_CART,
+  INCREASE_CART,
+  DELETE_CART,
+} from "../constant/cartType";
 
 const cartState = {
   cart: [],
   loading: false,
+  error: false,
 };
 
 export const addCartReducer = (state = cartState, action) => {
@@ -11,8 +17,51 @@ export const addCartReducer = (state = cartState, action) => {
     case ADD_CART_PROCESS:
       return {
         ...state,
+        error: false,
         loading: true,
       };
+
+    case DECREASE_CART: {
+      const id = action.payload;
+      return {
+        ...state,
+        cart: state.cart.map((item) =>
+          item.id === id ? { ...item, amount: item.amount - 1 } : item
+        ),
+        loading: false,
+      };
+    }
+
+    case INCREASE_CART: {
+      const id = action.payload;
+      const cartItem = state.cart.find((item) => item.id === id);
+      if (cartItem.stock < cartItem.amount + 1) {
+        return {
+          ...state,
+          error: true,
+          loading: false,
+        };
+      } else {
+        return {
+          ...state,
+          cart: state.cart.map((item) =>
+            item.id === id ? { ...item, amount: item.amount + 1 } : item
+          ),
+          loading: false,
+        };
+      }
+    }
+
+    case DELETE_CART: {
+      const id = action.payload;
+
+      const cartItem = state.cart.filter((item) => item.id !== id);
+      return {
+        ...state,
+        cart: cartItem,
+        loading: false,
+      };
+    }
 
     case ADD_CART_SUCCESS:
       const product = action.payload.data;
@@ -30,7 +79,7 @@ export const addCartReducer = (state = cartState, action) => {
           ...state,
           cart: state.cart.map((item) =>
             item.id === product.id
-              ? { ...item, amount: item.amount + amount } // Update the amount for the existing item
+              ? { ...item, amount: item.amount + amount }
               : item
           ),
           loading: false,

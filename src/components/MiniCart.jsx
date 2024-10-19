@@ -1,11 +1,12 @@
 import React from "react";
-import { useSelector } from "react-redux";
 import { MdFavorite } from "react-icons/md";
 import { FaArrowRight } from "react-icons/fa";
+import { useDispatch, useSelector } from "react-redux";
 import CartProductElement from "../elements/CartProductElement";
 
 const MiniCart = ({ openCart, handleOpenCart }) => {
-  const { cart } = useSelector((state) => state.cart);
+  const { cart, error } = useSelector((state) => state.cart);
+
   return (
     <div
       className={`${
@@ -13,33 +14,54 @@ const MiniCart = ({ openCart, handleOpenCart }) => {
       } w-full bg-white fixed top-0 h-full shadow-2xl md:w-[35vw] xl:max-w-[30vw] transition-all duration-300 z-20`}
     >
       <div className="flex flex-col h-full justify-between px-4">
-        <div>
-          {" "}
+        {/* title */}
+        <div className="flex justify-between items-center py-6 border-b-2">
           {/* title */}
-          <div className="flex justify-between items-center py-6 border-b-2">
-            {/* title */}
-            <div>Shopping Cart</div>
-            <div className="flex justify-between gap-x-4 text-xl">
-              <button>
-                <MdFavorite />
-              </button>
-              <button onClick={handleOpenCart}>
-                <FaArrowRight />
-              </button>
+          <div>Shopping Cart</div>
+          <div className="flex justify-between gap-x-4 text-xl">
+            <button>
+              <MdFavorite />
+            </button>
+            <button onClick={handleOpenCart}>
+              <FaArrowRight />
+            </button>
+          </div>
+        </div>
+        {/* product */}
+
+        {cart.length === 0 ? (
+          <div className="flex items-center justify-center h-full">
+            KERANJANG KAMU MASIH KOSONG
+          </div>
+        ) : (
+          <div className="flex  flex-col h-full justify-between">
+            <div className="overflow-y-auto max-h-[470px]">
+              {cart.map((item, index) => {
+                return <CartProductElement item={item} key={index} />;
+              })}
+            </div>
+            {/* checkout */}
+            <div className="py-4">
+              <div className="flex justify-between py-2">
+                <div className="flex items-center gap-x-2">
+                  <input type="checkbox" className="w-4 h-4" />
+                  <div>Pilih semua</div>
+                </div>
+
+                <div>
+                  Total harga: $
+                  {cart
+                    .reduce((total, item) => {
+                      return total + item.amount * item.price;
+                    }, 0)
+                    .toFixed(2)}
+                </div>
+              </div>
+
+              <button className="btn w-full">Checkout</button>
             </div>
           </div>
-          {/* product */}
-          <div className="overflow-y-auto max-h-[470px]">
-            {cart.map((item, index) => {
-              return <CartProductElement item={item} key={index} />;
-            })}
-          </div>
-        </div>
-
-        {/* checkout */}
-        <div className="py-4">
-          <button className="btn w-full">Checkout</button>
-        </div>
+        )}
       </div>
     </div>
   );

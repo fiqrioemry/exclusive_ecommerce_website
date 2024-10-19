@@ -1,12 +1,28 @@
-import { ADD_CART_PROCESS, ADD_CART_SUCCESS } from "../constant/cartType";
+import {
+  ADD_CART_PROCESS,
+  ADD_CART_SUCCESS,
+  DECREASE_CART,
+  INCREASE_CART,
+  DELETE_CART,
+} from "../constant/cartType";
 
 import connectApi from "../../services/connectApi";
 
 export const addToCart = (id, amount) => async (dispatch) => {
   dispatch({ type: ADD_CART_PROCESS });
 
-  setTimeout(async () => {
-    const { data } = await connectApi.get(`/products/${id}`);
-    dispatch({ type: ADD_CART_SUCCESS, payload: { data, amount } });
-  }, 500);
+  const { data } = await connectApi.get(`/products/${id}`);
+  dispatch({ type: ADD_CART_SUCCESS, payload: { data, amount } });
+};
+
+export const decreaseCart = (id) => async (dispatch) => {
+  dispatch({ type: ADD_CART_PROCESS });
+  dispatch({ type: DECREASE_CART, payload: id });
+};
+export const increaseCart = (id) => async (dispatch) => {
+  dispatch({ type: ADD_CART_PROCESS });
+  dispatch({ type: INCREASE_CART, payload: id });
+};
+export const deleteCart = (id) => async (dispatch) => {
+  dispatch({ type: DELETE_CART, payload: id });
 };
