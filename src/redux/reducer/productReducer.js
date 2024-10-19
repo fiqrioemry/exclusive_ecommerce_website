@@ -11,9 +11,9 @@ import {
   SEARCH_RESULT_PROCESS,
   SEARCH_RESULT_SUCCESS,
   SEARCH_RESULT_FAIL,
-  SEARCH_PRODUCT_PROCESS,
-  SEARCH_PRODUCT_SUCCESS,
-  SEARCH_PRODUCT_FAIL,
+  INPUT_RESULT_PROCESS,
+  INPUT_RESULT_SUCCESS,
+  INPUT_RESULT_FAIL,
 } from "../constant/productType";
 
 // single products
@@ -33,23 +33,15 @@ const productsState = {
   total: 0,
 };
 
-// products by category
-const productsCategoryState = {
-  productsCategory: [],
+const inputResultState = {
+  inputResults: [],
   loading: false,
   success: false,
   fail: false,
 };
 
-const searchProductsState = {
-  searchProduct: [],
-  loading: false,
-  success: false,
-  fail: false,
-};
-
-const searchResultsState = {
-  searchResult: [],
+const searchResultState = {
+  searchResults: [],
   loading: false,
   success: false,
   fail: false,
@@ -58,6 +50,14 @@ const searchResultsState = {
 // list of categories
 const categoryListState = {
   categoryList: [],
+  success: false,
+  fail: false,
+};
+
+// All products by category
+const productsCategoryState = {
+  productsCategory: [],
+  loading: false,
   success: false,
   fail: false,
 };
@@ -107,26 +107,25 @@ export const getProductByIdReducer = (state = productState, action) => {
   }
 };
 
-export const searchProductsReducer = (state = searchProductsState, action) => {
+export const searchResultsReducer = (state = searchResultState, action) => {
   switch (action.type) {
-    case SEARCH_PRODUCT_PROCESS:
+    case SEARCH_RESULT_PROCESS:
       return {
         ...state,
         loading: true,
         fail: false,
         success: false,
-        searchProduct: [],
       };
 
-    case SEARCH_PRODUCT_SUCCESS:
+    case SEARCH_RESULT_SUCCESS:
       return {
         ...state,
         loading: false,
         success: true,
-        searchProduct: action.payload,
+        searchResults: action.payload,
       };
 
-    case SEARCH_PRODUCT_FAIL:
+    case SEARCH_RESULT_FAIL:
       return { ...state, loading: false, fail: true };
 
     default:
@@ -134,20 +133,20 @@ export const searchProductsReducer = (state = searchProductsState, action) => {
   }
 };
 
-export const searchResultsReducer = (state = searchResultsState, action) => {
+export const inputResultsReducer = (state = inputResultState, action) => {
   switch (action.type) {
-    case SEARCH_RESULT_PROCESS:
+    case INPUT_RESULT_PROCESS:
       return { ...state, loading: true, fail: false, success: false };
 
-    case SEARCH_RESULT_SUCCESS:
+    case INPUT_RESULT_SUCCESS:
       return {
         ...state,
         loading: false,
         success: true,
-        searchResult: action.payload,
+        inputResults: action.payload,
       };
 
-    case SEARCH_RESULT_FAIL:
+    case INPUT_RESULT_FAIL:
       return { ...state, loading: false, fail: true };
 
     default:

@@ -2,7 +2,7 @@ import React from "react";
 
 const ProductsCardLoading = () => {
   return (
-    <div className="flex flex-wrap mb-[50px]">
+    <div className="flex flex-wrap w-full mb-[50px]">
       {[...Array(4)].map((_, index) => {
         return (
           <div className="lg:w-1/4 md:w-1/3 w-1/2 px-2 py-2 ">

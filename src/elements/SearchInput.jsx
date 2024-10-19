@@ -1,24 +1,17 @@
-import React, { useCallback, useEffect, useState } from "react";
-import { BsSearch } from "react-icons/bs";
 import debounce from "lodash/debounce";
-import { useDispatch, useSelector } from "react-redux";
-
+import { BsSearch } from "react-icons/bs";
 import Spinner from "../features/Spinner";
 import { useNavigate } from "react-router-dom";
-import { searchProducts } from "../redux/actions/productAction";
+import { useDispatch, useSelector } from "react-redux";
+import { getInputResult } from "../redux/actions/productAction";
+import React, { useCallback, useEffect, useState } from "react";
 
 const SearchInput = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { searchProduct, loading } = useSelector((state) => state.search);
+  const [results, setResults] = useState([]);
   const [searchParams, setSearchParams] = useState("");
-
-  const debounceSearch = useCallback(
-    debounce((searchParams) => {
-      dispatch(searchProducts(searchParams));
-    }, 500),
-    []
-  );
+  const { inputResults, loading } = useSelector((state) => state.inputResults);
 
   const handleInput = (event) => {
     setSearchParams(event.target.value);
@@ -29,17 +22,28 @@ const SearchInput = () => {
     // navigate(`/product/search/${query}`);
   };
 
+  const debounceSearch = useCallback(
+    debounce((searchParams) => {
+      dispatch(getInputResult(searchParams));
+    }, 500),
+    []
+  );
+
   const handleSearchEnter = () => {
     navigate(`/product/search/${searchParams}`);
   };
 
+  // run effect
+  useEffect(() => {
+    setResults(inputResults);
+  }, [inputResults]);
+
   useEffect(() => {
     if (searchParams) {
+      setResults([]);
       debounceSearch(searchParams);
     }
   }, [searchParams, debounceSearch]);
-
-  console.log(searchProduct);
 
   return (
     <div className="relative min-w-[350px]">
@@ -65,14 +69,14 @@ const SearchInput = () => {
               <Spinner />
             </div>
           ) : (
-            searchProduct.map((result, index) => {
+            results.map((result, index) => {
               return (
                 <button
                   onClick={() => handleSearchClick(result.title)}
                   className="flex items-center"
                   key={index}
                 >
-                  {result.title}
+                  {result.title.slice(0, 30) + "..."}
                 </button>
               );
             })

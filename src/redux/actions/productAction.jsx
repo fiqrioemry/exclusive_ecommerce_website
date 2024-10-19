@@ -8,17 +8,17 @@ import {
   GET_PRODUCT_BY_ID_PROCESS,
   GET_PRODUCT_BY_ID_SUCCESS,
   GET_PRODUCT_BY_ID_FAIL,
-  SEARCH_PRODUCT_PROCESS,
-  SEARCH_PRODUCT_SUCCESS,
-  SEARCH_PRODUCT_FAIL,
   SEARCH_RESULT_PROCESS,
   SEARCH_RESULT_SUCCESS,
   SEARCH_RESULT_FAIL,
+  INPUT_RESULT_PROCESS,
+  INPUT_RESULT_SUCCESS,
+  INPUT_RESULT_FAIL,
 } from "../constant/productType";
 
 import connectApi from "../../services/connectApi";
 
-// get all the products
+// function to get all the products
 export const getAllProducts = (value) => async (dispatch) => {
   try {
     dispatch({ type: GET_ALL_PRODUCTS_PROCESS });
@@ -32,7 +32,7 @@ export const getAllProducts = (value) => async (dispatch) => {
   }
 };
 
-// get product by id
+// function to get specified product from id
 export const getProductById = (value) => async (dispatch) => {
   try {
     dispatch({ type: GET_PRODUCT_BY_ID_PROCESS });
@@ -44,7 +44,7 @@ export const getProductById = (value) => async (dispatch) => {
   }
 };
 
-// get all category lists
+// function for get all the category list
 export const getAllCategories = () => async (dispatch) => {
   try {
     dispatch({ type: GET_ALL_CATEGORIES_PROCESS });
@@ -57,8 +57,9 @@ export const getAllCategories = () => async (dispatch) => {
   }
 };
 
-export const searchProducts = (searchParams) => async (dispatch) => {
-  dispatch({ type: SEARCH_PRODUCT_PROCESS });
+// function for displaying product name as search result on input
+export const getInputResult = (searchParams) => async (dispatch) => {
+  dispatch({ type: INPUT_RESULT_PROCESS });
 
   setTimeout(async () => {
     const { data } = await connectApi.get(`/products/search?q=${searchParams}`);
@@ -69,16 +70,17 @@ export const searchProducts = (searchParams) => async (dispatch) => {
 
     if (filteredProducts.length !== 0) {
       dispatch({
-        type: SEARCH_PRODUCT_SUCCESS,
+        type: INPUT_RESULT_SUCCESS,
         payload: filteredProducts,
       });
     } else {
-      dispatch({ type: SEARCH_PRODUCT_FAIL, payload: "No Product Found" });
+      dispatch({ type: INPUT_RESULT_FAIL, payload: "No Product Found" });
     }
   }, 1000);
 };
 
-export const searchResults =
+// function to get product from searching parameters and filter
+export const getProductBySearch =
   (searchParams, minPrice = 0, maxPrice = 99999, averageRating = 0) =>
   async (dispatch) => {
     try {

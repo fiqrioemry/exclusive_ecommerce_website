@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import ButtonElement from "../elements/ButtonElement";
 import { useSelector, useDispatch } from "react-redux";
 import { animateScroll as scroll } from "react-scroll";
-import { ProductsElement } from "../elements/ProductsElement";
 import { getAllProducts } from "../redux/actions/productAction";
 import ProductsCardLoading from "../features/ProductsCardLoading";
 import { ProductsCardElement } from "../elements/ProductsCardElement";
@@ -10,10 +9,6 @@ import { ProductsCardElement } from "../elements/ProductsCardElement";
 const BestProduct = () => {
   const dispatch = useDispatch();
   const [limit, setLimit] = useState(4);
-
-  const { products, loading, total } = useSelector(
-    (state) => state.allProducts
-  );
 
   const loadMoreProduct = () => {
     setLimit(limit + 4);
@@ -23,12 +18,13 @@ const BestProduct = () => {
     });
   };
 
+  const { products, loading, total } = useSelector(
+    (state) => state.allProducts
+  );
+
   useEffect(() => {
     dispatch(getAllProducts(limit));
   }, [dispatch, limit]);
-
-  const productLoadingBtn =
-    "btn w-full md:w-auto min-w-[300px] flex justify-center";
 
   return (
     <section className="mb-[50px]">
@@ -50,12 +46,8 @@ const BestProduct = () => {
         <ProductsCardLoading />
       ) : (
         <div>
-          {/* product card section */}
-          <div className="flex flex-wrap mb-[50px]">
-            {products.map((product, index) => {
-              return <ProductsCardElement product={product} key={index} />;
-            })}
-          </div>
+          {/* showing product card */}
+          <ProductsCardElement products={products} />
 
           {/* animation while fetching product */}
           {loading && <ProductsCardLoading />}
@@ -66,7 +58,7 @@ const BestProduct = () => {
               <></>
             ) : (
               <ButtonElement
-                style={productLoadingBtn}
+                style={"btn w-full md:w-auto min-w-[300px] flex justify-center"}
                 loading={loading}
                 action={loadMoreProduct}
                 title="Load More Products"

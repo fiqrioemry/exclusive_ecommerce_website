@@ -1,18 +1,20 @@
 import React, { useEffect } from "react";
-import FilterBoxElement from "../elements/FilterBoxElement";
-
-import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { searchResults } from "../redux/actions/productAction";
+import { useDispatch, useSelector } from "react-redux";
+import FilterBoxElement from "../elements/FilterBoxElement";
+import { getProductBySearch } from "../redux/actions/productAction";
 import { ProductsCardElement } from "../elements/ProductsCardElement";
+import ProductsCardLoading from "../features/ProductsCardLoading";
 
 const SearchResultPage = () => {
   const { query } = useParams();
   const dispatch = useDispatch();
-  const { searchResult } = useSelector((state) => state.filter);
+  const { searchResults, loading } = useSelector(
+    (state) => state.searchResults
+  );
 
   useEffect(() => {
-    dispatch(searchResults(query));
+    dispatch(getProductBySearch(query));
   }, [dispatch, query]);
 
   return (
@@ -24,12 +26,12 @@ const SearchResultPage = () => {
         </div>
 
         {/* Product section */}
-        <div className="flex w-full  lg:w-[75%]">
-          <div className="flex flex-wrap">
-            {searchResult.map((result, index) => {
-              return <ProductsCardElement product={result} key={index} />;
-            })}
-          </div>
+        <div className="flex w-full lg:w-[75%]">
+          {loading ? (
+            <ProductsCardLoading />
+          ) : (
+            <ProductsCardElement products={searchResults} />
+          )}
         </div>
       </div>
     </section>
