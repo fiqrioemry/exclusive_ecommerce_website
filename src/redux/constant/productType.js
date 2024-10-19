@@ -24,3 +24,13 @@ export const GET_ALL_CATEGORIES_FAIL = "GET_ALL_CATEGORIES_FAIL";
 export const SEARCH_PROCESS = "SEARCH_PROCESS";
 export const SEARCH_SUCCESS = "SEARCH_SUCCESS";
 export const SEARCH_FAIL = "SEARCH_FAIL";
+
+// return the value of product title as a search result
+export const SEARCH_RESULT_PROCESS = "SEARCH_RESULT_PROCESS ";
+export const SEARCH_RESULT_FAIL = "SEARCH_RESULT_FAIL ";
+export const SEARCH_RESULT_SUCCESS = "SEARCH_RESULT_SUCCESS ";
+
+// search a product by name and filter it by rating and price
+export const SEARCH_PRODUCT_PROCESS = "SEARCH_PRODUCT_PROCESS ";
+export const SEARCH_PRODUCT_FAIL = "SEARCH_PRODUCT_FAIL ";
+export const SEARCH_PRODUCT_SUCCESS = "SEARCH_PRODUCT_SUCCESS ";

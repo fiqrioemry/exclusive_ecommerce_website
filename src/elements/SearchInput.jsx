@@ -2,14 +2,15 @@ import React, { useCallback, useEffect, useState } from "react";
 import { BsSearch } from "react-icons/bs";
 import debounce from "lodash/debounce";
 import { useDispatch, useSelector } from "react-redux";
-import { searchProducts } from "../redux/actions/productAction";
+
 import Spinner from "../features/Spinner";
 import { useNavigate } from "react-router-dom";
+import { searchProducts } from "../redux/actions/productAction";
 
 const SearchInput = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { searchResult, loading } = useSelector((state) => state.searchResult);
+  const { searchProduct, loading } = useSelector((state) => state.search);
   const [searchParams, setSearchParams] = useState("");
 
   const debounceSearch = useCallback(
@@ -38,6 +39,8 @@ const SearchInput = () => {
     }
   }, [searchParams, debounceSearch]);
 
+  console.log(searchProduct);
+
   return (
     <div className="relative min-w-[350px]">
       <form onSubmit={handleSearchEnter} className="flex items-center">
@@ -62,7 +65,7 @@ const SearchInput = () => {
               <Spinner />
             </div>
           ) : (
-            searchResult.map((result, index) => {
+            searchProduct.map((result, index) => {
               return (
                 <button
                   onClick={() => handleSearchClick(result.title)}

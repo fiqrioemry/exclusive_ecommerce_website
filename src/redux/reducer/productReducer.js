@@ -8,9 +8,12 @@ import {
   GET_PRODUCT_BY_ID_PROCESS,
   GET_PRODUCT_BY_ID_SUCCESS,
   GET_PRODUCT_BY_ID_FAIL,
-  SEARCH_PROCESS,
-  SEARCH_SUCCESS,
-  SEARCH_FAIL,
+  SEARCH_RESULT_PROCESS,
+  SEARCH_RESULT_SUCCESS,
+  SEARCH_RESULT_FAIL,
+  SEARCH_PRODUCT_PROCESS,
+  SEARCH_PRODUCT_SUCCESS,
+  SEARCH_PRODUCT_FAIL,
 } from "../constant/productType";
 
 // single products
@@ -38,7 +41,14 @@ const productsCategoryState = {
   fail: false,
 };
 
-const searchResultState = {
+const searchProductsState = {
+  searchProduct: [],
+  loading: false,
+  success: false,
+  fail: false,
+};
+
+const searchResultsState = {
   searchResult: [],
   loading: false,
   success: false,
@@ -97,12 +107,39 @@ export const getProductByIdReducer = (state = productState, action) => {
   }
 };
 
-export const searchProductsReducer = (state = searchResultState, action) => {
+export const searchProductsReducer = (state = searchProductsState, action) => {
   switch (action.type) {
-    case SEARCH_PROCESS:
+    case SEARCH_PRODUCT_PROCESS:
+      return {
+        ...state,
+        loading: true,
+        fail: false,
+        success: false,
+        searchProduct: [],
+      };
+
+    case SEARCH_PRODUCT_SUCCESS:
+      return {
+        ...state,
+        loading: false,
+        success: true,
+        searchProduct: action.payload,
+      };
+
+    case SEARCH_PRODUCT_FAIL:
+      return { ...state, loading: false, fail: true };
+
+    default:
+      return state;
+  }
+};
+
+export const searchResultsReducer = (state = searchResultsState, action) => {
+  switch (action.type) {
+    case SEARCH_RESULT_PROCESS:
       return { ...state, loading: true, fail: false, success: false };
 
-    case SEARCH_SUCCESS:
+    case SEARCH_RESULT_SUCCESS:
       return {
         ...state,
         loading: false,
@@ -110,7 +147,7 @@ export const searchProductsReducer = (state = searchResultState, action) => {
         searchResult: action.payload,
       };
 
-    case SEARCH_FAIL:
+    case SEARCH_RESULT_FAIL:
       return { ...state, loading: false, fail: true };
 
     default:

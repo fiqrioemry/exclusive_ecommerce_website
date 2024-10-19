@@ -5,13 +5,15 @@ import {
   getAllProductsReducer,
   getProductByIdReducer,
   searchProductsReducer,
+  searchResultsReducer,
 } from "./reducer/productReducer";
 
 const reducer = combineReducers({
   allProducts: getAllProductsReducer,
   allCategories: getAllCategoriesReducer,
   productId: getProductByIdReducer,
-  searchResult: searchProductsReducer,
+  search: searchProductsReducer,
+  filter: searchResultsReducer,
 });
 
 export const store = configureStore({

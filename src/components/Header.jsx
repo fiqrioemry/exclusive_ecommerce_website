@@ -20,7 +20,7 @@ const Header = () => {
             </div>
 
             {/* menu list */}
-            <nav className="hidden lg:flex items-center justify-between md:gap-x-3 lg:gap-x-6 max-w-[400px] text-md bg-red-500">
+            <nav className="hidden lg:flex items-center justify-between md:gap-x-3 lg:gap-x-6 max-w-[400px] text-md ">
               <button>
                 <Link to="/">Home</Link>
               </button>

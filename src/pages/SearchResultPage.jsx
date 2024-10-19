@@ -1,18 +1,18 @@
 import React, { useEffect } from "react";
 import FilterBoxElement from "../elements/FilterBoxElement";
-import { ProductsElement } from "../elements/ProductsElement";
+
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { searchProducts } from "../redux/actions/productAction";
+import { searchResults } from "../redux/actions/productAction";
 import { ProductsCardElement } from "../elements/ProductsCardElement";
 
 const SearchResultPage = () => {
   const { query } = useParams();
   const dispatch = useDispatch();
-  const { searchResult } = useSelector((state) => state.searchResult);
+  const { searchResult } = useSelector((state) => state.filter);
 
   useEffect(() => {
-    dispatch(searchProducts(query));
+    dispatch(searchResults(query));
   }, [dispatch, query]);
 
   return (
