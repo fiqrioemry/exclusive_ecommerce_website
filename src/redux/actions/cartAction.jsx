@@ -4,6 +4,8 @@ import {
   DECREASE_CART,
   INCREASE_CART,
   DELETE_CART,
+  ADD_CHECKOUT,
+  REMOVE_CHECKOUT,
 } from "../constant/cartType";
 
 import connectApi from "../../services/connectApi";
@@ -25,4 +27,11 @@ export const increaseCart = (id) => async (dispatch) => {
 };
 export const deleteCart = (id) => async (dispatch) => {
   dispatch({ type: DELETE_CART, payload: id });
+};
+
+export const addCheckout = (id) => async (dispatch) => {
+  dispatch({ type: ADD_CHECKOUT, payload: id });
+};
+export const removeCheckout = (id) => async (dispatch) => {
+  dispatch({ type: REMOVE_CHECKOUT, payload: id });
 };

@@ -3,9 +3,18 @@ import { MdFavorite } from "react-icons/md";
 import { FaArrowRight } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import CartProductElement from "../elements/CartProductElement";
+import { addCheckout } from "../redux/actions/cartAction";
 
 const MiniCart = ({ openCart, handleOpenCart }) => {
-  const { cart, error } = useSelector((state) => state.cart);
+  const dispatch = useDispatch();
+  const { cart, checkout } = useSelector((state) => state.cart);
+
+  const handleClick = () => {
+    const ids = cart.map((item) => item.id);
+    dispatch(addCheckout(ids));
+  };
+
+  console.log(checkout);
 
   return (
     <div
@@ -44,7 +53,11 @@ const MiniCart = ({ openCart, handleOpenCart }) => {
             <div className="py-4">
               <div className="flex justify-between py-2">
                 <div className="flex items-center gap-x-2">
-                  <input type="checkbox" className="w-4 h-4" />
+                  <input
+                    onChange={() => handleClick()}
+                    type="checkbox"
+                    className="w-4 h-4"
+                  />
                   <div>Pilih semua</div>
                 </div>
 

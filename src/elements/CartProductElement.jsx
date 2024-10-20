@@ -6,11 +6,13 @@ import {
   decreaseCart,
   increaseCart,
   deleteCart,
+  addCheckout,
+  removeCheckout,
 } from "../redux/actions/cartAction";
 
 const CartProductElement = ({ item }) => {
   const dispatch = useDispatch();
-  const { error } = useSelector((state) => state.cart);
+  const { error, checkout } = useSelector((state) => state.cart);
 
   const deleteItem = (id) => {
     dispatch(deleteCart(id));
@@ -24,8 +26,27 @@ const CartProductElement = ({ item }) => {
     dispatch(decreaseCart(id));
   };
 
+  const handleCheckout = (e) => {
+    const id = e.target.value;
+
+    if (e.target.checked) {
+      dispatch(addCheckout(id));
+    } else {
+      dispatch(removeCheckout(id));
+    }
+  };
+
+  console.log(checkout);
   return (
     <div className="flex flex-row w-full gap-x-2 mb-2 border-b-2 py-2 bg-white">
+      <div className="flex gap-x-2">
+        <input
+          onChange={handleCheckout}
+          type="checkbox"
+          className="w-4 h-4"
+          value={item.id}
+        />
+      </div>
       <div className="w-[130px] h-[100px] flex items-center border rounded-md">
         <img className="object-cover" src={item.thumbnail} alt="" />
       </div>

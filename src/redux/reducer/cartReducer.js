@@ -4,12 +4,15 @@ import {
   DECREASE_CART,
   INCREASE_CART,
   DELETE_CART,
+  ADD_CHECKOUT,
+  REMOVE_CHECKOUT,
 } from "../constant/cartType";
 
 const cartState = {
   cart: [],
   loading: false,
   error: false,
+  checkout: [],
 };
 
 export const addCartReducer = (state = cartState, action) => {
@@ -29,6 +32,28 @@ export const addCartReducer = (state = cartState, action) => {
           item.id === id ? { ...item, amount: item.amount - 1 } : item
         ),
         loading: false,
+      };
+    }
+
+    case ADD_CHECKOUT: {
+      const ids = Array.isArray(action.payload)
+        ? action.payload
+        : [action.payload];
+      const existId = state.checkout.some((item) => ids.includes(item));
+
+      if (existId) {
+        return state;
+      } else {
+        return { ...state, checkout: [...state.checkout, ...ids] };
+      }
+    }
+    case REMOVE_CHECKOUT: {
+      const ids = Array.isArray(action.payload)
+        ? action.payload
+        : [action.payload];
+      return {
+        ...state,
+        checkout: state.checkout.filter((item) => !ids.includes(item)), // Remove all matching IDs
       };
     }
 
