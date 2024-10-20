@@ -39,14 +39,16 @@ export const addCartReducer = (state = cartState, action) => {
       const ids = Array.isArray(action.payload)
         ? action.payload
         : [action.payload];
-      const existId = state.checkout.some((item) => ids.includes(item));
 
-      if (existId) {
+      const newIds = ids.filter((id) => !state.checkout.includes(id));
+
+      if (newIds.length === 0) {
         return state;
       } else {
-        return { ...state, checkout: [...state.checkout, ...ids] };
+        return { ...state, checkout: [...state.checkout, ...newIds] };
       }
     }
+
     case REMOVE_CHECKOUT: {
       const ids = Array.isArray(action.payload)
         ? action.payload

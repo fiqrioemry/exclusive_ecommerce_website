@@ -12,7 +12,7 @@ import {
 
 const CartProductElement = ({ item }) => {
   const dispatch = useDispatch();
-  const { error, checkout } = useSelector((state) => state.cart);
+  const { checkout } = useSelector((state) => state.cart);
 
   const deleteItem = (id) => {
     dispatch(deleteCart(id));
@@ -40,25 +40,23 @@ const CartProductElement = ({ item }) => {
   return (
     <div className="flex flex-row w-full gap-x-2 mb-2 border-b-2 py-2 bg-white">
       <div className="flex gap-x-2">
+        {/* Single checkout checkbox */}
         <input
           onChange={handleCheckout}
           type="checkbox"
           className="w-4 h-4"
           value={item.id}
-          checked={checkout.some((id) => id === item.id)}
+          checked={checkout.includes(item.id)}
         />
       </div>
       <div className="w-[130px] h-[100px] flex items-center border rounded-md">
         <img className="object-cover" src={item.thumbnail} alt="" />
       </div>
       <div className="flex flex-col justify-between w-full">
-        {/* product title */}
         <div className="text-md font-semibold">{item.title}</div>
-        {/* product price */}
         <div>$ {item.price}</div>
-        {/* product amount */}
-        <div className="flex justify-between items-center ">
-          <div className="flex w-[120px] items-center h-10 border rounded-full font-meidum">
+        <div className="flex justify-between items-center">
+          <div className="flex w-[120px] items-center h-10 border rounded-full font-medium">
             {/* remove icon */}
             <button
               onClick={() => deleteItem(item.id)}
@@ -97,7 +95,7 @@ const CartProductElement = ({ item }) => {
             {item.stock === item.amount ? `max = ${item.stock}` : ""}
           </div>
           <button>
-            <MdFavorite className="" />
+            <MdFavorite />
           </button>
         </div>
       </div>

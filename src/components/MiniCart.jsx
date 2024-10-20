@@ -10,11 +10,10 @@ const MiniCart = ({ openCart, handleOpenCart }) => {
   const { cart, checkout } = useSelector((state) => state.cart);
   const [total, setTotal] = useState(0);
 
-  const handleClick = (e) => {
-    const allSelected = e.target.checked; // Check if the "Select All" checkbox is checked
-    const ids = cart.map((item) => item.id); // Get all IDs from the cart
+  const handleSelectAll = (e) => {
+    const ids = cart.map((item) => item.id);
 
-    if (allSelected) {
+    if (cart.length !== checkout.length) {
       dispatch(addCheckout(ids));
     } else {
       dispatch(removeCheckout(ids));
@@ -22,14 +21,12 @@ const MiniCart = ({ openCart, handleOpenCart }) => {
   };
 
   useEffect(() => {
-    const cartCheck = cart.filter((item) => checkout.includes(item.id));
-
-    const totalAmount = cartCheck.reduce((total, item) => {
-      return total + item.amount * item.price;
-    }, 0); // Initialize total to 0
-
+    const totalAmount = cart
+      .filter((item) => checkout.includes(item.id))
+      .reduce((acc, item) => acc + item.amount * item.price, 0);
     setTotal(totalAmount);
-  }, [checkout, cart]); //
+  }, [checkout, cart]);
+
   return (
     <div
       className={`${
@@ -39,7 +36,6 @@ const MiniCart = ({ openCart, handleOpenCart }) => {
       <div className="flex flex-col h-full justify-between px-4">
         {/* title */}
         <div className="flex justify-between items-center py-6 border-b-2">
-          {/* title */}
           <div>Shopping Cart</div>
           <div className="flex justify-between gap-x-4 text-xl">
             <button>
@@ -51,7 +47,6 @@ const MiniCart = ({ openCart, handleOpenCart }) => {
           </div>
         </div>
 
-        {/* product */}
         {cart.length === 0 ? (
           <div className="flex items-center justify-center h-full">
             KERANJANG KAMU MASIH KOSONG
@@ -68,20 +63,17 @@ const MiniCart = ({ openCart, handleOpenCart }) => {
             <div className="py-4">
               <div className="flex justify-between py-2">
                 <div className="flex items-center gap-x-2">
+                  {/* Select All Checkbox */}
                   <input
-                    onChange={handleClick}
+                    onChange={handleSelectAll}
                     type="checkbox"
                     className="w-4 h-4"
-                    checked={cart.every((item) =>
-                      checkout.some((id) => id === item.id)
-                    )}
+                    checked={checkout.length === cart.length}
                   />
                   <div>Pilih semua</div>
                 </div>
 
-                <div>
-                  Total harga: ${checkout.length !== 0 ? total.toFixed(2) : "0"}
-                </div>
+                <div>Total harga: ${total.toFixed(2)}</div>
               </div>
 
               <button className="btn w-full">Checkout</button>
