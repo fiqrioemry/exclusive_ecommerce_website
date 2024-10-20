@@ -8,6 +8,7 @@ import {
   searchResultsReducer,
 } from "./reducer/productReducer";
 import { addCartReducer } from "./reducer/cartReducer";
+import { wishlistReducer } from "./reducer/wishlistReducer";
 
 const reducer = combineReducers({
   allProducts: getAllProductsReducer,
@@ -16,6 +17,7 @@ const reducer = combineReducers({
   searchResults: searchResultsReducer,
   inputResults: inputResultsReducer,
   cart: addCartReducer,
+  wishlist: wishlistReducer,
 });
 
 export const store = configureStore({

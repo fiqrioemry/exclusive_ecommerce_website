@@ -6,18 +6,26 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../redux/actions/cartAction";
 import ReviewScoreElement from "./general/ReviewScoreElement";
+import { addWishlist, removeWishlist } from "../redux/actions/wishlistAction";
 
 export const ProductsCardElement = ({ products }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { loading } = useSelector((state) => state.cart);
+  const { wishlist } = useSelector((state) => state.wishlist);
 
   const handleSee = (id) => {
     navigate(`/product/${id}`);
   };
 
   const handleFavorite = (id) => {
-    navigate(`/product/${id}`);
+    const existId = wishlist.some((item) => item === id);
+
+    if (existId) {
+      dispatch(removeWishlist(id));
+    } else {
+      dispatch(addWishlist(id));
+    }
   };
 
   const handleCart = (id, amount) => {
@@ -47,7 +55,11 @@ export const ProductsCardElement = ({ products }) => {
 
                 <MdFavorite
                   onClick={() => handleFavorite(product.id)}
-                  className="text-2xl cursor-pointer"
+                  className={`${
+                    wishlist.some((item) => item === product.id)
+                      ? "text-red-500"
+                      : "text-black"
+                  } text-2xl cursor-pointer`}
                 />
               </div>
               <ButtonElement

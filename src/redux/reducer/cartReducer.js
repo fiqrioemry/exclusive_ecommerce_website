@@ -41,7 +41,6 @@ export const addCartReducer = (state = cartState, action) => {
         : [action.payload];
 
       const newIds = ids.filter((id) => !state.checkout.includes(id));
-
       if (newIds.length === 0) {
         return state;
       } else {
