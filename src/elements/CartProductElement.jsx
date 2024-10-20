@@ -61,17 +61,21 @@ const CartProductElement = ({ item }) => {
             {/* add icon */}
             <button
               onClick={() => increaseAmount(item.id)}
-              className=" w-10 px-2 flex justify-center items-center cursor-pointer"
-              disabled={error}
+              className={`${
+                item.amount === item.stock
+                  ? "cursor-not-allowed"
+                  : "cursor-pointer"
+              } w-10 px-2 flex justify-center items-center`}
+              disabled={item.amount === item.stock}
             >
               <MdAdd />
             </button>
           </div>
           <div className="text-red-500 text-[12px]">
-            {error ? `max =${item.stock}` : ""}
+            {item.stock === item.amount ? `max = ${item.stock}` : ""}
           </div>
           <button>
-            <MdFavorite />
+            <MdFavorite className="" />
           </button>
         </div>
       </div>
