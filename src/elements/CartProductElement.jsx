@@ -27,7 +27,7 @@ const CartProductElement = ({ item }) => {
   };
 
   const handleCheckout = (e) => {
-    const id = e.target.value;
+    const id = Number(e.target.value);
 
     if (e.target.checked) {
       dispatch(addCheckout(id));
@@ -36,7 +36,6 @@ const CartProductElement = ({ item }) => {
     }
   };
 
-  console.log(checkout);
   return (
     <div className="flex flex-row w-full gap-x-2 mb-2 border-b-2 py-2 bg-white">
       <div className="flex gap-x-2">
@@ -45,6 +44,7 @@ const CartProductElement = ({ item }) => {
           type="checkbox"
           className="w-4 h-4"
           value={item.id}
+          checked={checkout.some((id) => id === item.id)}
         />
       </div>
       <div className="w-[130px] h-[100px] flex items-center border rounded-md">

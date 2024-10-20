@@ -3,15 +3,22 @@ import { MdFavorite } from "react-icons/md";
 import { FaArrowRight } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import CartProductElement from "../elements/CartProductElement";
-import { addCheckout } from "../redux/actions/cartAction";
+import { addCheckout, removeCheckout } from "../redux/actions/cartAction";
 
 const MiniCart = ({ openCart, handleOpenCart }) => {
   const dispatch = useDispatch();
   const { cart, checkout } = useSelector((state) => state.cart);
 
-  const handleClick = () => {
-    const ids = cart.map((item) => item.id);
-    dispatch(addCheckout(ids));
+  const handleClick = (e) => {
+    const allSelected = e.target.checked; // Check if the "Select All" checkbox is checked
+    const ids = cart.map((item) => item.id); // Get all IDs from the cart
+
+    if (allSelected) {
+      // If the checkbox is checked, dispatch addCheckout with all IDs
+      dispatch(addCheckout(ids));
+    } else {
+      dispatch(removeCheckout(ids));
+    }
   };
 
   console.log(checkout);
@@ -36,27 +43,31 @@ const MiniCart = ({ openCart, handleOpenCart }) => {
             </button>
           </div>
         </div>
-        {/* product */}
 
+        {/* product */}
         {cart.length === 0 ? (
           <div className="flex items-center justify-center h-full">
             KERANJANG KAMU MASIH KOSONG
           </div>
         ) : (
-          <div className="flex  flex-col h-full justify-between">
+          <div className="flex flex-col h-full justify-between">
             <div className="overflow-y-auto max-h-[470px]">
-              {cart.map((item, index) => {
-                return <CartProductElement item={item} key={index} />;
-              })}
+              {cart.map((item, index) => (
+                <CartProductElement item={item} key={index} />
+              ))}
             </div>
+
             {/* checkout */}
             <div className="py-4">
               <div className="flex justify-between py-2">
                 <div className="flex items-center gap-x-2">
                   <input
-                    onChange={() => handleClick()}
+                    onChange={handleClick}
                     type="checkbox"
                     className="w-4 h-4"
+                    checked={cart.every((item) =>
+                      checkout.some((id) => id === item.id)
+                    )}
                   />
                   <div>Pilih semua</div>
                 </div>
