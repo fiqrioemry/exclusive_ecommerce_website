@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { MdFavorite } from "react-icons/md";
 import { FaArrowRight } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
@@ -8,21 +8,28 @@ import { addCheckout, removeCheckout } from "../redux/actions/cartAction";
 const MiniCart = ({ openCart, handleOpenCart }) => {
   const dispatch = useDispatch();
   const { cart, checkout } = useSelector((state) => state.cart);
+  const [total, setTotal] = useState(0);
 
   const handleClick = (e) => {
     const allSelected = e.target.checked; // Check if the "Select All" checkbox is checked
     const ids = cart.map((item) => item.id); // Get all IDs from the cart
 
     if (allSelected) {
-      // If the checkbox is checked, dispatch addCheckout with all IDs
       dispatch(addCheckout(ids));
     } else {
       dispatch(removeCheckout(ids));
     }
   };
 
-  console.log(checkout);
+  useEffect(() => {
+    const cartCheck = cart.filter((item) => checkout.includes(item.id));
 
+    const totalAmount = cartCheck.reduce((total, item) => {
+      return total + item.amount * item.price;
+    }, 0); // Initialize total to 0
+
+    setTotal(totalAmount);
+  }, [checkout, cart]); //
   return (
     <div
       className={`${
@@ -73,12 +80,7 @@ const MiniCart = ({ openCart, handleOpenCart }) => {
                 </div>
 
                 <div>
-                  Total harga: $
-                  {cart
-                    .reduce((total, item) => {
-                      return total + item.amount * item.price;
-                    }, 0)
-                    .toFixed(2)}
+                  Total harga: ${checkout.length !== 0 ? total.toFixed(2) : "0"}
                 </div>
               </div>
 
