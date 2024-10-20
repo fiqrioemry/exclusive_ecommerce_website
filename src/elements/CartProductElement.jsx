@@ -16,6 +16,7 @@ const CartProductElement = ({ item }) => {
 
   const deleteItem = (id) => {
     dispatch(deleteCart(id));
+    dispatch(removeCheckout(id));
   };
 
   const increaseAmount = (id) => {
