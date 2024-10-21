@@ -5,6 +5,8 @@ import Footer from "./components/Footer";
 import ScrollToTop from "./features/ScrollToTop";
 import PageLoading from "./features/PageLoading";
 import SearchResultPage from "./pages/SearchResultPage";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 // Lazy-loaded components
 const Home = React.lazy(() => import("./pages/Home"));
@@ -19,6 +21,18 @@ function App() {
   return (
     <Router>
       <ScrollToTop />
+      <ToastContainer
+        position="top-center"
+        autoClose={1000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
       <Header />
       <Suspense fallback={<PageLoading />}>
         <Routes>

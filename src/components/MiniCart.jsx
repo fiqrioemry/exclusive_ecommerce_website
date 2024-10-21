@@ -38,9 +38,6 @@ const MiniCart = ({ openCart, handleOpenCart }) => {
         <div className="flex justify-between items-center py-6 border-b-2">
           <div>Shopping Cart</div>
           <div className="flex justify-between gap-x-4 text-xl">
-            <button>
-              <MdFavorite />
-            </button>
             <button onClick={handleOpenCart}>
               <FaArrowRight />
             </button>

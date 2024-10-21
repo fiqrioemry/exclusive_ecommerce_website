@@ -1,4 +1,5 @@
 import React from "react";
+import { toast } from "react-toastify";
 import { BsEye } from "react-icons/bs";
 import ButtonElement from "./ButtonElement";
 import { MdFavorite } from "react-icons/md";
@@ -11,7 +12,7 @@ import { addWishlist, removeWishlist } from "../redux/actions/wishlistAction";
 export const ProductsCardElement = ({ products }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { loading } = useSelector((state) => state.cart);
+  const { cart, loading } = useSelector((state) => state.cart);
   const { wishlist } = useSelector((state) => state.wishlist);
 
   const handleSee = (id) => {
@@ -28,8 +29,19 @@ export const ProductsCardElement = ({ products }) => {
     }
   };
 
-  const handleCart = (id, amount) => {
-    dispatch(addToCart(id, amount));
+  const handleCart = (product, amount) => {
+    const results = cart.findIndex((item) => item.id === product.id);
+    if (results >= 0) {
+      if (cart[results].amount + amount <= product.stock) {
+        toast.info("Berhasil menambahkan ke keranjang");
+        dispatch(addToCart(product.id, amount));
+      } else {
+        toast.error("Keranjang Melebihi Stock Product");
+      }
+    } else {
+      toast.info("Berhasil menambahkan ke keranjang");
+      dispatch(addToCart(product.id, amount));
+    }
   };
 
   const buttonStyle =
@@ -64,7 +76,7 @@ export const ProductsCardElement = ({ products }) => {
               </div>
               <ButtonElement
                 style={buttonStyle}
-                action={() => handleCart(id, 1)}
+                action={() => handleCart(product, 1)}
                 title="Add to Cart"
                 loading={loading}
               />

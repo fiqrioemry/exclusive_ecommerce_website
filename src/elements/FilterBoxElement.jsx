@@ -8,7 +8,7 @@ import { getProductBySearch } from "../redux/actions/productAction";
 const FilterBoxElement = ({ searchParams }) => {
   const dispatch = useDispatch();
   const [error, setError] = useState(false);
-  const [minPrice, setMinPrice] = useState();
+  const [minPrice, setMinPrice] = useState(0);
   const [minRating, setMinRating] = useState(0);
   const [maxPrice, setMaxPrice] = useState(99999);
 
@@ -83,7 +83,7 @@ const FilterBoxElement = ({ searchParams }) => {
                       error ? "border-red-500" : "border-gray-200"
                     }`}
                     placeholder="Minimum price"
-                    value={minPrice}
+                    value={minPrice === 0 ? "" : minPrice}
                     onChange={handleInputMin}
                   />
                 </div>

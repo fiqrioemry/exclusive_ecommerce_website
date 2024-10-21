@@ -1,6 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 
 const ImageDetailsElement = ({ product }) => {
+  const [thumbnail, setThumbnail] = useState(product.thumbnail);
+
+  const handleImage = (image) => {
+    setThumbnail(image);
+  };
+
   return (
     <div className="flex flex-col lg:flex-row mr-0 md:mr-4">
       {/* more images */}
@@ -8,22 +14,19 @@ const ImageDetailsElement = ({ product }) => {
         {product.images &&
           product.images.map((image, index) => {
             return (
-              <div
+              <button
+                onClick={() => handleImage(image)}
                 key={index}
                 className=" w-[100px] h-[100px] rounded-md bg-gray-100 cursor-pointer"
               >
                 <img src={image} alt="" />
-              </div>
+              </button>
             );
           })}
       </div>
       {/* thumbnail images */}
       <div className="flex order-1 lg:order-2 items-center justify-center w-full rounded-md bg-gray-100 mb-4">
-        <img
-          className="object-cover lg:h-[500px] "
-          src={product.thumbnail}
-          alt=""
-        />
+        <img className="object-cover lg:h-[500px] " src={thumbnail} alt="" />
       </div>
     </div>
   );

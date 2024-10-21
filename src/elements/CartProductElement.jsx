@@ -94,9 +94,6 @@ const CartProductElement = ({ item }) => {
           <div className="text-red-500 text-[12px]">
             {item.stock === item.amount ? `max = ${item.stock}` : ""}
           </div>
-          <button>
-            <MdFavorite />
-          </button>
         </div>
       </div>
     </div>
