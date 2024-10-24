@@ -15,11 +15,10 @@ const Header = () => {
     profileOpen: false,
     user: "",
   });
-  console.log("info", state.user);
+
   const { cartOpen, profileOpen, user } = state;
   const { cart } = useSelector((state) => state.cart);
 
-  // Toggle open states for cart and profile
   const toggleState = (key) => {
     setState((prevState) => ({
       ...prevState,
@@ -28,7 +27,6 @@ const Header = () => {
     }));
   };
 
-  // Close modals when clicking outside
   const closeModals = () => {
     setState((prevState) => ({
       ...prevState,
@@ -37,7 +35,6 @@ const Header = () => {
     }));
   };
 
-  // Set user info from cookie
   useEffect(() => {
     const loggedInUser = Cookies.get("user");
     setState((prevState) => ({ ...prevState, user: loggedInUser }));
@@ -71,7 +68,7 @@ const Header = () => {
 
             {/* Buttons (Cart, Profile, Menu) */}
             <div className="flex flex-row justify-between items-center gap-x-3">
-              {/* Cart button */}
+              {/*1.  Cart button */}
               <button className="relative" onClick={() => toggleState("cart")}>
                 <BsCart3 className="text-lg lg:text-xl" />
                 <div
@@ -83,7 +80,7 @@ const Header = () => {
                 </div>
               </button>
 
-              {/* Profile button */}
+              {/* 2. Profile button */}
               {user && (
                 <div className="relative flex items-center">
                   <button
@@ -92,11 +89,13 @@ const Header = () => {
                   >
                     <FaRegUserCircle />
                   </button>
-                  {profileOpen && <UserProfileElement />}
+                  {profileOpen && (
+                    <UserProfileElement toggleState={toggleState("profile")} />
+                  )}
                 </div>
               )}
 
-              {/* Menu button */}
+              {/* 3. Menu button */}
               <button className="block md:hidden text-lg">
                 <MdOutlineMenu />
               </button>
