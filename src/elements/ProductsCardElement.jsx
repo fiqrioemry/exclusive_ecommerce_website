@@ -1,57 +1,47 @@
-import React from "react";
+/* eslint-disable react/style-prop-object */
 import { toast } from "react-toastify";
 import { BsEye } from "react-icons/bs";
+import React, { useEffect } from "react";
 import ButtonElement from "./ButtonElement";
 import { MdFavorite } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
+import ReviewScoreElement from "./ReviewScoreElement";
 import { useDispatch, useSelector } from "react-redux";
-import { addToCart } from "../redux/actions/cartAction";
-import ReviewScoreElement from "./general/ReviewScoreElement";
-import { addWishlist, removeWishlist } from "../redux/actions/wishlistAction";
+import { addToCart, resetStatus } from "../redux/action/cartAction";
 
-export const ProductsCardElement = ({ products }) => {
-  const navigate = useNavigate();
+const ProductsCardElement = ({ products }) => {
   const dispatch = useDispatch();
-  const { cart, loading } = useSelector((state) => state.cart);
-  const { wishlist } = useSelector((state) => state.wishlist);
+  const navigate = useNavigate();
+  const { cart, loading, success, fail } = useSelector((state) => state.cart);
 
-  const handleSee = (id) => {
+  const handleDetails = (id) => {
     navigate(`/product/${id}`);
   };
 
-  const handleFavorite = (id) => {
-    const existId = wishlist.some((item) => item === id);
-
-    if (existId) {
-      dispatch(removeWishlist(id));
-    } else {
-      dispatch(addWishlist(id));
-    }
+  const handleCart = (e) => {
+    const id = e.target.value;
+    dispatch(addToCart(id, 1));
   };
 
-  const handleCart = (product, amount) => {
-    const results = cart.findIndex((item) => item.id === product.id);
-    if (results >= 0) {
-      if (cart[results].amount + amount <= product.stock) {
-        toast.info("Berhasil menambahkan ke keranjang");
-        dispatch(addToCart(product.id, amount));
-      } else {
-        toast.error("Keranjang Melebihi Stock Product");
-      }
-    } else {
-      toast.info("Berhasil menambahkan ke keranjang");
-      dispatch(addToCart(product.id, amount));
+  useEffect(() => {
+    if (success) {
+      toast.info("Berhasil menambahkan Product ke Cart");
+      dispatch(resetStatus());
+    } else if (fail) {
+      toast.error("Total Amount melebihi Stock Product");
+      dispatch(resetStatus());
     }
-  };
+  }, [dispatch, cart, success, fail]);
 
   const buttonStyle =
-    "flex justify-center items-center py-4 px-12 w-full h-[50px] bg-secondary text-white rounded-md absolute cursor-pointer group-hover:bottom-0 -bottom-14 transition-all ease-in-out duration-300";
+    "btn w-full h-[50px]  text-white bg-secondary absolute cursor-pointer group-hover:bottom-0 -bottom-14 ";
+
   return (
     <div className="flex flex-wrap w-full mb-[50px]">
       {products.map((product, index) => {
         const { id, title, thumbnail, discountPercentage, price } = product;
         return (
-          <div className="lg:w-1/4 md:w-1/3 w-1/2 px-2 py-2" key={index}>
+          <div className="md:w-1/4 w-1/2 px-2 py-2" key={index}>
             {/* image product */}
             <div className="bg-gray-200/50 rounded-md relative mb-4 max-h-[250px] group overflow-hidden">
               <img
@@ -61,22 +51,15 @@ export const ProductsCardElement = ({ products }) => {
               />
               <div className="absolute flex flex-col gap-y-2 mt-2 mr-2 items-center justify-center top-0 group-hover:right-0 -right-14 transition-all ease-in-out duration-300">
                 <BsEye
-                  onClick={() => handleSee(product.id)}
                   className="text-2xl cursor-pointer"
+                  onClick={() => handleDetails(id)}
                 />
-
-                <MdFavorite
-                  onClick={() => handleFavorite(product.id)}
-                  className={`${
-                    wishlist.some((item) => item === product.id)
-                      ? "text-red-500"
-                      : "text-black"
-                  } text-2xl cursor-pointer`}
-                />
+                <MdFavorite />
               </div>
               <ButtonElement
+                value={id}
+                action={handleCart}
                 style={buttonStyle}
-                action={() => handleCart(product, 1)}
                 title="Add to Cart"
                 loading={loading}
               />
@@ -90,8 +73,7 @@ export const ProductsCardElement = ({ products }) => {
                 </p>
                 <p className="line-through text-secondary/50">${price}</p>
               </div>
-
-              <ReviewScoreElement product={product} />
+              <ReviewScoreElement reviews={product.reviews} />
             </div>
           </div>
         );
@@ -99,3 +81,4 @@ export const ProductsCardElement = ({ products }) => {
     </div>
   );
 };
+export default ProductsCardElement;

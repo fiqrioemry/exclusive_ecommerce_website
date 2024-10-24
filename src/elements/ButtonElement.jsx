@@ -1,10 +1,10 @@
 import React from "react";
-import Spinner from "../features/Spinner";
+import SpinnerLoading from "../features/loading/SpinnerLoading";
 
-const ButtonElement = ({ style, action, title, loading }) => {
+const ButtonElement = ({ style, action, title, loading, value = "" }) => {
   return (
-    <button className={style} onClick={action} disabled={loading}>
-      {loading ? <Spinner /> : `${title}`}
+    <button className={style} onClick={action} disabled={loading} value={value}>
+      {loading ? <SpinnerLoading /> : `${title}`}
     </button>
   );
 };

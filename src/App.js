@@ -1,53 +1,77 @@
 import React, { Suspense } from "react";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
-import ScrollToTop from "./features/ScrollToTop";
-import PageLoading from "./features/PageLoading";
-import SearchResultPage from "./pages/SearchResultPage";
-import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer } from "react-toastify";
+import PageLoading from "./features/loading/PageLoading";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import ScrollToTop from "./features/ScrollToTop";
+import { NonUserAuth, UserAuth } from "./middleware/Authenticate";
+import CheckoutPage from "./pages/CheckoutPage";
 
-// Lazy-loaded components
-const Home = React.lazy(() => import("./pages/Home"));
-const About = React.lazy(() => import("./pages/About"));
-const Contact = React.lazy(() => import("./pages/Contact"));
-const SignUp = React.lazy(() => import("./pages/SignUp"));
-const LogIn = React.lazy(() => import("./pages/LogIn"));
-const ProductDetails = React.lazy(() => import("./pages/ProductDetails"));
-const NotFound = React.lazy(() => import("./pages/NotFound"));
+// loading page animation
+const HomePage = React.lazy(() => import("./pages/HomePage"));
+const AboutPage = React.lazy(() => import("./pages/AboutPage"));
+const BlankPage = React.lazy(() => import("./pages/BlankPage"));
+const SignupPage = React.lazy(() => import("./pages/SignupPage"));
+const SigninPage = React.lazy(() => import("./pages/SigninPage"));
+const ContactPage = React.lazy(() => import("./pages/ContactPage"));
+const ProductDetailPage = React.lazy(() => import("./pages/ProductDetailPage"));
+const ProductSearchPage = React.lazy(() => import("./pages/ProductSearchPage"));
 
 function App() {
   return (
-    <Router>
-      <ScrollToTop />
-      <ToastContainer
-        position="top-center"
-        autoClose={1000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="light"
-      />
-      <Header />
-      <Suspense fallback={<PageLoading />}>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/signup" element={<SignUp />} />
-          <Route path="/signin" element={<LogIn />} />
-          <Route path="/product/:id" element={<ProductDetails />} />
-          <Route path="/product/search/:query" element={<SearchResultPage />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </Suspense>
-      <Footer />
-    </Router>
+    <main className="mt-[70px]">
+      <Router>
+        <ScrollToTop />
+        <ToastContainer
+          position="top-center"
+          autoClose={1000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="light"
+        />
+        <Header />
+        <Suspense fallback={<PageLoading />}>
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/about" element={<AboutPage />} />
+            <Route path="/contact" element={<ContactPage />} />
+            <Route path="/signup" element={<SignupPage />} />
+            <Route
+              path="/signin"
+              element={
+                <NonUserAuth>
+                  <SigninPage />
+                </NonUserAuth>
+              }
+            />
+
+            <Route
+              path="/checkout"
+              element={
+                <UserAuth>
+                  <CheckoutPage />
+                </UserAuth>
+              }
+            />
+
+            <Route path="/product/:id" element={<ProductDetailPage />} />
+            <Route
+              path="/product/search/:params"
+              element={<ProductSearchPage />}
+            />
+            <Route path="*" element={<BlankPage />} />
+          </Routes>
+        </Suspense>
+        <Footer />
+      </Router>
+    </main>
   );
 }
 

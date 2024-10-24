@@ -1,64 +1,90 @@
 import {
   ADD_CART_PROCESS,
   ADD_CART_SUCCESS,
-  DECREASE_CART,
-  INCREASE_CART,
-  DELETE_CART,
-  ADD_CHECKOUT,
-  REMOVE_CHECKOUT,
+  DECREASE_AMOUNT,
+  INCREASE_AMOUNT,
+  REMOVE_CART_PROCESS,
+  REMOVE_CART_SUCCESS,
+  RESET_STATUS,
 } from "../constant/cartType";
 
 const cartState = {
   cart: [],
   loading: false,
-  error: false,
-  checkout: [],
+  success: false,
+  fail: false,
 };
 
-export const addCartReducer = (state = cartState, action) => {
+export const cartReducer = (state = cartState, action) => {
   switch (action.type) {
     case ADD_CART_PROCESS:
       return {
         ...state,
-        error: false,
         loading: true,
+        success: false,
+        fail: false,
       };
 
-    case DECREASE_CART: {
-      const id = action.payload;
+    case REMOVE_CART_PROCESS:
       return {
         ...state,
-        cart: state.cart.map((item) =>
-          item.id === id ? { ...item, amount: item.amount - 1 } : item
-        ),
+        loading: true,
+        success: false,
+        fail: false,
+      };
+
+    case ADD_CART_SUCCESS:
+      const product = action.payload.data;
+      const amount = action.payload.amount;
+      const cartIndex = state.cart.findIndex((item) => item.id === product.id);
+
+      if (cartIndex < 0) {
+        if (amount <= product.stock) {
+          const newProduct = { ...product, amount: amount };
+          return {
+            ...state,
+            cart: [...state.cart, newProduct],
+            success: true,
+            loading: false,
+          };
+        } else {
+          return {
+            ...state,
+            fail: true,
+            loading: false,
+          };
+        }
+      } else {
+        const updatedAmount = state.cart[cartIndex].amount + amount;
+        if (updatedAmount <= product.stock) {
+          return {
+            ...state,
+            cart: state.cart.map((item) =>
+              item.id === product.id ? { ...item, amount: updatedAmount } : item
+            ),
+            success: true,
+            loading: false,
+          };
+        } else {
+          return {
+            ...state,
+            fail: true,
+            loading: false,
+          };
+        }
+      }
+
+    case REMOVE_CART_SUCCESS: {
+      const id = action.payload;
+      const cartItem = state.cart.filter((item) => item.id !== id);
+      return {
+        ...state,
+        cart: cartItem,
         loading: false,
       };
     }
 
-    case ADD_CHECKOUT: {
-      const ids = Array.isArray(action.payload)
-        ? action.payload
-        : [action.payload];
-
-      const newIds = ids.filter((id) => !state.checkout.includes(id));
-      if (newIds.length === 0) {
-        return state;
-      } else {
-        return { ...state, checkout: [...state.checkout, ...newIds] };
-      }
-    }
-
-    case REMOVE_CHECKOUT: {
-      const ids = Array.isArray(action.payload)
-        ? action.payload
-        : [action.payload];
-      return {
-        ...state,
-        checkout: state.checkout.filter((item) => !ids.includes(item)), // Remove all matching IDs
-      };
-    }
-
-    case INCREASE_CART: {
+    case INCREASE_AMOUNT: {
       const id = action.payload;
       const cartItem = state.cart.find((item) => item.id === id);
       if (cartItem.stock < cartItem.amount + 1) {
@@ -78,39 +104,23 @@ export const addCartReducer = (state = cartState, action) => {
       }
     }
 
-    case DELETE_CART: {
+    case DECREASE_AMOUNT: {
       const id = action.payload;
-
-      const cartItem = state.cart.filter((item) => item.id !== id);
       return {
         ...state,
-        cart: cartItem,
+        cart: state.cart.map((item) =>
+          item.id === id ? { ...item, amount: item.amount - 1 } : item
+        ),
         loading: false,
       };
     }
 
-    case ADD_CART_SUCCESS:
-      const product = action.payload.data;
-      const amount = action.payload.amount;
-      const newItem = state.cart.find((item) => item.id === product.id);
-      if (!newItem) {
-        const newProduct = { ...product, amount };
-        return {
-          ...state,
-          cart: [...state.cart, newProduct],
-          loading: false,
-        };
-      } else {
-        return {
-          ...state,
-          cart: state.cart.map((item) =>
-            item.id === product.id
-              ? { ...item, amount: item.amount + amount }
-              : item
-          ),
-          loading: false,
-        };
-      }
+    case RESET_STATUS:
+      return {
+        ...state,
+        success: false,
+        fail: false,
+      };
 
     default:
       return state;
