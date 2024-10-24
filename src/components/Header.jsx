@@ -7,9 +7,10 @@ import { FaRegUserCircle } from "react-icons/fa";
 import CartElement from "../elements/header/CartElement";
 import NavMenuElement from "../elements/header/NavMenuElement";
 import SearchInputElement from "../elements/header/SearchInputElement";
-import UserProfileElement from "../elements/header/UserProfileElement";
+import { useNavigate } from "react-router-dom";
 
 const Header = () => {
+  const navigate = useNavigate();
   const [state, setState] = useState({
     cartOpen: false,
     profileOpen: false,
@@ -33,6 +34,19 @@ const Header = () => {
       cartOpen: false,
       profileOpen: false,
     }));
+  };
+
+  const handleLogout = async () => {
+    Cookies.remove("token");
+    Cookies.remove("user");
+
+    // Close profile modal on logout
+    setState((prevState) => ({
+      ...prevState,
+      profileOpen: false,
+    }));
+
+    navigate("/signin");
   };
 
   useEffect(() => {
@@ -68,7 +82,7 @@ const Header = () => {
 
             {/* Buttons (Cart, Profile, Menu) */}
             <div className="flex flex-row justify-between items-center gap-x-3">
-              {/*1.  Cart button */}
+              {/* Cart button */}
               <button className="relative" onClick={() => toggleState("cart")}>
                 <BsCart3 className="text-lg lg:text-xl" />
                 <div
@@ -80,7 +94,7 @@ const Header = () => {
                 </div>
               </button>
 
-              {/* 2. Profile button */}
+              {/* Profile button */}
               {user && (
                 <div className="relative flex items-center">
                   <button
@@ -90,12 +104,29 @@ const Header = () => {
                     <FaRegUserCircle />
                   </button>
                   {profileOpen && (
-                    <UserProfileElement toggleState={toggleState("profile")} />
+                    <div className="absolute border top-8 right-0 bg-white shadow-xl rounded-md px-2 py-2 space-y-2 z-20">
+                      <div className="w-full min-w-[160px] space-y-2 flex flex-col justify-center">
+                        <div className="text-lg font-medium">
+                          Welcome: emilys
+                        </div>
+                        <button className="flex items-center gap-x-2 py-2 px-2 rounded-md hover:bg-gray-300/50 w-full">
+                          <MdHome className="text-2xl" />
+                          Profile
+                        </button>
+                        <button
+                          onClick={handleLogout}
+                          className="flex items-center gap-x-2 py-2 px-2 rounded-md hover:bg-gray-300/50 w-full"
+                        >
+                          <MdLogout className="text-2xl" />
+                          Logout
+                        </button>
+                      </div>
+                    </div>
                   )}
                 </div>
               )}
 
-              {/* 3. Menu button */}
+              {/* Menu button */}
               <button className="block md:hidden text-lg">
                 <MdOutlineMenu />
               </button>
