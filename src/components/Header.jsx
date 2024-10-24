@@ -9,27 +9,48 @@ import NavMenuElement from "../elements/header/NavMenuElement";
 import SearchInputElement from "../elements/header/SearchInputElement";
 
 const Header = () => {
-  const [cartOpen, setCartOpen] = useState(false);
-  const [profileOpen, setProfileOpen] = useState(false);
-  const [user, setUser] = useState("");
+  const [state, setState] = useState({
+    cartOpen: false,
+    profileOpen: false,
+    user: "",
+  });
+
+  const { cartOpen, profileOpen, user } = state;
   const { cart } = useSelector((state) => state.cart);
 
-  const handleCart = () => {
-    setCartOpen(!cartOpen);
+  const handleToggle = (key) => {
+    setState((prevState) => ({
+      ...prevState,
+      [key]: !prevState[key],
+    }));
+  };
+
+  const handleBlur = () => {
+    setState({
+      cartOpen: false,
+      profileOpen: false,
+      user: state.user, // Maintain the user state
+    });
   };
 
   useEffect(() => {
-    setUser(Cookies.get("user"));
-  });
+    const loggedInUser = Cookies.get("user");
+    setState((prevState) => ({ ...prevState, user: loggedInUser }));
+  }, []);
+
   return (
     <header className="bg-white fixed top-0 w-full z-10 px-4 border-b">
-      {cartOpen && (
+      {/* Check if either cart or profile is open to show the overlay */}
+      {(cartOpen || profileOpen) && (
         <div
-          onClick={handleCart}
+          onClick={handleBlur}
           className="hidden md:block fixed top-0 bottom-0 right-0 left-0 bg-secondary/50 z-10 transition-all duration-300"
         ></div>
       )}
-      <CartElement cartOpen={cartOpen} handleCart={handleCart} />
+      <CartElement
+        cartOpen={cartOpen}
+        handleCart={() => handleToggle("cartOpen")}
+      />
       <div className="container mx-auto">
         <div className="flex flex-row items-center justify-between py-4 max-h-[70px]">
           {/* website Logo */}
@@ -48,11 +69,14 @@ const Header = () => {
             {/* nav button */}
             <div className="flex flex-row justify-between items-center gap-x-3">
               {/* cart btn */}
-              <button className="relative" onClick={handleCart}>
+              <button
+                className="relative"
+                onClick={() => handleToggle("cartOpen")}
+              >
                 <BsCart3 className="text-lg lg:text-xl" />
                 <div
                   className={`${
-                    cart ? "flex" : "hidden"
+                    cart.length ? "flex" : "hidden"
                   } items-center justify-center w-6 h-6 rounded-full bg-red-500 text-white text-[12px] absolute -top-3 -right-3`}
                 >
                   {cart.length}
@@ -62,24 +86,29 @@ const Header = () => {
               {/* user btn */}
               {user && (
                 <div className="relative flex items-center">
-                  <button className="px-2 text-lg">
+                  <button
+                    onClick={() => handleToggle("profileOpen")}
+                    className="px-2 text-lg"
+                  >
                     <FaRegUserCircle />
                   </button>
-                  <div className="absolute border top-8 right-0 bg-white shadow-xl rounded-md px-2 py-2 space-y-2">
-                    <div className="w-full min-w-[160px] space-y-2 flex flex-col justify-center">
-                      <div className="text-lg font-medium">
-                        Welcome : Emilys
+                  {profileOpen && (
+                    <div className="absolute border top-8 right-0 bg-white shadow-xl rounded-md px-2 py-2 space-y-2 z-20">
+                      <div className="w-full min-w-[160px] space-y-2 flex flex-col justify-center">
+                        <div className="text-lg font-medium">
+                          Welcome: {user.username}
+                        </div>
+                        <button className="flex items-center gap-x-2 py-2 px-2 rounded-md hover:bg-gray-300/50 w-full">
+                          <MdHome className="text-2xl" />
+                          Profile
+                        </button>
+                        <button className="flex items-center gap-x-2 py-2 px-2 rounded-md hover:bg-gray-300/50 w-full">
+                          <MdLogout className="text-2xl" />
+                          Logout
+                        </button>
                       </div>
-                      <button className="flex items-center gap-x-2 py-2 px-2 rounded-md hover:bg-gray-300/50 w-full">
-                        <MdHome className="text-2xl" />
-                        Profile
-                      </button>
-                      <button className="flex items-center gap-x-2 py-2 px-2 rounded-md hover:bg-gray-300/50 w-full">
-                        <MdLogout className="text-2xl" />
-                        Logout
-                      </button>
                     </div>
-                  </div>
+                  )}
                 </div>
               )}
 
