@@ -1,23 +1,28 @@
-import React, { useEffect, useState } from "react";
 import { FaArrowRight } from "react-icons/fa";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useEffect, useState } from "react";
 import CartProductElement from "./CartProductElement";
+import { useDispatch, useSelector } from "react-redux";
 import { addCheckout, removeCheckout } from "../../redux/action/checkoutAction";
+import { useNavigate } from "react-router-dom";
 
 const CartElement = ({ cartOpen, handleCart }) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [total, setTotal] = useState(0);
   const { cart } = useSelector((state) => state.cart);
   const { checkout } = useSelector((state) => state.checkout);
 
   const handleSelectAll = (e) => {
     const ids = cart.map((item) => item.id);
-
     if (cart.length !== checkout.length) {
       dispatch(addCheckout(ids));
     } else {
       dispatch(removeCheckout(ids));
     }
+  };
+
+  const handleCheckout = () => {
+    navigate("/checkout");
   };
 
   useEffect(() => {
@@ -50,7 +55,7 @@ const CartElement = ({ cartOpen, handleCart }) => {
           </div>
         ) : (
           <div className="flex flex-col h-full justify-between">
-            <div className="overflow-y-auto max-h-[470px]">
+            <div className="overflow-y-auto max-h-[400px]">
               {cart.map((item, index) => (
                 <CartProductElement item={item} key={index} />
               ))}
@@ -74,6 +79,7 @@ const CartElement = ({ cartOpen, handleCart }) => {
               </div>
 
               <button
+                onClick={handleCheckout}
                 className={`${
                   checkout.length !== 0
                     ? "bg-tertiary"
