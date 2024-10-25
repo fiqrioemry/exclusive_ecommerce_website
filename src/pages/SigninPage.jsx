@@ -1,3 +1,4 @@
+/* eslint-disable react/style-prop-object */
 import React, { useEffect, useState } from "react";
 import InputElement from "../elements/InputElement";
 import { Link, useNavigate } from "react-router-dom";
@@ -39,28 +40,28 @@ const SigninPage = () => {
   return (
     <section>
       <div className="container mx-auto">
-        {/* navigation info */}
+        {/* 1. navigation  path info */}
         <div className="py-10 text-sm px-2">
           <div>
-            <Link to="/">Home</Link> / Login
+            <Link to="/">Home</Link> / signin
           </div>
         </div>
 
         <div className="flex flex-wrap mb-12">
-          {/* 1.signup image */}
+          {/* 2. signin image box */}
           <div className="hidden md:flex md:w-1/2 justify-center items-center">
             <img className="h-full w-full" src={SignupImage} alt="" />
           </div>
 
-          {/* 2.signup formbox */}
+          {/* 3.signin form box */}
           <div className="w-full md:w-1/2 px-4">
             <div className="w-full flex flex-col px-4">
               <div className="mb-6 space-y-4">
                 <h2 className="text-2xl font-medium">Login To Your Account</h2>
                 <p className="">Enter Your Details Below</p>
+                {/* 4. displaying error message if the username or password wrong */}
                 {error && <p className="text-red-500">{error}</p>}
               </div>
-
               <form
                 className="flex flex-col"
                 onSubmit={handleLogin}

@@ -3,8 +3,8 @@ import { animateScroll as scroll } from "react-scroll";
 import { useDispatch, useSelector } from "react-redux";
 import ButtonElement from "../../elements/ButtonElement";
 import { getAllProducts } from "../../redux/action/productAction";
-import ProductsCardLoading from "../../features/loading/ProductsCardLoading";
 import ProductsCardElement from "../../elements/ProductsCardElement";
+import ProductsCardLoading from "../../features/loading/ProductsCardLoading";
 
 const BestProducts = () => {
   const dispatch = useDispatch();

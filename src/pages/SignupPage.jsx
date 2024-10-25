@@ -12,20 +12,20 @@ const SignupPage = () => {
   return (
     <section>
       <div className="container mx-auto">
-        {/* navigation info */}
+        {/* 1. navigation path info */}
         <div className="py-10 text-sm px-2">
           <div>
-            <Link to="/">Home</Link> / About
+            <Link to="/">Home</Link> / signup
           </div>
         </div>
 
         <div className="flex flex-wrap mb-12">
-          {/* 1.signup image */}
+          {/* 2.signup image */}
           <div className="hidden md:flex md:w-1/2 justify-center items-center">
             <img className="h-full w-full" src={SignupImage} alt="" />
           </div>
 
-          {/* 2.signup formbox */}
+          {/* 3.signup formbox */}
           <div className="w-full md:w-1/2 px-4">
             <FormCardElement
               title="Create An Account"
