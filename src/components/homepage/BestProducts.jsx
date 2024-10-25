@@ -1,3 +1,4 @@
+/* eslint-disable react/style-prop-object */
 import React, { useEffect, useState } from "react";
 import { animateScroll as scroll } from "react-scroll";
 import { useDispatch, useSelector } from "react-redux";
@@ -23,8 +24,9 @@ const BestProducts = () => {
     dispatch(getAllProducts(limit));
   }, [dispatch, limit]);
 
-  const buttonStyle =
-    "btn w-full md:w-auto min-w-[300px] bg-tertiary text-white hover:opacity-80 ";
+  const buttonClassName =
+    "btn w-full md:w-auto min-w-[300px] bg-tertiary text-white hover:opacity-80";
+
   return (
     <section className="py-12">
       <div className="container mx-auto px-4">
@@ -56,7 +58,7 @@ const BestProducts = () => {
                 <></>
               ) : (
                 <ButtonElement
-                  style={buttonStyle}
+                  style={buttonClassName}
                   loading={loading}
                   action={loadMoreProducts}
                   title="More Products"
