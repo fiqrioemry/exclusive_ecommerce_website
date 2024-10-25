@@ -12,6 +12,24 @@ const CheckoutPage = () => {
     productPayment: [],
   });
 
+  const shipmentMethods = [
+    {
+      method: "nextday",
+      time: "Estimated Time Today or Tomorrow",
+      price: 5.99,
+    },
+    {
+      method: "regular",
+      time: "Estimated Time 4 - 7 Days",
+      price: 3.99,
+    },
+    {
+      method: "cargo",
+      time: "Estimated Time 1 - 2 Weeks",
+      price: 1.99,
+    },
+  ];
+
   const totalPayment = () => {
     const selectedItem = cart.filter((item) => checkout.includes(item.id));
     const totalPriceProduct = selectedItem.reduce(
@@ -23,19 +41,53 @@ const CheckoutPage = () => {
       0
     );
 
-    setState({
+    // Initialize shipmentMethod with empty for each product
+    const productPayment = selectedItem.map((item) => ({
+      ...item,
+      shipmentMethod: "", // To track selected shipment for each product
+    }));
+
+    setState((prevState) => ({
+      ...prevState,
       productQty: totalQtyProduct,
       productPrice: totalPriceProduct,
-      productPayment: selectedItem,
-    });
+      productPayment,
+    }));
   };
 
   useEffect(() => {
     totalPayment();
-  }, [cart, checkout]); // Jalankan ulang jika `cart` atau `checkout` berubah
+  }, [cart, checkout]);
+
+  const handleShipmentChange = (event, index) => {
+    const selectedMethod = shipmentMethods.find(
+      (method) => method.method === event.target.value
+    );
+
+    setState((prevState) => {
+      const updatedProductPayment = [...prevState.productPayment];
+      updatedProductPayment[index].shipmentMethod = selectedMethod;
+
+      return {
+        ...prevState,
+        productPayment: updatedProductPayment,
+      };
+    });
+  };
+
+  const totalShipmentCost = state.productPayment.reduce((total, item) => {
+    return total + (item.shipmentMethod?.price || 0);
+  }, 0);
 
   return (
     <section className="bg-gray-200 min-h-screen">
+      <header className=" bg-white fixed top-0 w-full ">
+        <div className="container mx-auto flex items-center py-6 px-2">
+          <Link to="/" className="text-xl font-semibold tracking-[2px]">
+            Exclusive
+          </Link>
+        </div>
+      </header>
       <div className="container mx-auto">
         {/* navigation info */}
         <div className="py-10 text-sm px-2">
@@ -97,8 +149,31 @@ const CheckoutPage = () => {
                           $ {item.amount * item.price}
                         </div>
                       </div>
-                      <div className="flex items-center justify-center h-12 w-full py-2 px-4 border rounded-md">
-                        Pilih metode pengiriman
+                      {/* shipment method */}
+                      <div className="flex flex-col mt-4">
+                        <label className="text-sm font-medium">
+                          Shipment Method
+                        </label>
+                        <select
+                          className="border rounded-md p-2 mt-2"
+                          value={item.shipmentMethod.method || ""}
+                          onChange={(e) => handleShipmentChange(e, index)}
+                        >
+                          <option value="" disabled>
+                            Select Shipment Method
+                          </option>
+                          {shipmentMethods.map((method) => (
+                            <option key={method.method} value={method.method}>
+                              {method.method} - ${method.price} ({method.time})
+                            </option>
+                          ))}
+                        </select>
+                        {item.shipmentMethod && (
+                          <div className="mt-2 text-sm text-gray-600">
+                            Cost: ${item.shipmentMethod.price}, Delivery:{" "}
+                            {item.shipmentMethod.time}
+                          </div>
+                        )}
                       </div>
                     </div>
                   </div>
@@ -116,20 +191,15 @@ const CheckoutPage = () => {
                   </div>
                   <div className="flex flex-row justify-between items-center">
                     <div>Delivery Cost</div>
-                    <div>Rp. 69.500</div>
+                    <div>${totalShipmentCost}</div>
                   </div>
-                  <div className="flex flex-row justify-between items-center">
-                    <div>Insurance</div>
-                    <div>Rp. 57.000</div>
-                  </div>
-                  <div className="flex flex-row justify-between items-center">
-                    <div>Aplication Fee</div>
-                    <div>Rp. 20.000</div>
-                  </div>
+                  {/* other costs */}
                 </div>
                 <div className="flex flex-row justify-between items-center py-4 border-b-2">
                   <div>Total Amount</div>
-                  <div>Rp. 800.000</div>
+                  <div>
+                    $ {(state.productPrice + totalShipmentCost).toFixed(2)}
+                  </div>
                 </div>
                 <div>
                   <button className="btn w-full bg-tertiary text-white tracking-[2px] font-bold uppercase text-lg">

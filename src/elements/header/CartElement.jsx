@@ -1,9 +1,9 @@
 import { FaArrowRight } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import CartProductElement from "./CartProductElement";
 import { useDispatch, useSelector } from "react-redux";
 import { addCheckout, removeCheckout } from "../../redux/action/checkoutAction";
-import { useNavigate } from "react-router-dom";
 
 const CartElement = ({ cartOpen, handleCart }) => {
   const dispatch = useDispatch();
@@ -22,7 +22,10 @@ const CartElement = ({ cartOpen, handleCart }) => {
   };
 
   const handleCheckout = () => {
-    navigate("/checkout");
+    handleCart();
+    setTimeout(() => {
+      navigate("/checkout");
+    }, 500);
   };
 
   useEffect(() => {
