@@ -24,7 +24,7 @@ const BestProducts = () => {
   }, [dispatch, limit]);
 
   const buttonStyle =
-    "btn w-full md:w-auto min-w-[300px] bg-tertiary  text-white hover:opacity-80 ";
+    "btn w-full md:w-auto min-w-[300px] bg-tertiary text-white hover:opacity-80 ";
   return (
     <section className="py-12">
       <div className="container mx-auto px-4">
@@ -35,10 +35,6 @@ const BestProducts = () => {
             <div className="h-10 w-4 rounded-md bg-tertiary"></div>
             <h1 className="text-2xl font-medium">Best Products</h1>
           </div>
-          {/* button */}
-          <button className="py-4 px-8 bg-tertiary text-white rounded-md">
-            Selengkapnya
-          </button>
         </div>
 
         {/* section details */}
@@ -63,7 +59,7 @@ const BestProducts = () => {
                   style={buttonStyle}
                   loading={loading}
                   action={loadMoreProducts}
-                  title="Load More Products"
+                  title="More Products"
                 />
               )}
             </div>

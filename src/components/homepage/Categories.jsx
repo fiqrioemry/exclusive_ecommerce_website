@@ -120,11 +120,11 @@ const Categories = () => {
           </div>
           {/* Button */}
           <div className="flex items-center gap-x-4">
-            <button className="p-3 bg-gray-300 rounded-full" onClick={previous}>
-              <FaArrowLeft className="text-2xl" />
+            <button className="p-3 bg-tertiary rounded-full" onClick={previous}>
+              <FaArrowLeft className="text-2xl text-white" />
             </button>
-            <button className="p-3 bg-gray-300 rounded-full">
-              <FaArrowRight className="text-2xl" onClick={next} />
+            <button className="p-3 bg-tertiary rounded-full">
+              <FaArrowRight className="text-2xl text-white" onClick={next} />
             </button>
           </div>
         </div>
