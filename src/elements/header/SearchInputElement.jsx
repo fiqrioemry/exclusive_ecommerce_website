@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import debounce from "lodash/debounce";
 import { MdSearch } from "react-icons/md";
 import { useNavigate } from "react-router-dom";

@@ -1,20 +1,15 @@
 import { BsCart3 } from "react-icons/bs";
-import React, { useEffect, useState } from "react";
-import Cookies from "js-cookie";
-import { useDispatch, useSelector } from "react-redux";
 import { MdOutlineMenu } from "react-icons/md";
 import { FaRegUserCircle } from "react-icons/fa";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import CartElement from "../elements/header/CartElement";
-import NavMenuElement from "../elements/header/NavMenuElement";
-import SearchInputElement from "../elements/header/SearchInputElement";
 import { useLocation, useNavigate } from "react-router-dom";
+import NavMenuElement from "../elements/header/NavMenuElement";
+import { getUserInfo, userLogout } from "../redux/action/userAction";
+import SearchInputElement from "../elements/header/SearchInputElement";
 import UserProfileElement from "../elements/header/UserProfileElement";
 
-import {
-  getRefreshToken,
-  getUserInfo,
-  userLogout,
-} from "../redux/action/userAction";
 const Header = () => {
   const dispatch = useDispatch();
   const location = useLocation();

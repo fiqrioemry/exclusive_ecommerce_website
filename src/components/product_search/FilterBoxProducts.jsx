@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import debounce from "lodash/debounce";
 import { useDispatch } from "react-redux";
 import { FaArrowUp } from "react-icons/fa";

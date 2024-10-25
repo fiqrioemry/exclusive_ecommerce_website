@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React from "react";
 import { useEffect } from "react";
 import { useState } from "react";
@@ -59,7 +60,7 @@ const BannerElement = () => {
     return () => {
       clearInterval(slideInterval);
     };
-  }, [currentIndex]);
+  }, [currentIndex, auto, autoslide, slideInterval]);
 
   return (
     <div className="flex justify-center items-center relative z-0 group">

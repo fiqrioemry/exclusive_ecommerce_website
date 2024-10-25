@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { MdLocationOn } from "react-icons/md";
@@ -57,7 +58,7 @@ const CheckoutPage = () => {
 
   useEffect(() => {
     totalPayment();
-  }, [cart, checkout]);
+  }, [cart, checkout, totalPayment]);
 
   const handleShipmentChange = (event, index) => {
     const selectedMethod = shipmentMethods.find(
