@@ -41,7 +41,9 @@ const AboutInfoElement = () => {
                 </div>
               </div>
               <div className="text-lg font-medium mb-2">{info.title}</div>
-              <div className="text-md font-light">{info.subtitle}</div>
+              <div className="text-md text-center font-light">
+                {info.subtitle}
+              </div>
             </div>
           </div>
         );

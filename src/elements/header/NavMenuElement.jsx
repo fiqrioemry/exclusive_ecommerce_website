@@ -37,7 +37,7 @@ const NavMenuElement = ({ user, handleNavMenu, openMenu }) => {
   return (
     <div
       className={`${
-        openMenu ? "-right-full" : "right-0"
+        openMenu ? "right-0" : "-right-full"
       } w-full md:w-auto h-full md:h-auto fixed md:static top-0 md:top-auto bg-white z-20 transition-all duration-300`}
     >
       <div className="block md:hidden text-black py-6 text-end px-4">
