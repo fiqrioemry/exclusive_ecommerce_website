@@ -1,8 +1,39 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { MdLocationOn } from "react-icons/md";
+import { useSelector } from "react-redux";
 
 const CheckoutPage = () => {
+  const { cart } = useSelector((state) => state.cart);
+  const { checkout } = useSelector((state) => state.checkout);
+  const [state, setState] = useState({
+    productQty: 0,
+    productPrice: 0,
+    productPayment: [],
+  });
+
+  const totalPayment = () => {
+    const selectedItem = cart.filter((item) => checkout.includes(item.id));
+    const totalPriceProduct = selectedItem.reduce(
+      (total, item) => total + item.price * item.amount,
+      0
+    );
+    const totalQtyProduct = selectedItem.reduce(
+      (total, item) => total + item.amount,
+      0
+    );
+
+    setState({
+      productQty: totalQtyProduct,
+      productPrice: totalPriceProduct,
+      productPayment: selectedItem,
+    });
+  };
+
+  useEffect(() => {
+    totalPayment();
+  }, [cart, checkout]); // Jalankan ulang jika `cart` atau `checkout` berubah
+
   return (
     <section className="bg-gray-200 min-h-screen">
       <div className="container mx-auto">
@@ -18,7 +49,7 @@ const CheckoutPage = () => {
           <div className="flex flex-wrap space-y-4 md:space-y-0 ">
             {/* product and shipment detail */}
             <div className="w-full md:w-[65%] px-2 space-y-4">
-              {/* shipment details */}
+              {/* 1. shipment details */}
               <div className="bg-white rounded-md p-4 space-y-4">
                 <div className="uppercase text-md font-semibold text-gray-500">
                   alamat pengiriman
@@ -38,71 +69,50 @@ const CheckoutPage = () => {
                 </button>
               </div>
 
-              {/* 1. product details */}
-              <div className="bg-white rounded-md p-4 space-y-4">
-                <div className="uppercase text-md font-semibold text-gray-500">
-                  pesanan 1
-                </div>
-                <div className="flex flex-row space-x-4">
-                  <div>
-                    <img
-                      className="w-[70px] h-[70px] bg-white rounded-md"
-                      src=""
-                      alt=""
-                    />
+              {/* product details */}
+              {state.productPayment.map((item, index) => (
+                <div className="bg-white rounded-md p-4 space-y-4" key={index}>
+                  <div className="uppercase text-md font-semibold text-gray-500">
+                    pesanan {index + 1}
                   </div>
-                  <div className="w-full space-y-2">
-                    <div className="flex flex-row justify-between items-center ">
-                      <div>Nama Barang</div>
-                      <div>5 x Rp. 500.000</div>
+                  <div className="flex flex-row space-x-4">
+                    {/* product images */}
+                    <div>
+                      <img
+                        className="w-[70px] h-[70px] bg-white rounded-md"
+                        src={item.thumbnail}
+                        alt=""
+                      />
                     </div>
-                    <div className="flex flex-row justify-end items-center ">
-                      <div className="text-md font-bold">Rp. 2.500.000</div>
-                    </div>
-                    <div className="flex items-center justify-center h-12 w-full py-2 px-4 border rounded-md">
-                      Pilih metode pengiriman
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* 2. product details */}
-              <div className="bg-white rounded-md p-4 space-y-4">
-                <div className="uppercase text-md font-semibold text-gray-500">
-                  pesanan 1
-                </div>
-                <div className="flex flex-row space-x-4">
-                  <div>
-                    <img
-                      className="w-[70px] h-[70px] bg-white rounded-md"
-                      src=""
-                      alt=""
-                    />
-                  </div>
-                  <div className="w-full space-y-2">
-                    <div className="flex flex-row justify-between items-center ">
-                      <div>Nama Barang</div>
-                      <div>5 x Rp. 500.000</div>
-                    </div>
-                    <div className="flex flex-row justify-end items-center ">
-                      <div className="text-md font-bold">Rp. 2.500.000</div>
-                    </div>
-                    <div className="flex items-center justify-center h-12 w-full py-2 px-4 border rounded-md">
-                      Pilih metode pengiriman
+                    {/* product price description */}
+                    <div className="w-full space-y-2">
+                      <div className="flex flex-row justify-between items-center ">
+                        <div>{item.title}</div>
+                        <div>
+                          {item.amount} x $ {item.price}
+                        </div>
+                      </div>
+                      <div className="flex flex-row justify-end items-center ">
+                        <div className="text-md font-bold">
+                          $ {item.amount * item.price}
+                        </div>
+                      </div>
+                      <div className="flex items-center justify-center h-12 w-full py-2 px-4 border rounded-md">
+                        Pilih metode pengiriman
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
+              ))}
             </div>
             {/* payment detail*/}
             <div className="w-full md:w-[35%] px-2">
               <div className="bg-white rounded-md p-4">
                 <div>RINGKASAN BELANJA</div>
                 <div className="text-sm font-light space-y-1 border-b-2 py-4">
-                  {" "}
                   <div className="flex flex-row justify-between items-center">
-                    <div>Price (4 Items)</div>
-                    <div>Rp. 800.000</div>
+                    <div>Price ({state.productQty} Items)</div>
+                    <div>$. {state.productPrice}</div>
                   </div>
                   <div className="flex flex-row justify-between items-center">
                     <div>Delivery Cost</div>

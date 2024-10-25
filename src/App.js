@@ -51,14 +51,7 @@ function App() {
               }
             />
 
-            <Route
-              path="/checkout"
-              element={
-                <NonUserAuth>
-                  <CheckoutPage />
-                </NonUserAuth>
-              }
-            />
+            <Route path="/checkout" element={<CheckoutPage />} />
 
             <Route path="/product/:id" element={<ProductDetailPage />} />
             <Route
