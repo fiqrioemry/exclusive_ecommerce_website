@@ -42,8 +42,14 @@ function App() {
             <Route path="/" element={<HomePage />} />
             <Route path="/about" element={<AboutPage />} />
             <Route path="/contact" element={<ContactPage />} />
-            <Route path="/signup" element={<SignupPage />} />
-            <Route path="/signin" element={<SigninPage />} />
+            <Route
+              path="/signin"
+              element={
+                <NonUserAuth>
+                  <SigninPage />
+                </NonUserAuth>
+              }
+            />
 
             <Route
               path="/checkout"

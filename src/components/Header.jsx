@@ -10,17 +10,20 @@ import SearchInputElement from "../elements/header/SearchInputElement";
 import { useLocation, useNavigate } from "react-router-dom";
 import UserProfileElement from "../elements/header/UserProfileElement";
 
-import { getUserInfo } from "../redux/action/userAction";
+import {
+  getRefreshToken,
+  getUserInfo,
+  userLogout,
+} from "../redux/action/userAction";
 const Header = () => {
   const dispatch = useDispatch();
   const location = useLocation();
-  const { user } = useSelector((state) => state.user);
   const navigate = useNavigate();
   const [state, setState] = useState({
     cartOpen: false,
     profileOpen: false,
   });
-
+  const { user } = useSelector((state) => state.user);
   const { cartOpen, profileOpen } = state;
   const { cart } = useSelector((state) => state.cart);
 
@@ -41,10 +44,8 @@ const Header = () => {
   };
 
   const handleLogout = async () => {
-    Cookies.remove("token");
-    Cookies.remove("user");
+    dispatch(userLogout());
 
-    // Close profile modal on logout
     setState((prevState) => ({
       ...prevState,
       profileOpen: false,
@@ -55,7 +56,6 @@ const Header = () => {
 
   useEffect(() => {
     dispatch(getUserInfo());
-    console.log("hello world");
   }, [dispatch, location.pathname]);
 
   return (
@@ -82,7 +82,7 @@ const Header = () => {
 
           {/* Navigation */}
           <div className="flex flex-row justify-between gap-x-4 pl-4">
-            <NavMenuElement />
+            <NavMenuElement user={user} />
 
             {/* Buttons (Cart, Profile, Menu) */}
             <div className="flex flex-row justify-between items-center gap-x-3">

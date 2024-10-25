@@ -1,16 +1,15 @@
 import React, { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
 import InputElement from "../elements/InputElement";
-import SignupImage from "../assets/signup/signup_image.png";
-import connectApi from "../features/connection/ConnectApi";
-import Cookies from "js-cookie";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { resetStatus, userLogin } from "../redux/action/userAction";
+import SignupImage from "../assets/signup/signup_image.png";
 import SpinnerLoading from "../features/loading/SpinnerLoading";
+import { resetStatus, userLogin } from "../redux/action/userAction";
 
 const SigninPage = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [error, setError] = useState("");
   const [input, setInput] = useState({ username: "", password: "" });
   const { loading, success, fail, message } = useSelector(
     (state) => state.user
@@ -29,6 +28,7 @@ const SigninPage = () => {
       navigate("/");
       dispatch(resetStatus());
     } else if (fail) {
+      setError(message);
       dispatch(resetStatus());
     }
   }, [dispatch, navigate, message, success, fail]);
@@ -53,14 +53,12 @@ const SigninPage = () => {
           </div>
 
           {/* 2.signup formbox */}
-
           <div className="w-full md:w-1/2 px-4">
             <div className="w-full flex flex-col px-4">
-              <div className="mb-6">
-                <h2 className="text-2xl font-medium mb-4">
-                  Login To Your Account
-                </h2>
+              <div className="mb-6 space-y-4">
+                <h2 className="text-2xl font-medium">Login To Your Account</h2>
                 <p className="">Enter Your Details Below</p>
+                {error && <p className="text-red-500">{error}</p>}
               </div>
 
               <form

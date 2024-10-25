@@ -3,17 +3,17 @@ import React from "react";
 import { Navigate } from "react-router-dom";
 
 const NonUserAuth = ({ children }) => {
-  if (Cookies.get("token")) {
+  if (Cookies.get("accessToken")) {
     return <Navigate to="/" />;
-  } else if (!Cookies.get("token")) {
+  } else if (!Cookies.get("accessToken")) {
     return children;
   }
 };
 
 const UserAuth = ({ children }) => {
-  if (Cookies.get("token")) {
+  if (Cookies.get("accessToken")) {
     return children;
-  } else if (!Cookies.get("token")) {
+  } else if (!Cookies.get("accessToken")) {
     return <Navigate to="/signin" />;
   }
 };

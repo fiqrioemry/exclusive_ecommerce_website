@@ -2,10 +2,10 @@ import {
   LOGIN_PROCESS,
   LOGIN_SUCCESS,
   LOGIN_FAIL,
+  LOGOUT_PROCESS,
+  LOGOUT_SUCCESS,
   GET_USER_INFO_FAIL,
   GET_USER_INFO_SUCCESS,
-  GET_REFRESH_TOKEN_FAIL,
-  GET_REFRESH_TOKEN_SUCCESS,
   RESET_STATUS,
 } from "../constant/userType";
 import Cookies from "js-cookie";
@@ -51,28 +51,29 @@ export const getUserInfo = () => async (dispatch) => {
   }
 };
 
-export const getRefreshToken = () => async (dispatch) => {
-  try {
-    const response = await connectApi.get("/auth/refresh");
+export const getRefreshToken = () => async () => {
+  const response = await connectApi.get("/auth/refresh");
 
-    const newAccessToken = response.data.accessToken;
-    const newRefreshToken = response.data.refreshToken; // Jika refresh token juga disertakan
+  const newAccessToken = response.data.accessToken;
 
-    // Set cookies dengan masa berlaku
-    Cookies.set("accessToken", newAccessToken, {
-      expires: 15 / (24 * 60), // 15 minutes
+  const newRefreshToken = response.data.refreshToken;
+
+  Cookies.set("accessToken", newAccessToken, {
+    expires: 15 / (24 * 60), // 15 minutes
+  });
+
+  if (newRefreshToken) {
+    Cookies.set("refreshToken", newRefreshToken, {
+      expires: 30, // 30 days
     });
-
-    if (newRefreshToken) {
-      Cookies.set("refreshToken", newRefreshToken, {
-        expires: 30, // 30 days
-      });
-    }
-
-    dispatch({ type: GET_REFRESH_TOKEN_SUCCESS });
-  } catch (error) {
-    dispatch({ type: GET_REFRESH_TOKEN_FAIL });
   }
+};
+
+export const userLogout = () => async (dispatch) => {
+  dispatch({ type: LOGOUT_PROCESS });
+  Cookies.remove("accessToken");
+  Cookies.remove("refreshToken");
+  dispatch({ type: LOGOUT_SUCCESS });
 };
 
 export const resetStatus = () => async (dispatch) => {

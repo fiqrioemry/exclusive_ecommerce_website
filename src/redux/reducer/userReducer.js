@@ -2,8 +2,8 @@ import {
   LOGIN_PROCESS,
   LOGIN_SUCCESS,
   LOGIN_FAIL,
-  GET_REFRESH_TOKEN_FAIL,
-  GET_REFRESH_TOKEN_SUCCESS,
+  LOGOUT_PROCESS,
+  LOGOUT_SUCCESS,
   GET_USER_INFO_FAIL,
   GET_USER_INFO_SUCCESS,
   RESET_STATUS,
@@ -47,9 +47,21 @@ export const userReducer = (state = userState, action) => {
       };
 
     case GET_USER_INFO_FAIL:
-      console.log(action.payload);
       return {
         ...state,
+        user: [],
+      };
+
+    case LOGOUT_PROCESS:
+      return {
+        ...state,
+        loading: true,
+      };
+
+    case LOGOUT_SUCCESS:
+      return {
+        ...state,
+        loading: false,
         user: [],
       };
 
