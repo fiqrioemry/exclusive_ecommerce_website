@@ -38,6 +38,21 @@ export const userReducer = (state = userState, action) => {
         fail: true,
         message: "Username atau Password Salah",
       };
+
+    case GET_USER_INFO_SUCCESS:
+      console.log(action.payload);
+      return {
+        ...state,
+        user: action.payload,
+      };
+
+    case GET_USER_INFO_FAIL:
+      console.log(action.payload);
+      return {
+        ...state,
+        user: [],
+      };
+
     case RESET_STATUS:
       return {
         user: [],

@@ -1,25 +1,27 @@
 import { BsCart3 } from "react-icons/bs";
 import React, { useEffect, useState } from "react";
 import Cookies from "js-cookie";
-import { useSelector } from "react-redux";
-import { MdOutlineMenu, MdLogout, MdHome } from "react-icons/md";
+import { useDispatch, useSelector } from "react-redux";
+import { MdOutlineMenu } from "react-icons/md";
 import { FaRegUserCircle } from "react-icons/fa";
 import CartElement from "../elements/header/CartElement";
 import NavMenuElement from "../elements/header/NavMenuElement";
 import SearchInputElement from "../elements/header/SearchInputElement";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import UserProfileElement from "../elements/header/UserProfileElement";
-import connectApi from "../features/connection/ConnectApi";
+
+import { getUserInfo } from "../redux/action/userAction";
 const Header = () => {
-  const userData = Cookies.get("token");
+  const dispatch = useDispatch();
+  const location = useLocation();
+  const { user } = useSelector((state) => state.user);
   const navigate = useNavigate();
   const [state, setState] = useState({
     cartOpen: false,
     profileOpen: false,
-    user: "",
   });
 
-  const { cartOpen, profileOpen, user } = state;
+  const { cartOpen, profileOpen } = state;
   const { cart } = useSelector((state) => state.cart);
 
   const toggleState = (key) => {
@@ -51,26 +53,10 @@ const Header = () => {
     navigate("/signin");
   };
 
-  const handleGetUserProfile = async () => {
-    try {
-      const response = await connectApi.get("/auth/me", {
-        headers: {
-          Authorization: `Bearer ${Cookies.get("token")}`, // Menggunakan token dari cookie
-        },
-      });
-
-      console.log(response.data);
-      return response.data; // Mengembalikan data pengguna
-    } catch (error) {
-      console.error("Error fetching user profile:", error);
-    }
-  };
-
   useEffect(() => {
-    if (userData) {
-      handleGetUserProfile();
-    }
-  }, [userData]);
+    dispatch(getUserInfo());
+    console.log("hello world");
+  }, [dispatch, location.pathname]);
 
   return (
     <header className="bg-white fixed top-0 w-full z-10 px-4 border-b">
@@ -113,7 +99,7 @@ const Header = () => {
               </button>
 
               {/* Profile button */}
-              {user && (
+              {user.length !== 0 && (
                 <div className="relative flex items-center">
                   <button
                     onClick={() => toggleState("profile")}
