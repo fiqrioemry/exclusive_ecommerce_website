@@ -26,6 +26,7 @@ const Header = () => {
   const { user } = useSelector((state) => state.user);
   const { cartOpen, profileOpen } = state;
   const { cart } = useSelector((state) => state.cart);
+  const [openMenu, setOpenMenu] = useState(false);
 
   const toggleState = (key) => {
     setState((prevState) => ({
@@ -33,6 +34,10 @@ const Header = () => {
       cartOpen: key === "cart" ? !prevState.cartOpen : false,
       profileOpen: key === "profile" ? !prevState.profileOpen : false,
     }));
+  };
+
+  const handleNavMenu = () => {
+    setOpenMenu(!openMenu);
   };
 
   const closeModals = () => {
@@ -82,7 +87,11 @@ const Header = () => {
 
           {/* Navigation */}
           <div className="flex flex-row justify-between gap-x-4 pl-4">
-            <NavMenuElement user={user} />
+            <NavMenuElement
+              user={user}
+              handleNavMenu={handleNavMenu}
+              openMenu={openMenu}
+            />
 
             {/* Buttons (Cart, Profile, Menu) */}
             <div className="flex flex-row justify-between items-center gap-x-3">
@@ -114,7 +123,10 @@ const Header = () => {
               )}
 
               {/* Menu button */}
-              <button className="block md:hidden text-lg">
+              <button
+                onClick={handleNavMenu}
+                className="block md:hidden text-lg"
+              >
                 <MdOutlineMenu />
               </button>
             </div>

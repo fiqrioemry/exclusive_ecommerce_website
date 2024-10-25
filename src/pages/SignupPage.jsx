@@ -1,7 +1,7 @@
 /* eslint-disable react/style-prop-object */
 import React from "react";
 import { Link } from "react-router-dom";
-import InputElement from "../elements/InputElement";
+import InputElement from "../elements/InputElement.jsx";
 import SignupImage from "../assets/signup/signup_image.png";
 import FormCardElement from "../elements/FormCardElement.jsx";
 

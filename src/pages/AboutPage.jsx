@@ -1,29 +1,28 @@
 import React from "react";
-
 import AboutInfoElement from "../elements/about/AboutInfoElement";
+import AboutStoryElement from "../elements/about/AboutStoryElement";
 import AboutProfileElement from "../elements/about/AboutProfileElement";
 import AboutServicesElement from "../elements/about/AboutServicesElement";
-import AboutStoryElement from "../elements/about/AboutStoryElement";
 
 const AboutPage = () => {
   return (
     <section>
-      <div className="container mx-auto ">
-        {/* navigation info */}
-        <div className="py-10 text-sm px-2">
+      <div className="container mx-auto px-2">
+        {/* 1. navigation path info */}
+        <div className="py-10 text-sm ">
           <div>Home / About</div>
         </div>
 
-        {/* 1. story  */}
+        {/* 2. story  */}
         <AboutStoryElement />
 
-        {/* 2. information */}
+        {/* 3. information */}
         <AboutInfoElement />
 
-        {/* 3. profile */}
+        {/* 4. profile */}
         <AboutProfileElement />
 
-        {/* 4. services */}
+        {/* 5. services */}
         <AboutServicesElement />
       </div>
     </section>
