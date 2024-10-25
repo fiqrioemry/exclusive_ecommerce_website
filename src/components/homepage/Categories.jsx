@@ -8,7 +8,120 @@ import { FaArrowRight, FaArrowLeft } from "react-icons/fa";
 
 const Categories = () => {
   const dispatch = useDispatch();
-  const { categories, loading } = useSelector(state);
+  const { categories, loading } = useSelector((state) => state.categories);
+
+  const categories = [
+    {
+      name: "beauty",
+      image:
+        "https://cdn.dummyjson.com/products/images/beauty/Eyeshadow%20Palette%20with%20Mirror/thumbnail.png",
+    },
+    {
+      name: "fragrances",
+      image:
+        "https://cdn.dummyjson.com/products/images/fragrances/Chanel%20Coco%20Noir%20Eau%20De/thumbnail.png",
+    },
+    {
+      name: "furniture",
+      image:
+        "https://cdn.dummyjson.com/products/images/furniture/Annibale%20Colombo%20Bed/thumbnail.png",
+    },
+    {
+      name: "groceries",
+      image:
+        "https://cdn.dummyjson.com/products/images/groceries/Cat%20Food/thumbnail.png",
+    },
+    {
+      name: "home-decoration",
+      image:
+        "https://cdn.dummyjson.com/products/images/home-decoration/Table%20Lamp/thumbnail.png",
+    },
+    {
+      name: "kitchen-accessories",
+      image:
+        "https://cdn.dummyjson.com/products/images/kitchen-accessories/Black%20Aluminium%20Cup/2.png",
+    },
+    {
+      name: "laptops",
+      image:
+        "https://cdn.dummyjson.com/products/images/laptops/Asus%20Zenbook%20Pro%20Dual%20Screen%20Laptop/2.png",
+    },
+    {
+      name: "mens-shirts",
+      image:
+        "https://cdn.dummyjson.com/products/images/mens-shirts/Blue%20&%20Black%20Check%20Shirt/2.png",
+    },
+    {
+      name: "mens-shoes",
+      image:
+        "https://cdn.dummyjson.com/products/images/mens-shoes/Nike%20Air%20Jordan%201%20Red%20And%20Black/thumbnail.png",
+    },
+    {
+      name: "mens-watches",
+      image:
+        "https://cdn.dummyjson.com/products/images/mens-watches/Brown%20Leather%20Belt%20Watch/thumbnail.png",
+    },
+    {
+      name: "mobile-accessories",
+      image:
+        "https://cdn.dummyjson.com/products/images/mobile-accessories/Amazon%20Echo%20Plus/thumbnail.png",
+    },
+    {
+      name: "motorcycle",
+      image:
+        "https://cdn.dummyjson.com/products/images/motorcycle/Generic%20Motorcycle/thumbnail.png",
+    },
+    {
+      name: "skin-care",
+      image:
+        "https://cdn.dummyjson.com/products/images/skin-care/Attitude%20Super%20Leaves%20Hand%20Soap/thumbnail.png",
+    },
+    {
+      name: "smartphones",
+      image:
+        "https://cdn.dummyjson.com/products/images/smartphones/iPhone%205s/thumbnail.png",
+    },
+    {
+      name: "sports-accessories",
+      image: "",
+    },
+    {
+      name: "sunglasses",
+      image: "",
+    },
+    {
+      name: "tablets",
+      image: "",
+    },
+    {
+      name: "tops",
+      image: "",
+    },
+    {
+      name: "vehicle",
+      image: "",
+    },
+    {
+      name: "womens-bags",
+      image: "",
+    },
+    {
+      name: "womens-dresses",
+      image: "",
+    },
+    {
+      name: "womens-jewellery",
+      image: "",
+    },
+    {
+      name: "womens-shoes",
+      image: "",
+    },
+    {
+      name: "womens-watches",
+      image: "",
+    },
+  ];
 
   let sliderRef = useRef(null);
 
