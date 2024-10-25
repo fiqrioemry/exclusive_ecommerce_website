@@ -6,6 +6,7 @@ import {
   GET_REFRESH_TOKEN_SUCCESS,
   GET_USER_INFO_FAIL,
   GET_USER_INFO_SUCCESS,
+  RESET_STATUS,
 } from "../constant/userType";
 
 const userState = {
@@ -13,6 +14,7 @@ const userState = {
   loading: false,
   success: false,
   fail: false,
+  message: "",
 };
 
 export const userReducer = (state = userState, action) => {
@@ -21,13 +23,28 @@ export const userReducer = (state = userState, action) => {
       return {
         ...state,
         loading: true,
-        success: false,
-        fail: false,
       };
     case LOGIN_SUCCESS:
-      console.log(action.payload);
       return {
         ...state,
+        loading: false,
+        success: true,
+        message: "Login berhasil",
+      };
+    case LOGIN_FAIL:
+      return {
+        ...state,
+        loading: false,
+        fail: true,
+        message: "Username atau Password Salah",
+      };
+    case RESET_STATUS:
+      return {
+        user: [],
+        loading: false,
+        success: false,
+        fail: false,
+        message: "",
       };
     default:
       return state;

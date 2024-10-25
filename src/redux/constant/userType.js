@@ -8,9 +8,4 @@ export const GET_USER_INFO_FAIL = "GET_USER_INFO_FAIL";
 export const GET_REFRESH_TOKEN_SUCCESS = "GET_REFRESH_TOKEN_SUCCESS";
 export const GET_REFRESH_TOKEN_FAIL = "GET_REFRESH_TOKEN_FAIL";
 
-const userState = {
-  user: [],
-  loading: false,
-  success: false,
-  fail: false,
-};
+export const RESET_STATUS = "RESET_STATUS";

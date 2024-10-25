@@ -43,14 +43,7 @@ function App() {
             <Route path="/about" element={<AboutPage />} />
             <Route path="/contact" element={<ContactPage />} />
             <Route path="/signup" element={<SignupPage />} />
-            <Route
-              path="/signin"
-              element={
-                <NonUserAuth>
-                  <SigninPage />
-                </NonUserAuth>
-              }
-            />
+            <Route path="/signin" element={<SigninPage />} />
 
             <Route
               path="/checkout"

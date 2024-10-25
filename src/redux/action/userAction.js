@@ -6,9 +6,10 @@ import {
   GET_USER_INFO_SUCCESS,
   GET_REFRESH_TOKEN_FAIL,
   GET_REFRESH_TOKEN_SUCCESS,
+  RESET_STATUS,
 } from "../constant/userType";
-import connectApi from "../../features/connection/ConnectApi";
 import Cookies from "js-cookie";
+import connectApi from "../../features/connection/ConnectApi";
 
 export const userLogin = (input) => async (dispatch) => {
   try {
@@ -17,18 +18,19 @@ export const userLogin = (input) => async (dispatch) => {
     const response = await connectApi.post("/auth/login", {
       username: input.username,
       password: input.password,
-      expiresInMins: input.expiresInMins || 60, // Optional: Defaults to 60 if not provided
     });
 
     const data = response.data;
+    Cookies.set("accessToken", data.accessToken, {
+      expires: 15 / (24 * 60), // 15 minutes
+    });
 
-    // Store tokens in cookies
-    Cookies.set("token", data.accessToken);
-    Cookies.set("refreshToken", data.refreshToken);
+    Cookies.set("refreshToken", data.refreshToken, {
+      expires: 30, // 30 days
+    });
 
     dispatch({
       type: LOGIN_SUCCESS,
-      payload: data,
     });
   } catch (error) {
     dispatch({ type: LOGIN_FAIL, payload: error.message });
@@ -39,7 +41,7 @@ export const getUserInfo = () => async (dispatch) => {
   try {
     const response = await connectApi.get("/auth/me", {
       headers: {
-        Authorization: `Bearer ${Cookies.get("token")}`,
+        Authorization: `Bearer ${Cookies.get("accessToken")}`,
       },
     });
 
@@ -48,19 +50,31 @@ export const getUserInfo = () => async (dispatch) => {
     dispatch({ type: GET_USER_INFO_FAIL, payload: error });
   }
 };
+
 export const getRefreshToken = () => async (dispatch) => {
   try {
     const response = await connectApi.get("/auth/refresh");
 
-    // Assuming the refreshed token is in response.data.token
-    const newToken = response.data.token;
+    const newAccessToken = response.data.accessToken;
+    const newRefreshToken = response.data.refreshToken; // Jika refresh token juga disertakan
 
-    // Store the new token in cookies
-    Cookies.set("token", newToken);
+    // Set cookies dengan masa berlaku
+    Cookies.set("accessToken", newAccessToken, {
+      expires: 15 / (24 * 60), // 15 minutes
+    });
 
-    // Dispatch success action
-    dispatch({ type: GET_REFRESH_TOKEN_SUCCESS, payload: newToken });
+    if (newRefreshToken) {
+      Cookies.set("refreshToken", newRefreshToken, {
+        expires: 30, // 30 days
+      });
+    }
+
+    dispatch({ type: GET_REFRESH_TOKEN_SUCCESS });
   } catch (error) {
-    dispatch({ type: GET_REFRESH_TOKEN_FAIL, payload: error });
+    dispatch({ type: GET_REFRESH_TOKEN_FAIL });
   }
+};
+
+export const resetStatus = () => async (dispatch) => {
+  dispatch({ type: RESET_STATUS });
 };

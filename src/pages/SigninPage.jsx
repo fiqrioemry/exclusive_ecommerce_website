@@ -1,36 +1,41 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import InputElement from "../elements/InputElement";
 import SignupImage from "../assets/signup/signup_image.png";
 import connectApi from "../features/connection/ConnectApi";
 import Cookies from "js-cookie";
+import { useDispatch, useSelector } from "react-redux";
+import { resetStatus, userLogin } from "../redux/action/userAction";
+import SpinnerLoading from "../features/loading/SpinnerLoading";
 
 const SigninPage = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [input, setInput] = useState({ username: "", password: "" });
-  const {loading, process, fail} = 
-  const inputStyle =
-    "h-12 border- border-b-2 w-full outline-none mb-4 focus:border-red-500";
+  const { loading, success, fail, message } = useSelector(
+    (state) => state.user
+  );
 
   const handleChangeInput = (e) =>
     setInput({ ...input, [e.target.name]: e.target.value });
 
   const handleLogin = async (e) => {
     e.preventDefault();
-
-    const response = await connectApi.post("/auth/login", input);
-
-    console.log(response);
-
-    Cookies.set("token", response.data.accessToken, {
-      expires: 30 / (24 * 60),
-    });
-    Cookies.set("user", JSON.stringify(response.data), {
-      expires: 30 / (24 * 60),
-    });
-
-    navigate("/");
+    dispatch(userLogin(input));
   };
+
+  useEffect(() => {
+    if (success) {
+      navigate("/");
+      dispatch(resetStatus());
+    } else if (fail) {
+      dispatch(resetStatus());
+    }
+  }, [dispatch, navigate, message, success, fail]);
+
+  const inputStyle =
+    "h-12 border- border-b-2 w-full outline-none mb-4 focus:border-red-500";
+
   return (
     <section>
       <div className="container mx-auto">
@@ -85,7 +90,7 @@ const SigninPage = () => {
                     type="submit"
                     className="btn w-full text-white bg-tertiary hover:opacity-80 mb-4"
                   >
-                    Login
+                    {loading ? <SpinnerLoading /> : "Login"}
                   </button>
                 </div>
               </form>
