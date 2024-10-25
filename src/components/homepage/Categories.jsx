@@ -5,122 +5,60 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { getCategories } from "../../redux/action/categoryAction";
 import { FaArrowRight, FaArrowLeft } from "react-icons/fa";
+import Beauty from "../../assets/categories/beauty.png";
+import Fragrances from "../../assets/categories/fragrances.png";
+import Furniture from "../../assets/categories/furnitures.png";
+import Groceries from "../../assets/categories/groceries.png";
+import HomeDecoration from "../../assets/categories/home-decoration.png";
+import KitchenAccessories from "../../assets/categories/kitchen-accessories.png";
+import Laptops from "../../assets/categories/laptops.png";
+import MensShirts from "../../assets/categories/mens-shirts.png";
+import MensShoes from "../../assets/categories/mens-shoes.png";
+import MensWatches from "../../assets/categories/mens-watches.png";
+import MobileAccessories from "../../assets/categories/mobile-accessories.png";
+import Motorcycle from "../../assets/categories/motorcycle.png";
+import SkinCare from "../../assets/categories/skin-care.png";
+import Smartphones from "../../assets/categories/smartphones.png";
+import SportsAccessories from "../../assets/categories/sports-accessories.png";
+import Sunglasses from "../../assets/categories/sunglasses.png";
+import Tablets from "../../assets/categories/tablets.png";
+import Tops from "../../assets/categories/tops.png";
+import Vehicle from "../../assets/categories/vehicle.png";
+import WomensBags from "../../assets/categories/womens-bags.png";
+import WomensDresses from "../../assets/categories/womens-dresses.png";
+import WomensJewellery from "../../assets/categories/womens-jewellery.png";
+import WomensShoes from "../../assets/categories/womens-shoes.png";
+import WomensWatches from "../../assets/categories/womens-watches.png";
 
 const Categories = () => {
   const dispatch = useDispatch();
   const { categories, loading } = useSelector((state) => state.categories);
 
-  const categories = [
-    {
-      name: "beauty",
-      image:
-        "https://cdn.dummyjson.com/products/images/beauty/Eyeshadow%20Palette%20with%20Mirror/thumbnail.png",
-    },
-    {
-      name: "fragrances",
-      image:
-        "https://cdn.dummyjson.com/products/images/fragrances/Chanel%20Coco%20Noir%20Eau%20De/thumbnail.png",
-    },
-    {
-      name: "furniture",
-      image:
-        "https://cdn.dummyjson.com/products/images/furniture/Annibale%20Colombo%20Bed/thumbnail.png",
-    },
-    {
-      name: "groceries",
-      image:
-        "https://cdn.dummyjson.com/products/images/groceries/Cat%20Food/thumbnail.png",
-    },
-    {
-      name: "home-decoration",
-      image:
-        "https://cdn.dummyjson.com/products/images/home-decoration/Table%20Lamp/thumbnail.png",
-    },
-    {
-      name: "kitchen-accessories",
-      image:
-        "https://cdn.dummyjson.com/products/images/kitchen-accessories/Black%20Aluminium%20Cup/2.png",
-    },
-    {
-      name: "laptops",
-      image:
-        "https://cdn.dummyjson.com/products/images/laptops/Asus%20Zenbook%20Pro%20Dual%20Screen%20Laptop/2.png",
-    },
-    {
-      name: "mens-shirts",
-      image:
-        "https://cdn.dummyjson.com/products/images/mens-shirts/Blue%20&%20Black%20Check%20Shirt/2.png",
-    },
-    {
-      name: "mens-shoes",
-      image:
-        "https://cdn.dummyjson.com/products/images/mens-shoes/Nike%20Air%20Jordan%201%20Red%20And%20Black/thumbnail.png",
-    },
-    {
-      name: "mens-watches",
-      image:
-        "https://cdn.dummyjson.com/products/images/mens-watches/Brown%20Leather%20Belt%20Watch/thumbnail.png",
-    },
-    {
-      name: "mobile-accessories",
-      image:
-        "https://cdn.dummyjson.com/products/images/mobile-accessories/Amazon%20Echo%20Plus/thumbnail.png",
-    },
-    {
-      name: "motorcycle",
-      image:
-        "https://cdn.dummyjson.com/products/images/motorcycle/Generic%20Motorcycle/thumbnail.png",
-    },
-    {
-      name: "skin-care",
-      image:
-        "https://cdn.dummyjson.com/products/images/skin-care/Attitude%20Super%20Leaves%20Hand%20Soap/thumbnail.png",
-    },
-    {
-      name: "smartphones",
-      image:
-        "https://cdn.dummyjson.com/products/images/smartphones/iPhone%205s/thumbnail.png",
-    },
-    {
-      name: "sports-accessories",
-      image: "",
-    },
-    {
-      name: "sunglasses",
-      image: "",
-    },
-    {
-      name: "tablets",
-      image: "",
-    },
-    {
-      name: "tops",
-      image: "",
-    },
-    {
-      name: "vehicle",
-      image: "",
-    },
-    {
-      name: "womens-bags",
-      image: "",
-    },
-    {
-      name: "womens-dresses",
-      image: "",
-    },
-    {
-      name: "womens-jewellery",
-      image: "",
-    },
-    {
-      name: "womens-shoes",
-      image: "",
-    },
-    {
-      name: "womens-watches",
-      image: "",
-    },
+  const categoriesCard = [
+    { name: "beauty", image: Beauty },
+    { name: "fragrances", image: Fragrances },
+    { name: "furniture", image: Furniture },
+    { name: "groceries", image: Groceries },
+    { name: "home-decoration", image: HomeDecoration },
+    { name: "kitchen-accessories", image: KitchenAccessories },
+    { name: "laptops", image: Laptops },
+    { name: "mens-shirts", image: MensShirts },
+    { name: "mens-shoes", image: MensShoes },
+    { name: "mens-watches", image: MensWatches },
+    { name: "mobile-accessories", image: MobileAccessories },
+    { name: "motorcycle", image: Motorcycle },
+    { name: "skin-care", image: SkinCare },
+    { name: "smartphones", image: Smartphones },
+    { name: "sports-accessories", image: SportsAccessories },
+    { name: "sunglasses", image: Sunglasses },
+    { name: "tablets", image: Tablets },
+    { name: "tops", image: Tops },
+    { name: "vehicle", image: Vehicle },
+    { name: "womens-bags", image: WomensBags },
+    { name: "womens-dresses", image: WomensDresses },
+    { name: "womens-jewellery", image: WomensJewellery },
+    { name: "womens-shoes", image: WomensShoes },
+    { name: "womens-watches", image: WomensWatches },
   ];
 
   let sliderRef = useRef(null);
@@ -197,11 +135,20 @@ const Categories = () => {
             }}
             {...settings}
           >
-            {[...Array(24)].map((_, index) => {
+            {categoriesCard.map((item, index) => {
               return (
                 <div className=" px-2" key={index}>
-                  <div className="bg-red-500 rounded-md w-full h-[170px] flex items-center justify-center">
-                    <div className="text-2xl font-bold text-white">{index}</div>
+                  <div className="bg-white border-[3px] h-full border-tertiary rounded-md w-full">
+                    <div className="flex items-center justify-center">
+                      <img
+                        className="h-[125px] bg-contain"
+                        src={item.image}
+                        alt={item.name}
+                      />
+                    </div>
+                    <div className="py-2 text-center text-[10px] md:text-sm uppercase">
+                      {item.name}
+                    </div>
                   </div>
                 </div>
               );
