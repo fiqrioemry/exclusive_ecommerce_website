@@ -69,7 +69,7 @@ const Header = () => {
       {(cartOpen || profileOpen) && (
         <div
           onClick={closeModals}
-          className="hidden md:block fixed top-0 bottom-0 right-0 left-0 bg-secondary/50 z-10"
+          className="hidden md:block fixed top-0 bottom-0 right-0 left-0 bg-secondary/50 z-30"
         ></div>
       )}
 

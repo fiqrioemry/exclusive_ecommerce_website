@@ -39,7 +39,7 @@ const CartElement = ({ cartOpen, handleCart }) => {
     <section
       className={`${
         cartOpen ? "right-0" : "-right-full"
-      } w-full bg-white fixed top-0 h-full shadow-2xl md:w-[35vw] xl:max-w-[30vw] transition-all duration-300 z-20`}
+      } w-full bg-white fixed top-0 h-full shadow-2xl md:w-[35vw] xl:max-w-[30vw] transition-all duration-300 z-30`}
     >
       <div className="flex flex-col h-full justify-between px-4">
         {/* title */}
