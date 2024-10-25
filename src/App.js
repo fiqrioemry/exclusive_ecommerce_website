@@ -54,9 +54,9 @@ function App() {
             <Route
               path="/checkout"
               element={
-                <UserAuth>
+                <NonUserAuth>
                   <CheckoutPage />
-                </UserAuth>
+                </NonUserAuth>
               }
             />
 
