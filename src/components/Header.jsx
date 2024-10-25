@@ -9,8 +9,9 @@ import NavMenuElement from "../elements/header/NavMenuElement";
 import SearchInputElement from "../elements/header/SearchInputElement";
 import { useNavigate } from "react-router-dom";
 import UserProfileElement from "../elements/header/UserProfileElement";
-
+import connectApi from "../features/connection/ConnectApi";
 const Header = () => {
+  const userData = Cookies.get("token");
   const navigate = useNavigate();
   const [state, setState] = useState({
     cartOpen: false,
@@ -50,10 +51,26 @@ const Header = () => {
     navigate("/signin");
   };
 
+  const handleGetUserProfile = async () => {
+    try {
+      const response = await connectApi.get("/auth/me", {
+        headers: {
+          Authorization: `Bearer ${Cookies.get("token")}`, // Menggunakan token dari cookie
+        },
+      });
+
+      console.log(response.data);
+      return response.data; // Mengembalikan data pengguna
+    } catch (error) {
+      console.error("Error fetching user profile:", error);
+    }
+  };
+
   useEffect(() => {
-    const loggedInUser = Cookies.get("user");
-    setState((prevState) => ({ ...prevState, user: loggedInUser }));
-  }, []);
+    if (userData) {
+      handleGetUserProfile();
+    }
+  }, [userData]);
 
   return (
     <header className="bg-white fixed top-0 w-full z-10 px-4 border-b">

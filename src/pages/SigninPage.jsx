@@ -8,6 +8,7 @@ import Cookies from "js-cookie";
 const SigninPage = () => {
   const navigate = useNavigate();
   const [input, setInput] = useState({ username: "", password: "" });
+  const {loading, process, fail} = 
   const inputStyle =
     "h-12 border- border-b-2 w-full outline-none mb-4 focus:border-red-500";
 
@@ -18,6 +19,8 @@ const SigninPage = () => {
     e.preventDefault();
 
     const response = await connectApi.post("/auth/login", input);
+
+    console.log(response);
 
     Cookies.set("token", response.data.accessToken, {
       expires: 30 / (24 * 60),
