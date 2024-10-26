@@ -28,21 +28,16 @@ const ProductCategories = () => {
           <div>Home / product / category / {categories}</div>
         </div>
         <div className="flex flex-wrap">
-          {/* 2. Filter box area */}
-          <div className="flex w-full max-h-[475px] lg:w-[25%] px-4 md:px-0">
-            <FilterBoxProducts searchParams={categories} />
-          </div>
-
-          {/* 3. Product display area */}
-          {/* <div className="flex w-full lg:w-[75%] px-2 md:px-0">
+          {/* 2. Product display area */}
+          <div className="flex w-full px-2 md:px-0">
             {loading ? (
               <ProductsCardLoading />
             ) : categoryProducts.length === 0 ? (
               <ProductNotFound />
             ) : (
-              <ProductsCardElement products={categoryProducts} />
+              <ProductsCardElement products={categoryProducts.products} />
             )}
-          </div> */}
+          </div>
         </div>
       </div>
     </section>

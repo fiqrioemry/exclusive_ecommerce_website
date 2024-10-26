@@ -89,7 +89,7 @@ const CheckoutPage = () => {
           </Link>
         </div>
       </header>
-      <div className="container mx-auto">
+      <div className="container mx-auto px-1">
         {/* navigation info */}
         <div className="py-10 text-sm px-2">
           <div>
@@ -130,7 +130,7 @@ const CheckoutPage = () => {
                   </div>
                   <div className="flex flex-row space-x-4">
                     {/* product images */}
-                    <div>
+                    <div className="w-[25%]">
                       <img
                         className="w-[70px] h-[70px] bg-white rounded-md"
                         src={item.thumbnail}
@@ -138,7 +138,7 @@ const CheckoutPage = () => {
                       />
                     </div>
                     {/* product price description */}
-                    <div className="w-full space-y-2">
+                    <div className="w-[75%] space-y-2 ">
                       <div className="flex flex-row justify-between items-center ">
                         <div>{item.title}</div>
                         <div>
@@ -160,11 +160,13 @@ const CheckoutPage = () => {
                           value={item.shipmentMethod.method || ""}
                           onChange={(e) => handleShipmentChange(e, index)}
                         >
-                          <option value="" disabled>
-                            Select Shipment Method
-                          </option>
+                          <option value="">Select Shipment Method</option>
                           {shipmentMethods.map((method) => (
-                            <option key={method.method} value={method.method}>
+                            <option
+                              className="w-[200px]"
+                              key={method.method}
+                              value={method.method}
+                            >
                               {method.method} - ${method.price} ({method.time})
                             </option>
                           ))}

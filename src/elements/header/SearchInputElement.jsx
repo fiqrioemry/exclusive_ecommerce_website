@@ -65,7 +65,7 @@ const SearchInputElement = () => {
       <div
         className={`${
           searchParams && closeInput ? "h-auto" : "h-0"
-        } absolute w-[380px] md:max-h-[300px] rounded-md top-12 bg-white shadow-xl transition-all duration-300 overflow-y-auto`}
+        } absolute  w-[380px] md:w-[450px] lg:w-[550px] md:max-h-[300px] bg-white rounded-md top-12  shadow-xl transition-all duration-300 overflow-y-auto`}
       >
         <div className="flex flex-col gap-y-4 py-4 px-4">
           {loading ? (

@@ -89,7 +89,7 @@ const Header = () => {
             />
 
             {/* Buttons (Cart, Profile, Menu) */}
-            <div className="flex flex-row justify-between items-center w-full gap-x-0 md:gap-x-3">
+            <div className="flex flex-row justify-evenly items-center w-full gap-x-0 md:gap-x-3">
               {/* Cart button */}
               <button className="relative" onClick={() => toggleState("cart")}>
                 <BsCart3 className="text-lg lg:text-xl" />

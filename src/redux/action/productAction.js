@@ -9,7 +9,6 @@ import {
   INPUT_RESULT_PROCESS,
   GET_PRODUCTS_BY_CATEGORY_PROCESS,
   GET_PRODUCTS_BY_CATEGORY_SUCCESS,
-  GET_PRODUCTS_BY_CATEGORY_FAIL,
 } from "../constant/productType";
 
 import connectApi from "../../features/connection/ConnectApi";

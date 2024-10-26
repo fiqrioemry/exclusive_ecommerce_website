@@ -1,11 +1,13 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getSearchResults } from "../redux/action/productAction";
 import ProductsCardElement from "../elements/ProductsCardElement";
 import ProductsCardLoading from "../features/loading/ProductsCardLoading";
-import FilterBoxProducts from "../components/product_search/FilterBoxProducts";
 import ProductNotFound from "../components/product_search/ProductNotFound";
+import ProductPaginationElement from "../elements/ProductPaginationElement";
+import FilterBoxProducts from "../components/product_search/FilterBoxProducts";
+import { scroll } from "framer-motion";
 
 const ProductSearchPage = () => {
   const { params } = useParams();
@@ -13,6 +15,23 @@ const ProductSearchPage = () => {
   const { searchResults, loading } = useSelector(
     (state) => state.searchResults
   );
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const indexOfLastProduct = currentPage * 8;
+  const indexOfFirstProduct = indexOfLastProduct - 8;
+  const currentProducts = searchResults.slice(
+    indexOfFirstProduct,
+    indexOfLastProduct
+  );
+  const totalPages = Math.ceil(searchResults.length / 8);
+
+  const handlePaginate = (value) => {
+    setCurrentPage(value);
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
 
   useEffect(() => {
     dispatch(getSearchResults(params));
@@ -33,13 +52,21 @@ const ProductSearchPage = () => {
 
           {/* 3. Product display area */}
           <div className="flex w-full lg:w-[75%] px-2 md:px-0">
-            {loading ? (
-              <ProductsCardLoading />
-            ) : searchResults.length === 0 ? (
-              <ProductNotFound />
-            ) : (
-              <ProductsCardElement products={searchResults} />
-            )}
+            <div>
+              {" "}
+              {loading ? (
+                <ProductsCardLoading />
+              ) : searchResults.length === 0 ? (
+                <ProductNotFound />
+              ) : (
+                <ProductsCardElement products={currentProducts} />
+              )}
+              <ProductPaginationElement
+                currentPage={currentPage}
+                totalPages={totalPages}
+                handlePaginate={handlePaginate}
+              />
+            </div>
           </div>
         </div>
       </div>

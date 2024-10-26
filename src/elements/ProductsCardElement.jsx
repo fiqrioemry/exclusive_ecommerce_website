@@ -12,15 +12,11 @@ import { addToCart, resetStatus } from "../redux/action/cartAction";
 const ProductsCardElement = ({ products }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [favorite, setFavorite] = useState(false);
   const { cart, loading, success, fail } = useSelector((state) => state.cart);
 
   const handleDetails = (id) => {
     navigate(`/product/${id}`);
   };
-  function handleFavorite() {
-    setFavorite(!favorite);
-  }
 
   const handleCart = (e) => {
     const id = e.target.value;
@@ -38,10 +34,10 @@ const ProductsCardElement = ({ products }) => {
   }, [dispatch, cart, success, fail]);
 
   const buttonStyle =
-    "btn w-full h-[50px]  text-white text-xs md:text-lg bg-secondary absolute cursor-pointer group-hover:bottom-0 -bottom-14 ";
+    "btn w-full h-[50px]  text-white text-xs md:text-[16px] bg-secondary absolute cursor-pointer group-hover:bottom-0 -bottom-14 ";
 
   return (
-    <div className="flex flex-wrap w-full mb-[50px]">
+    <div className="flex flex-wrap w-full mb-[50px] ">
       {products.map((product, index) => {
         const { id, title, thumbnail, discountPercentage, price } = product;
         return (
@@ -58,10 +54,7 @@ const ProductsCardElement = ({ products }) => {
                   className="text-2xl cursor-pointer"
                   onClick={() => handleDetails(id)}
                 />
-                <MdFavorite
-                  onClick={handleFavorite}
-                  className={`${favorite ? "text-red-500" : ""}`}
-                />
+                <MdFavorite />
               </div>
               <ButtonElement
                 value={id}
