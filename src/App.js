@@ -11,9 +11,10 @@ import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
 import CheckoutPage from "./pages/CheckoutPage";
 import ScrollToTop from "./features/ScrollToTop";
-import { NonUserAuth } from "./middleware/Authenticate";
+import { NonUserAuth, UserAuth } from "./middleware/Authenticate";
 import PageLoading from "./features/loading/PageLoading";
 import ProductCategories from "./pages/ProductCategories";
+import UserProfilePage from "./pages/UserProfilePage";
 
 // Lazy-loaded pages
 const HomePage = React.lazy(() => import("./pages/HomePage"));
@@ -45,7 +46,22 @@ function MainContent() {
               </NonUserAuth>
             }
           />
-          <Route path="/checkout" element={<CheckoutPage />} />
+          <Route
+            path="/userprofile"
+            element={
+              <UserAuth>
+                <UserProfilePage />
+              </UserAuth>
+            }
+          />
+          <Route
+            path="/checkout"
+            element={
+              <UserAuth>
+                <CheckoutPage />
+              </UserAuth>
+            }
+          />
           <Route path="/product/:id" element={<ProductDetailPage />} />
           <Route
             path="/product/search/:params"

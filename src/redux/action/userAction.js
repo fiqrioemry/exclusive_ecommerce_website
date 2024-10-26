@@ -52,7 +52,11 @@ export const getUserInfo = () => async (dispatch) => {
 };
 
 export const getRefreshToken = () => async () => {
-  const response = await connectApi.get("/auth/refresh");
+  const oldRefreshToken = Cookies.get("refreshToken");
+
+  const response = await connectApi.post("/auth/refresh", {
+    refreshToken: oldRefreshToken,
+  });
 
   const newAccessToken = response.data.accessToken;
 

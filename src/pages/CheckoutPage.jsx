@@ -5,6 +5,7 @@ import { MdLocationOn } from "react-icons/md";
 import { useSelector } from "react-redux";
 
 const CheckoutPage = () => {
+  const { user } = useSelector((state) => state.user);
   const { cart } = useSelector((state) => state.cart);
   const { checkout } = useSelector((state) => state.checkout);
   const [state, setState] = useState({
@@ -42,10 +43,9 @@ const CheckoutPage = () => {
       0
     );
 
-    // Initialize shipmentMethod with empty for each product
     const productPayment = selectedItem.map((item) => ({
       ...item,
-      shipmentMethod: "", // To track selected shipment for each product
+      shipmentMethod: null,
     }));
 
     setState((prevState) => ({
@@ -58,7 +58,7 @@ const CheckoutPage = () => {
 
   useEffect(() => {
     totalPayment();
-  }, [cart, checkout, totalPayment]);
+  }, [cart, checkout]);
 
   const handleShipmentChange = (event, index) => {
     const selectedMethod = shipmentMethods.find(
@@ -67,7 +67,10 @@ const CheckoutPage = () => {
 
     setState((prevState) => {
       const updatedProductPayment = [...prevState.productPayment];
-      updatedProductPayment[index].shipmentMethod = selectedMethod;
+      updatedProductPayment[index] = {
+        ...updatedProductPayment[index],
+        shipmentMethod: selectedMethod,
+      };
 
       return {
         ...prevState,
@@ -82,7 +85,7 @@ const CheckoutPage = () => {
 
   return (
     <section className="bg-gray-200 min-h-screen">
-      <header className=" bg-white fixed top-0 w-full ">
+      <header className="bg-white fixed top-0 w-full ">
         <div className="container mx-auto flex items-center py-6 px-2">
           <Link to="/" className="text-xl font-semibold tracking-[2px]">
             Exclusive
@@ -105,20 +108,18 @@ const CheckoutPage = () => {
               {/* 1. shipment details */}
               <div className="bg-white rounded-md p-4 space-y-4">
                 <div className="uppercase text-md font-semibold text-gray-500">
-                  alamat pengiriman
+                  Shipment Address
                 </div>
                 <div className="flex items-center gap-x-2 text-md font-medium">
-                  <MdLocationOn className="text-tertiary" /> Home - Ahmad Fiqri
-                  Oemry
+                  <MdLocationOn className="text-tertiary" /> Home -{" "}
+                  {user.firstName} {user.lastName}
                 </div>
                 <div className="font-light text-sm px-2">
-                  jalan kelapa raya komp. rispa 4 no. 11 perumahan gedung Johor,
-                  Medan Johor, Medan 20144 (rumah pagar coklat yang ada pohon
-                  beringin), Medan Johor, Kota Medan, Sumatera Utara,
-                  6282160945033
+                  {user.address.address}, {user.address.city},{" "}
+                  {user.address.state}
                 </div>
                 <button className="rounded-md border text-sm px-3 py-2">
-                  Ganti Lokasi
+                  Change Location
                 </button>
               </div>
 
@@ -126,7 +127,7 @@ const CheckoutPage = () => {
               {state.productPayment.map((item, index) => (
                 <div className="bg-white rounded-md p-4 space-y-4" key={index}>
                   <div className="uppercase text-md font-semibold text-gray-500">
-                    pesanan {index + 1}
+                    Order {index + 1}
                   </div>
                   <div className="flex flex-row space-x-4">
                     {/* product images */}
@@ -147,7 +148,7 @@ const CheckoutPage = () => {
                       </div>
                       <div className="flex flex-row justify-end items-center ">
                         <div className="text-md font-bold">
-                          $ {item.amount * item.price}
+                          $ {(item.amount * item.price).toFixed(2)}
                         </div>
                       </div>
                       {/* shipment method */}
@@ -157,7 +158,7 @@ const CheckoutPage = () => {
                         </label>
                         <select
                           className="border rounded-md p-2 mt-2"
-                          value={item.shipmentMethod.method || ""}
+                          value={item.shipmentMethod?.method || ""}
                           onChange={(e) => handleShipmentChange(e, index)}
                         >
                           <option value="">Select Shipment Method</option>
@@ -186,7 +187,7 @@ const CheckoutPage = () => {
             {/* payment detail*/}
             <div className="w-full md:w-[35%] px-2">
               <div className="bg-white rounded-md p-4">
-                <div>RINGKASAN BELANJA</div>
+                <div>Shopping Details</div>
                 <div className="text-sm font-light space-y-1 border-b-2 py-4">
                   <div className="flex flex-row justify-between items-center">
                     <div>Price ({state.productQty} Items)</div>

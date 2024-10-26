@@ -6,10 +6,10 @@ const BlankPage = () => {
   return (
     <section>
       <div className="container mx-auto">
-        {/* navigation info */}
+        {/* navigation path info */}
         <div className="py-10 text-sm px-2">
           <div>
-            <Link to="/">Home</Link> / About
+            <Link to="/">Home</Link> / Not Found
           </div>
         </div>
         <div className="flex flex-col items-center mb-10">

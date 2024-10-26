@@ -40,7 +40,6 @@ export const userReducer = (state = userState, action) => {
       };
 
     case GET_USER_INFO_SUCCESS:
-      console.log(action.payload);
       return {
         ...state,
         user: action.payload,

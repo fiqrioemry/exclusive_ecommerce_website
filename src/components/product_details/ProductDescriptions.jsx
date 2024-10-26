@@ -1,17 +1,21 @@
 /* eslint-disable react/style-prop-object */
+
+import Cookies from "js-cookie";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 import { MdAdd, MdRemove } from "react-icons/md";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import ButtonElement from "../../elements/ButtonElement";
+import { addCheckout } from "../../redux/action/checkoutAction";
 import { addToCart, resetStatus } from "../../redux/action/cartAction";
 import InformationDetailsElement from "../../elements/productDetails/InformationDetailsElement";
-import { useNavigate } from "react-router-dom";
 
 const ProductDescriptions = ({ product }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [count, setCount] = useState(1);
+  const accessToken = Cookies.get("accessToken");
   const { cart, loading, success, fail } = useSelector((state) => state.cart);
 
   const handleCart = () => {
@@ -19,8 +23,15 @@ const ProductDescriptions = ({ product }) => {
   };
 
   const handleCheckout = () => {
-    navigate("/checkout");
+    if (accessToken) {
+      dispatch(addToCart(product.id, count));
+      dispatch(addCheckout(product.id));
+      navigate("/checkout");
+    } else if (!accessToken) {
+      navigate("/signin");
+    }
   };
+
   const handleIncrease = () => {
     setCount(count + 1);
   };

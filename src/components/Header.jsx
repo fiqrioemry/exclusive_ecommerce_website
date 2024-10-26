@@ -1,4 +1,5 @@
 import { BsCart3 } from "react-icons/bs";
+import Cookies from "js-cookie";
 import { MdOutlineMenu } from "react-icons/md";
 import { FaRegUserCircle } from "react-icons/fa";
 import React, { useEffect, useState } from "react";
@@ -6,11 +7,17 @@ import { useDispatch, useSelector } from "react-redux";
 import CartElement from "../elements/header/CartElement";
 import { useLocation, useNavigate } from "react-router-dom";
 import NavMenuElement from "../elements/header/NavMenuElement";
-import { getUserInfo, userLogout } from "../redux/action/userAction";
+import {
+  getRefreshToken,
+  getUserInfo,
+  userLogout,
+} from "../redux/action/userAction";
 import SearchInputElement from "../elements/header/SearchInputElement";
 import UserProfileElement from "../elements/header/UserProfileElement";
 
 const Header = () => {
+  const accessToken = Cookies.get("accessToken");
+  const refreshToken = Cookies.get("refreshToken");
   const dispatch = useDispatch();
   const location = useLocation();
   const navigate = useNavigate();
@@ -35,6 +42,7 @@ const Header = () => {
     setOpenMenu(!openMenu);
   };
 
+  console.log(user);
   const closeModals = () => {
     setState((prevState) => ({
       ...prevState,
@@ -55,8 +63,16 @@ const Header = () => {
   };
 
   useEffect(() => {
-    dispatch(getUserInfo());
-  }, [dispatch, location.pathname]);
+    if (refreshToken && !accessToken) {
+      dispatch(getRefreshToken());
+    }
+  }, [dispatch, refreshToken, accessToken, location.pathname]);
+
+  useEffect(() => {
+    if (accessToken) {
+      dispatch(getUserInfo());
+    }
+  }, [dispatch, accessToken]);
 
   return (
     <header className="bg-white fixed top-0 w-full z-10 px-2 border-b">
@@ -112,7 +128,10 @@ const Header = () => {
                     <FaRegUserCircle />
                   </button>
                   {profileOpen && (
-                    <UserProfileElement handleLogout={handleLogout} />
+                    <UserProfileElement
+                      setState={setState}
+                      handleLogout={handleLogout}
+                    />
                   )}
                 </div>
               )}
