@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getSearchResults } from "../redux/action/productAction";
 import ProductsCardElement from "../elements/ProductsCardElement";
@@ -7,7 +7,6 @@ import ProductsCardLoading from "../features/loading/ProductsCardLoading";
 import ProductNotFound from "../components/product_search/ProductNotFound";
 import ProductPaginationElement from "../elements/ProductPaginationElement";
 import FilterBoxProducts from "../components/product_search/FilterBoxProducts";
-import { scroll } from "framer-motion";
 
 const ProductSearchPage = () => {
   const { params } = useParams();

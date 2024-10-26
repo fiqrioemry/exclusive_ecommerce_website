@@ -1,7 +1,7 @@
 /* eslint-disable react/style-prop-object */
 import { toast } from "react-toastify";
 import { BsEye } from "react-icons/bs";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import ButtonElement from "./ButtonElement";
 import { MdFavorite } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
