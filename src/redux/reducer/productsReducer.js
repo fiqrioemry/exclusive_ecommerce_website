@@ -123,7 +123,7 @@ export const categoryProductsReducer = (state = categoryProducts, action) => {
     case GET_PRODUCTS_BY_CATEGORY_SUCCESS:
       return {
         ...state,
-        categoryProducts: action.payload.data,
+        categoryProducts: action.payload,
         loading: false,
       };
 

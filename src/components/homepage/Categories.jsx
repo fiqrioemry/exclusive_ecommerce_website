@@ -10,13 +10,13 @@ const Categories = () => {
   const { categories, loading } = useSelector((state) => state.categories);
 
   // 1. Function  previous and next for categories card
-  let sliderRef = useRef(null);
+  const sliderRef = useRef(null);
 
   const next = () => {
-    sliderRef.slickNext();
+    sliderRef.current.slickNext();
   };
   const previous = () => {
-    sliderRef.slickPrev();
+    sliderRef.current.slickPrev();
   };
 
   // 2. Run function first time when page rendered
@@ -43,7 +43,7 @@ const Categories = () => {
           <CategoriesCardLoading />
         ) : (
           <div className="slider-container">
-            <CategoriesElement sliderRef={sliderRef} />
+            <CategoriesElement ref={sliderRef} />
           </div>
         )}
       </div>

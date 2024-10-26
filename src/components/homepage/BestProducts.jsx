@@ -31,7 +31,7 @@ const BestProducts = () => {
     <section className="py-12">
       <div className="container mx-auto px-4">
         {/* section title */}
-        <div className="flex justify-between items-center px-2 mb-6">
+        <div className="flex justify-between items-center mb-6">
           {/* title */}
           <div className="flex flex-row items-center gap-x-2">
             <div className="h-10 w-4 rounded-md bg-tertiary"></div>

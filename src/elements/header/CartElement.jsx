@@ -41,11 +41,11 @@ const CartElement = ({ cartOpen, handleCart }) => {
         cartOpen ? "right-0" : "-right-full"
       } w-full bg-white fixed top-0 h-full shadow-2xl md:w-[35vw] xl:max-w-[30vw] transition-all duration-300 z-30`}
     >
-      <div className="flex flex-col h-full justify-between px-4">
+      <div className="flex flex-col h-full justify-between pl-4 pr-8 md:pr-4">
         {/* title */}
         <div className="flex justify-between items-center py-6 border-b-2">
           <div>Shopping Cart</div>
-          <div className="flex justify-between gap-x-4 text-xl">
+          <div className="flex justify-between text-3xl gap-x-4 md:text-xl">
             <button onClick={handleCart}>
               <FaArrowRight />
             </button>
@@ -65,7 +65,7 @@ const CartElement = ({ cartOpen, handleCart }) => {
             </div>
 
             {/* checkout */}
-            <div className="py-4">
+            <div className="py-10 md:py-4">
               <div className="flex justify-between py-2">
                 <div className="flex items-center gap-x-2">
                   {/* Select All Checkbox */}

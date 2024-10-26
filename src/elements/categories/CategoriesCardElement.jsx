@@ -1,4 +1,4 @@
-import React from "react";
+import React, { forwardRef } from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -26,8 +26,9 @@ import WomensJewellery from "../../assets/categories/womens-jewellery.png";
 import MobileAccessories from "../../assets/categories/mobile-accessories.png";
 import SportsAccessories from "../../assets/categories/sports-accessories.png";
 import KitchenAccessories from "../../assets/categories/kitchen-accessories.png";
+import { Link } from "react-router-dom";
 
-const CategoriesCardElement = ({ sliderRef }) => {
+const CategoriesCardElement = forwardRef((props, sliderRef) => {
   // 1. names and images for categories card
   const categoriesCard = [
     { name: "beauty", image: Beauty },
@@ -59,7 +60,7 @@ const CategoriesCardElement = ({ sliderRef }) => {
   // 2. setting for categories card slider
   const settings = {
     dots: true,
-    infinite: false,
+    infinite: true,
     speed: 500,
     slidesToShow: 6,
     slidesToScroll: 6,
@@ -92,32 +93,27 @@ const CategoriesCardElement = ({ sliderRef }) => {
   };
 
   return (
-    <Slider
-      ref={(slider) => {
-        sliderRef = slider;
-      }}
-      {...settings}
-    >
-      {categoriesCard.map((item, index) => {
-        return (
-          <div className="px-2" key={index}>
+    <Slider ref={sliderRef} {...settings}>
+      {categoriesCard.map((item, index) => (
+        <div className="px-2" key={index}>
+          <Link to={`/product/categories/${item.name}`}>
             <div className="bg-white border-[3px] h-full border-tertiary rounded-md w-full">
               <div className="flex items-center justify-center">
                 <img
-                  className="h-[125px] bg-contain"
+                  className="h-[120px] md:h-[125px] bg-contain"
                   src={item.image}
                   alt={item.name}
                 />
               </div>
-              <div className="py-2 text-center text-[10px] md:text-sm uppercase">
+              <div className="py-2 text-center text-[9px] md:text-sm uppercase">
                 {item.name}
               </div>
             </div>
-          </div>
-        );
-      })}
+          </Link>
+        </div>
+      ))}
     </Slider>
   );
-};
+});
 
 export default CategoriesCardElement;

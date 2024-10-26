@@ -7,6 +7,9 @@ import {
   SEARCH_RESULT_SUCCESS,
   INPUT_RESULT_SUCCESS,
   INPUT_RESULT_PROCESS,
+  GET_PRODUCTS_BY_CATEGORY_PROCESS,
+  GET_PRODUCTS_BY_CATEGORY_SUCCESS,
+  GET_PRODUCTS_BY_CATEGORY_FAIL,
 } from "../constant/productType";
 
 import connectApi from "../../features/connection/ConnectApi";
@@ -68,3 +71,12 @@ export const getSearchResults =
 
     dispatch({ type: SEARCH_RESULT_SUCCESS, payload: filterRating });
   };
+
+// 5. Get the product by category
+export const getProductCategories = (categories) => async (dispatch) => {
+  dispatch({ type: GET_PRODUCTS_BY_CATEGORY_PROCESS });
+
+  const { data } = await connectApi.get(`/products/category/${categories}`);
+
+  dispatch({ type: GET_PRODUCTS_BY_CATEGORY_SUCCESS, payload: data });
+};

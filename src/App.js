@@ -13,6 +13,7 @@ import CheckoutPage from "./pages/CheckoutPage";
 import ScrollToTop from "./features/ScrollToTop";
 import { NonUserAuth } from "./middleware/Authenticate";
 import PageLoading from "./features/loading/PageLoading";
+import ProductCategories from "./pages/ProductCategories";
 
 // Lazy-loaded pages
 const HomePage = React.lazy(() => import("./pages/HomePage"));
@@ -50,6 +51,10 @@ function MainContent() {
             path="/product/search/:params"
             element={<ProductSearchPage />}
           />
+          <Route
+            path="/product/categories/:categories"
+            element={<ProductCategories />}
+          />
           <Route path="*" element={<BlankPage />} />
         </Routes>
       </Suspense>
@@ -60,7 +65,7 @@ function MainContent() {
 
 function App() {
   return (
-    <main className="mt-[70px]">
+    <main className="mt-[70px] overflow-hidden">
       <Router>
         <ScrollToTop />
         <ToastContainer

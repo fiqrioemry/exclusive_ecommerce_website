@@ -27,11 +27,11 @@ const NavMenuElement = ({ user, handleNavMenu, openMenu }) => {
     <div
       className={`${
         openMenu ? "right-0" : "-right-full"
-      } w-full md:w-auto h-full md:h-auto fixed md:static top-0 md:top-auto bg-white z-10 transition-all duration-300`}
+      } w-full md:w-auto h-full md:h-auto fixed md:static top-0 md:top-auto bg-white z-30 transition-all duration-300`}
     >
-      <div className="block md:hidden text-black py-6 text-end px-4">
+      <div className="block md:hidden text-black py-6 text-end px-8">
         <button onClick={handleMobileNavMenu}>
-          <MdOutlineClose className="text-2xl" />
+          <MdOutlineClose className="text-4xl" />
         </button>
       </div>
       <nav className="flex flex-col md:flex-row justify-center items-center space-y-6 md:space-y-0 text-2xl md:text-sm ">

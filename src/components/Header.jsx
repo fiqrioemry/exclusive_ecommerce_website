@@ -59,19 +59,19 @@ const Header = () => {
   }, [dispatch, location.pathname]);
 
   return (
-    <header className="bg-white fixed top-0 w-full z-10 px-4 border-b">
+    <header className="bg-white fixed top-0 w-full z-10 px-2 border-b">
       {/* Overlay when cart or profile is open */}
       {(cartOpen || profileOpen) && (
         <div
           onClick={closeModals}
-          className="hidden md:block fixed top-0 bottom-0 right-0 left-0 bg-secondary/50 z-30"
+          className="fixed top-0 bottom-0 right-0 left-0 bg-secondary/50 z-30"
         ></div>
       )}
 
       <CartElement cartOpen={cartOpen} handleCart={() => toggleState("cart")} />
 
       <div className="container mx-auto">
-        <div className="flex flex-row items-center justify-between py-4 max-h-[70px]">
+        <div className="flex flex-row items-center justify-between space-x-2 py-4 max-h-[70px]">
           {/* Logo */}
           <div className="lg:block hidden text-xl font-semibold tracking-[2px]">
             Exclusive
@@ -81,7 +81,7 @@ const Header = () => {
           <SearchInputElement />
 
           {/* Navigation */}
-          <div className="flex flex-row justify-between gap-x-4 pl-4">
+          <div className="flex flex-row justify-between w-[30%] px-2  md:w-auto">
             <NavMenuElement
               user={user}
               handleNavMenu={handleNavMenu}
@@ -89,7 +89,7 @@ const Header = () => {
             />
 
             {/* Buttons (Cart, Profile, Menu) */}
-            <div className="flex flex-row justify-between items-center gap-x-3">
+            <div className="flex flex-row justify-between items-center w-full gap-x-0 md:gap-x-3">
               {/* Cart button */}
               <button className="relative" onClick={() => toggleState("cart")}>
                 <BsCart3 className="text-lg lg:text-xl" />
@@ -120,7 +120,7 @@ const Header = () => {
               {/* Menu button */}
               <button
                 onClick={handleNavMenu}
-                className="block md:hidden text-lg"
+                className="block md:hidden text-lg "
               >
                 <MdOutlineMenu />
               </button>

@@ -6,7 +6,7 @@ import {
 
 import connectApi from "../../features/connection/ConnectApi";
 
-export const getCategories = (id) => async (dispatch) => {
+export const getCategories = () => async (dispatch) => {
   try {
     dispatch({ type: GET_CATEGORIES_PROCESS });
 

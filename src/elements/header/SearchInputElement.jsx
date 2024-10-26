@@ -49,7 +49,7 @@ const SearchInputElement = () => {
   }, [searchParams, debounceSearch]);
 
   return (
-    <div className="w-full md:max-w-[450px] lg:max-w-[550px] flex flex-row items-center relative">
+    <div className="w-full max-w-[300px] md:max-w-[450px] lg:max-w-[550px] flex flex-row items-center relative">
       <form onSubmit={handleSearchEnter} className="flex w-full items-center">
         <input
           type="search"
@@ -59,13 +59,13 @@ const SearchInputElement = () => {
           onChange={handleInput}
           required
         />
-        <MdSearch className="absolute right-3 cursor-pointer" />
+        <MdSearch className="absolute right-5 cursor-pointer" />
       </form>
 
       <div
         className={`${
           searchParams && closeInput ? "h-auto" : "h-0"
-        } absolute md:max-h-[300px] rounded-md top-12 bg-white shadow-xl transition-all duration-300 w-full overflow-y-auto `}
+        } absolute w-[380px] md:max-h-[300px] rounded-md top-12 bg-white shadow-xl transition-all duration-300 overflow-y-auto`}
       >
         <div className="flex flex-col gap-y-4 py-4 px-4">
           {loading ? (
