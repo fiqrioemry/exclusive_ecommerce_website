@@ -8,7 +8,7 @@ const ProfileDetails = ({ user }) => {
         Your Profile
       </div>
       <div className="flex space-x-12">
-        <div className="space-y-2 w-[30%]">
+        <div className="space-y-2 w-[30%] text-sm">
           <div>First name </div>
           <div>Last name</div>
           <div>Age</div>
@@ -16,7 +16,7 @@ const ProfileDetails = ({ user }) => {
           <div>Address</div>
         </div>
 
-        <div className="space-y-2 w-[70%]">
+        <div className="space-y-2 w-[70%] text-sm">
           <div>: {firstName}</div>
           <div>: {lastName}</div>
           <div>: {age}</div>

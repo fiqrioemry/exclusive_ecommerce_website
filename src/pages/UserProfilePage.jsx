@@ -30,7 +30,7 @@ const UserProfilePage = () => {
 
         <div className="flex flex-wrap">
           {/* navigation box */}
-          <div className="w-full md:w-[20%] px-2">
+          <div className="w-full md:w-[20%] px-2 mb-6">
             <div className="w-full shadow-xl rounded-md bg-white">
               <div className="text-center  text-md font-medium uppercase  py-4 border-b-2">
                 my account
