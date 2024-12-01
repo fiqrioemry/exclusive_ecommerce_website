@@ -1,70 +1,51 @@
-# Getting Started with Create React App
+# Frontend E-commerce Website App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+I made a fully responsive e-commerce website built using **React.js** and **Tailwind CSS**. It provides a seamless and intuitive user experience with a clean, modern interface. This project is designed for those who want a starting point for creating their own online store or e-commerce platform.
 
-## Available Scripts
+## Features
+- 
+- **Responsive Design**: Optimized for all screen sizes (desktop, tablet, and mobile).
+- **Product Listings**: Dynamically displays products with images, prices, and descriptions.
+- **Product Search**: Allows users to search for products by name or category.
+- **Filter & Sorting**: Provides options to filter products by categories and sort by price, popularity, or rating.
+- **Shopping Cart**: Enables users to add, view, and remove products from their cart.
+- **Checkout Page**: Includes a summary of selected products, total price calculation, and a button to proceed to checkout.
+- **Cookies and Restricted Pages: Implements user authentication and session management using cookies. Pages that require authentication are restricted, and users are redirected to the login page if they attempt to access these areas without being logged in. The system utilizes dummyjson API for user data and authentication simulation.
+- **Pagination**: Handles product listing with pagination for better performance and user experience.
+- **Reusable Components**: Built with modular and reusable React components for maintainability.
 
-In the project directory, you can run:
+## API Integration
 
-### `npm start`
+This project fetches product data from the [dummyjson API](https://dummyjson.com/), ensuring a dynamic and real-time data-driven experience. All product details, including categories, pricing, and images, are retrieved from this external source.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Installation and Setup
 
-### `npm test`
+Follow these steps to get the project up and running on your local machine:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+1. Clone this repository:
+   ```bash
+   git clone https://github.com/fiqrioemry/exclusive_ecommerce_website.git
+   cd exclusive_ecommerce_website
 
-### `npm run build`
+2. Install dependencies:
+   ```bash
+   npm install
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+3. Start the development server:
+   ```bash
+   npm rum
+## Technologies Used
+- React.js: For building the user interface.
+- Tailwind CSS: For styling and layout.
+- React Router: For handling navigation between pages.
+- Redux (or Context API): For state management (if applicable).
+- Axios: For making API requests.
+- dummyjson API: For fetching product data.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Future Enhancements
+- Implementing a payment gateway for a complete checkout process.
+- Adding a wishlist feature.
+- Enhancing animations and transitions for a smoother user experience.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Author : Ahmad Fiqri Oemry 
