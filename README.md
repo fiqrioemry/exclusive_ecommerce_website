@@ -25,8 +25,8 @@ Follow these steps to get the project up and running on your local machine:
 
 1. Clone this repository:
    ```bash
-   git clone https://github.com/fiqrioemry/exclusive_ecommerce_website.git
-   cd exclusive_ecommerce_website
+   git clone https://github.com/fiqrioemry/Frontend_eccomerce_web_app.git
+   cd Frontend_eccomerce_web_app
 
 2. Install dependencies:
    ```bash
