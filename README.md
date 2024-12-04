@@ -10,7 +10,7 @@ I made a fully responsive e-commerce website built using **React.js** and **Tail
 - **Filter & Sorting**: Provides options to filter products by categories and sort by price, popularity, or rating.
 - **Shopping Cart**: Enables users to add, view, and remove products from their cart.
 - **Checkout Page**: Includes a summary of selected products, total price calculation, and a button to proceed to checkout.
-- **Cookies and Restricted Pages: Implements user authentication and session management using cookies. Pages that require authentication are restricted, and users are redirected to the login page if they attempt to access these areas without being logged in. The system utilizes dummyjson API for user data and authentication simulation.
+- **Cookies and Restricted Pages **: Implements user authentication and session management using cookies. Pages that require authentication are restricted, and users are redirected to the login page if they attempt to access these areas without being logged in. The system utilizes dummyjson API for user data and authentication simulation.
 - **Pagination**: Handles product listing with pagination for better performance and user experience.
 - **Reusable Components**: Built with modular and reusable React components for maintainability.
 
